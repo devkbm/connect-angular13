@@ -1,0 +1,91 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule, COMPOSITION_BUFFER_MODE } from '@angular/forms';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+/* NG-ZORRO */
+import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
+import { AllNgZorroModule } from 'src/app/all-ng-zorro.module';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
+/* AG-GRID */
+import { AgGridModule } from 'ag-grid-angular';
+
+import { AppRoutingModule } from '../app-routing.module';
+
+import { TermComponent } from './terms/term.component';
+import { TermGridComponent } from './terms/term-grid.component';
+import { TermFormComponent } from './terms/term-form.component';
+import { TermService } from './terms/term.service';
+
+import { UserDuplicationValidatorDirective } from './user/user-duplication-validator.directive';
+import { CustomHttpInterceptor } from '../core/interceptor/custom-http-interceptor';
+import { UserSessionService } from '../core/service/user-session.service';
+import { BizTypeFormComponent } from './bizcode/biz-type-form.component';
+import { BizCodeComponent } from './bizcode/biz-code.component';
+import { BizDetailFormComponent } from './bizcode/biz-detail-form.component';
+import { SharedModule } from '../shared/shared.module';
+import { BizTypeGridComponent } from './bizcode/biz-type-grid.component';
+import { UserModule } from './user/user.module';
+import { AutorityModule } from './authority/autority.module';
+import { WebResourceModule } from './program/web-resource.module';
+import { MenuModule } from './menu/menu.module';
+import { LoginModule } from './login/login.module';
+import { HolidayModule } from './holiday/holiday.module';
+import { DeptModule } from './dept/dept.module';
+import { CommonCodeModule } from './commoncode/common-code.module';
+import { CoreModule } from '../core/core.module';
+import { ButtonRendererComponent } from '../core/grid/renderer/button-renderer.component';
+import { CheckboxRendererComponent } from '../core/grid/renderer/checkbox-renderer.component';
+
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
+    AppRoutingModule,
+    AllNgZorroModule,
+    SharedModule,
+    CoreModule,
+    AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent]),
+    LoginModule,
+    UserModule,
+    AutorityModule,
+    WebResourceModule,
+    MenuModule,
+    HolidayModule,
+    DeptModule,
+    CommonCodeModule
+  ],
+  declarations: [
+    UserDuplicationValidatorDirective,
+    TermGridComponent,
+    TermFormComponent,
+    TermComponent,
+    BizTypeFormComponent,
+    BizCodeComponent,
+    BizDetailFormComponent,
+    BizTypeGridComponent
+  ],
+  providers: [
+    { provide: NZ_I18N, useValue: ko_KR },
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
+    { provide: COMPOSITION_BUFFER_MODE, useValue: false},
+    UserSessionService,
+    TermService,
+    NzModalService
+  ],
+  exports: [
+    TermComponent,
+    BizCodeComponent
+  ]
+})
+export class CommonFuncModule { }
