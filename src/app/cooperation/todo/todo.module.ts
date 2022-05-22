@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { TodoComponent } from './todo.component';
 import { TodosComponent } from './todos.component';
+import { AddTodoComponent } from './add-todo.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule
+    BrowserModule,
+    FormsModule
   ],
   declarations: [
     TodoComponent,
-    TodosComponent
+    TodosComponent,
+    AddTodoComponent
   ],
   exports: [
     TodosComponent

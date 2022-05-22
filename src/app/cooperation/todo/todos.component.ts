@@ -10,6 +10,7 @@ export class TodosComponent implements OnInit {
 
   newText: string = '';
   todos: TodoModel[];
+  today: Date = new Date();
 
   constructor() {
     this.todos = [
@@ -24,6 +25,13 @@ export class TodosComponent implements OnInit {
 
   toggleTodo(todo: TodoModel) {
     todo.done = !todo.done;
+  }
+
+  addTodo(text: string) {
+    this.todos.push({
+      done : false,
+      text : text
+    });
   }
 }
 
