@@ -4,7 +4,7 @@ import { TodoModel } from './todo.model';
 @Component({
   selector: 'app-todo',
   template: `
-    <input type="checkbox" [checked]="todo?.done"> <label> {{ todo?.text }} </label>
+    <input type="checkbox" [checked]="todo?.isCompleted"> <label> {{ todo?.todo }} </label>
   `,
   styles: [`
     :host {
@@ -64,6 +64,6 @@ export class TodoComponent implements OnInit {
   }
 
   toggleTodo(todo: TodoModel) {
-    todo.done = !todo.done;
+    todo.isCompleted = !todo.isCompleted;
   }
 }

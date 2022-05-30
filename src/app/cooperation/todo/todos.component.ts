@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from './todo.service';
 import { TodoModel } from './todo.model';
+import { ResponseList } from 'src/app/core/model/response-list';
+import { TodoGroupModel } from './todo-group.model';
+import { ResponseObject } from 'src/app/core/model/response-object';
+
 
 @Component({
   selector: 'app-todos',
@@ -12,10 +17,11 @@ export class TodosComponent implements OnInit {
   todos: TodoModel[];
   today: Date = new Date();
 
-  constructor() {
+  constructor(private service: TodoService) {
     this.todos = [
-      {done: false, text: '할일1'},
-      {done: false, text: '할일2'}
+
+      // {isCompleted: false, todo: '할일1'},
+      // {isCompleted: false, todo: '할일2'}
     ];
   }
 
@@ -24,14 +30,35 @@ export class TodosComponent implements OnInit {
   }
 
   toggleTodo(todo: TodoModel) {
-    todo.done = !todo.done;
+    todo.isCompleted = !todo.isCompleted;
   }
 
   addTodo(text: string) {
-    this.todos.push({
-      done : false,
-      text : text
-    });
+    const todo: any = {};
+    this.service
+        .saveTodo(todo)
+        .subscribe(
+          (model: ResponseObject<TodoModel>) => {
+            this.todos.push({
+              pkTodoGroup : model.data.pkTodoGroup,
+              pkTodo : model.data.pkTodo,
+              isCompleted : false,
+              todo : model.data.todo
+            });
+          }
+        )
+
+  }
+
+  getTodoList(e: TodoGroupModel): void {
+    this.service
+        .getTodoList(e.pkTodoGroup)
+        .subscribe(
+          (model: ResponseList<TodoModel>) => {
+            this.todos = model.data;
+            console.log(model);
+          });
+
   }
 }
 

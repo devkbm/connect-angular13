@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoComponent } from './todo.component';
 import { TodosComponent } from './todos.component';
 import { AddTodoComponent } from './add-todo.component';
+import { TodoGroupListComponent } from './todo-group-list.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { AddTodoComponent } from './add-todo.component';
   declarations: [
     TodoComponent,
     TodosComponent,
-    AddTodoComponent
+    AddTodoComponent,
+    TodoGroupListComponent
   ],
   exports: [
     TodosComponent

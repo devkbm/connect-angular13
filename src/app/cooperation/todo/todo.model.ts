@@ -1,5 +1,7 @@
 export class TodoModel {
   constructor(
-    public done: boolean,
-    public text: string) {}
+    public pkTodoGroup: string,
+    public pkTodo: string,
+    public isCompleted: boolean,
+    public todo: string) {}
 }
