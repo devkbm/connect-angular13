@@ -13,6 +13,9 @@
 </div>
 
 <div>
-  <app-add-todo (onTodoAdded)="addTodo($event)"></app-add-todo>
+  <app-add-todo
+    [pkTodoGroup]="selectedPkTodoGroup"
+    (onTodoAdded)="addTodo($event)">
+  </app-add-todo>
 </div>
 

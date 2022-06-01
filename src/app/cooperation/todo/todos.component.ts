@@ -13,9 +13,11 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 })
 export class TodosComponent implements OnInit {
 
-  newText: string = '';
   todos: TodoModel[];
   today: Date = new Date();
+
+  selectedPkTodoGroup: string = '';
+  newText: string = '';
 
   constructor(private service: TodoService) {
     this.todos = [
@@ -31,26 +33,36 @@ export class TodosComponent implements OnInit {
 
   toggleTodo(todo: TodoModel) {
     todo.isCompleted = !todo.isCompleted;
-  }
 
-  addTodo(text: string) {
-    const todo: any = {};
     this.service
         .saveTodo(todo)
         .subscribe(
           (model: ResponseObject<TodoModel>) => {
+            console.log(model);
+          }
+        )
+  }
+
+  addTodo(todo: TodoModel) {
+    this.service
+        .saveTodo(todo)
+        .subscribe(
+          (model: ResponseObject<TodoModel>) => {
+            console.log(model);
             this.todos.push({
               pkTodoGroup : model.data.pkTodoGroup,
               pkTodo : model.data.pkTodo,
-              isCompleted : false,
+              isCompleted : model.data.isCompleted,
               todo : model.data.todo
             });
           }
-        )
+        );
 
   }
 
   getTodoList(e: TodoGroupModel): void {
+    this.selectedPkTodoGroup = e.pkTodoGroup;
+
     this.service
         .getTodoList(e.pkTodoGroup)
         .subscribe(

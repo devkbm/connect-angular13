@@ -1,10 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TodoModel } from './todo.model';
 
 @Component({
   selector: 'app-add-todo',
   template: `
    <button (click)="addTodo(newText)">+</button>
-   <input type="text" placeholder="할 일 추가" [(ngModel)]="newText">
+   <input type="text" placeholder="할 일 추가" [(ngModel)]="newText" (keyup.enter)="addTodo(newText)">
   `,
   styles: [`
     :host {
@@ -36,7 +37,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class AddTodoComponent implements OnInit {
 
-  @Output() onTodoAdded = new EventEmitter();
+  @Input() pkTodoGroup: string = '';
+  @Output() onTodoAdded = new EventEmitter<TodoModel>();
   newText: string;
 
   constructor() {
@@ -47,7 +49,8 @@ export class AddTodoComponent implements OnInit {
   }
 
   addTodo(newText: string) {
-    this.onTodoAdded.emit(newText);
+    const obj: TodoModel = new TodoModel(this.pkTodoGroup, '', false, newText);
+    this.onTodoAdded.emit(obj);
     this.newText= '';
   }
 

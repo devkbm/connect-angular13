@@ -10,7 +10,7 @@ import { TodoService } from './todo.service';
   template: `
     <button (click)="addTodoGroup()">add</button>
 
-    <div *ngFor="let todoGroup of todoGroupList; index as i" (click)="loggin(todoGroup)">
+    <div *ngFor="let todoGroup of todoGroupList; index as i" (click)="selectTodoGroup(todoGroup)">
       <label>{{todoGroup.todoGroupName}}</label>
     </div>
   `,
@@ -32,8 +32,10 @@ export class TodoGroupListComponent implements OnInit {
     this.service.newTodoGroup()
                 .subscribe(
                   (model: ResponseObject<TodoGroupModel>) => {
+                    if (model === null || model === undefined) return;
+
                     this.todoGroupList.push(model.data);
-                    console.log(model);
+                    this.onSelectedTodoGroup.emit(model.data);
                   });
   }
 
@@ -41,12 +43,14 @@ export class TodoGroupListComponent implements OnInit {
     this.service.getMyTodoGroupList()
                 .subscribe(
                   (model: ResponseList<TodoGroupModel>) => {
+                    if (model === null || model === undefined) return;
+                    console.log(model);
                     this.todoGroupList = model.data;
                   }
                 );
   }
 
-  loggin(e: TodoGroupModel): void {
+  selectTodoGroup(e: TodoGroupModel): void {
     this.onSelectedTodoGroup.emit(e);
     console.log(e);
   }

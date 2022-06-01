@@ -56,14 +56,10 @@ export class TodoComponent implements OnInit {
 
   @Input()todo?: TodoModel;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
 
   }
 
-  toggleTodo(todo: TodoModel) {
-    todo.isCompleted = !todo.isCompleted;
-  }
 }
