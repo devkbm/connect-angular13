@@ -71,7 +71,9 @@ export class LoginService extends DataService {
   }
 
   getAuthToken(): Observable<UserToken> {
-    const url = 'http://localhost:8090/authToken';
+    //const url = 'http://localhost:8090/authToken';
+    const url = 'http://localhost:8090/api/user/auth';
+
 
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -83,5 +85,16 @@ export class LoginService extends DataService {
     );
   }
 
+  isValid(): Observable<boolean> {
+    const url = 'http://localhost:8090/api/user/auth';
 
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http.get<boolean>(url, options).pipe(
+      catchError(this.handleError<boolean>('isValid', undefined))
+    );
+  }
 }

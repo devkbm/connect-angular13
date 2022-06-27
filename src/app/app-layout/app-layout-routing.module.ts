@@ -29,11 +29,12 @@ import { PayTableComponent } from '../hrm/payitem/component/paytable/pay-table.c
 import { BizCodeComponent } from '../common/bizcode/biz-code.component';
 import { StaffRegistFormComponent } from '../hrm/staff/staff-regist-form.component';
 import { TodosComponent } from '../cooperation/todo/todos.component';
+import { AuthGuardService } from '../core/service/auth-guard.service';
 
 
 const layoutroutes: Routes = [
   {
-    path: 'home', component: AppLayoutComponent,
+    path: 'home', component: AppLayoutComponent, canActivateChild: [AuthGuardService],
     children: [
       /* 공통 시스템 */
       {path: 'user',          component: UserComponent},

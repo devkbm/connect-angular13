@@ -35,11 +35,7 @@ export class UserPopupComponent implements OnInit {
                       this.user = model.data;
                   }
                   //this.appAlarmService.changeMessage(model.message);
-              },
-              (err) => {
-                  console.log(err);
-              },
-              () => { }
+              }
       );
     }
 

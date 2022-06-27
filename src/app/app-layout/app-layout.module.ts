@@ -16,6 +16,7 @@ import { TermService } from '../common/terms/term.service';
 
 import { AppLayoutComponent } from './app-layout.component';
 import { UserPopupComponent } from '../common/user/user-popup.component';
+import { AuthGuardService } from '../core/service/auth-guard.service';
 
 
 
@@ -40,7 +41,8 @@ import { UserPopupComponent } from '../common/user/user-popup.component';
     AppAlarmService,
     MenuService,
     ProgramService,
-    TermService
+    TermService,
+    AuthGuardService
   ],
   exports: [
     AppLayoutComponent

@@ -92,12 +92,6 @@ export class AppLayoutComponent implements OnInit  {
           const seledtedMenu = sessionStorage.getItem('selectedMenu');
           console.log(seledtedMenu);
           this.selectMenuItem(seledtedMenu as string);
-        },
-        (err) => {
-          // console.log(err);
-        },
-        () => {
-          console.log('메뉴 조회 완료');
         }
       );
   }
