@@ -40,7 +40,7 @@ export class ArticleFormComponent extends FormBase implements OnInit {
     }*/
   ];
 
-  fg: FormGroup = new FormGroup({});
+   ;
   imageUploadParam = { pgmId: 'board' };
   fileUploadHeader: any;
   fileUploadUrl: any;

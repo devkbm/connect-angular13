@@ -23,7 +23,7 @@ import { HrmCoreService } from 'src/app/hrm/hrm-core/service/hrm-core.service';
 })
 export class DutyApplicationFormComponent extends FormBase  implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
   dutyCodeList: any[] = [];
   employeeList: any[] = [];
 

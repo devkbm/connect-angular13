@@ -26,7 +26,7 @@ import { ResponseList } from '../../core/model/response-list';
 })
 export class DeptFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
   deptHierarchy: DeptHierarchy[] = [];
 
   /**

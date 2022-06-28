@@ -24,7 +24,7 @@ import { NewStaff } from './new-staff.request';
 })
 export class StaffRegistFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
   formModel?: Staff;
   imageUrl: any;
   imageUploadParam: any;

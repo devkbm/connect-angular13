@@ -20,7 +20,7 @@ import { existingDutyCodeValidator } from '../../validator/duty-code-duplication
 })
 export class DutyCodeFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private dutyCodeService: DutyCodeService,

@@ -20,7 +20,7 @@ styleUrls: ['./workgroup-form.component.css']
 })
 export class WorkGroupFormComponent extends FormBase implements OnInit {
 
-    fg: FormGroup = new FormGroup({});
+     ;
 
     /**
      * Xs < 576px span size

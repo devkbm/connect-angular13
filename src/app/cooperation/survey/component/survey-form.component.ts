@@ -27,7 +27,7 @@ export class SurveyFormComponent extends FormBase implements OnInit {
   formLabelSm = 24;
   formControlSm = 24;
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private surveyService: SurveyService) { super(); }

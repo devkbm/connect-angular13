@@ -25,7 +25,7 @@ import { saveAs } from 'file-saver';
 })
 export class EmployeeFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
   formModel?: EmployeeModel;
   imageUrl: any;
   imageUploadParam: any;

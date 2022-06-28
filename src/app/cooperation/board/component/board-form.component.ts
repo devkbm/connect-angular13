@@ -21,7 +21,7 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 })
 export class BoardFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   parentBoardItems: BoardHierarchy[] = [];
 

@@ -26,7 +26,7 @@ import { existingMenuValidator } from './menu-duplication-validator.directive';
 })
 export class MenuFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
   programList: any;
   menuGroupList: any;
   menuTypeList: any;

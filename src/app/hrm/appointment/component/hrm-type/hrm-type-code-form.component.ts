@@ -21,7 +21,7 @@ import { existingHrmTypeDetailCodeValidator } from '../../validator/hrm-type-det
 })
 export class HrmTypeCodeFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb:FormBuilder,
               private hrmCodeService: HrmCodeService,

@@ -20,7 +20,7 @@ import { Holiday } from './holiday.model';
 })
 export class HolidayFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private holidayService: HolidayService,

@@ -31,7 +31,6 @@ import { GlobalProperty } from 'src/app/global-property';
 export class UserFormComponent extends FormBase implements OnInit {
 
   /* #region Property  */
-  public fg: FormGroup = new FormGroup({});
   public authList: any;
   public menuGroupList: any;
   public deptHierarchy: DeptHierarchy[] = [];

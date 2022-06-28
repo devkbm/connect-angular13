@@ -25,7 +25,7 @@ import { SystemTypeEnum } from './system-type-enum.model';
 })
 export class CommonCodeFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
   nodeItems: CommonCodeHierarchy[] = [];
   systemTypeCodeList: SystemTypeEnum[] = [];
 

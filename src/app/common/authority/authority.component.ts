@@ -50,13 +50,13 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   }
 
   openDrawer(): void {
+    this.drawerVisible = true;
+
     this.getAppInfo().subscribe(
       (model: ResponseObject<WebResource>) => {
         console.log(model);
       }
     );
-
-    this.drawerVisible = true;
   }
 
   selectedItem(item: any): void {
@@ -68,11 +68,10 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     this.openDrawer();
 
     setTimeout(() => {
+      this.form.appId = this.appId;
       this.form.getAuthority(item.authority);
     },10);
 
-    console.log(this.form);
-    console.log(this.form);
   }
 
   getAuthorityList(): void {
@@ -91,8 +90,15 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   }
 
   initForm(): void {
-    this.form?.newForm();
     this.openDrawer();
+
+    setTimeout(() => {
+      this.form.appId = this.appId;
+      console.log(this.form.appId);
+      this.form.newForm();
+    },50);
+
+
   }
 
 }

@@ -14,7 +14,7 @@ import { PayItem } from '../../model/pay-item';
 })
 export class PayItemFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private appAlarmService: AppAlarmService,

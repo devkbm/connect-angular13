@@ -14,7 +14,7 @@ import { PayTableService } from '../../service/pay-table.service';
 })
 export class PayTableItemFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private appAlarmService: AppAlarmService,

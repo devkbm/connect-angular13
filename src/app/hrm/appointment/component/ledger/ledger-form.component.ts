@@ -14,7 +14,7 @@ import { Ledger } from '../../model/ledger';
 })
 export class LedgerFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb:FormBuilder,
               private legderService: LedgerService,

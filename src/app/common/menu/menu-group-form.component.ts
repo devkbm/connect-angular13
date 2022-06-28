@@ -21,7 +21,7 @@ import { FormBase, FormType } from '../../core/form/form-base';
 })
 export class MenuGroupFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   /**
    * Xs < 576px span size

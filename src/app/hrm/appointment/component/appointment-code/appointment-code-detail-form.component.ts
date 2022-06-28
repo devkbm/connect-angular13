@@ -15,7 +15,7 @@ import { ResponseList } from 'src/app/core/model/response-list';
 })
 export class AppointmentCodeDetailFormComponent  extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   changeTypeList: any[] = [];
 

@@ -78,7 +78,8 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
     ];
 
     this.getRowId = function(data: any) {
-        return data.authority;
+//      console.log(data);
+      return data.data.authority;
     };
   }
 

@@ -18,7 +18,7 @@ import { CommonCodeService } from 'src/app/common/commoncode/common-code.service
 })
 export class HrmRelationCodeFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   commonCodeList: any[] = [];
   parentHrmTypeList: any[] = [];

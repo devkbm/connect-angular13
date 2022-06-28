@@ -14,7 +14,7 @@ import { AppointmentCode } from '../../model/appointment-code';
 })
 export class AppointmentCodeFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private appointmentCodeService: AppointmentCodeService,

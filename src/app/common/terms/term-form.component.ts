@@ -11,28 +11,18 @@ import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseObject } from '../../core/model/response-object';
 import { Term } from './term';
+import { FormBase } from 'src/app/core/form/form-base';
 
 @Component({
   selector: 'app-term-form',
   templateUrl: './term-form.component.html',
   styleUrls: ['./term-form.component.css']
 })
-export class TermFormComponent implements OnInit {
-
-  fg: FormGroup = new FormGroup({});
-
-  @Output()
-  formSaved = new EventEmitter();
-
-  @Output()
-  formDeleted = new EventEmitter();
-
-  @Output()
-  formClosed = new EventEmitter();
+export class TermFormComponent extends FormBase implements OnInit {
 
   constructor(private fb: FormBuilder,
               private termService: TermService,
-              private appAlarmService: AppAlarmService) { }
+              private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit(): void {
 

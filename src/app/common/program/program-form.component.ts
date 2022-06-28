@@ -18,7 +18,7 @@ import { ResouceTypeEnum } from './resource-type-enum';
 })
 export class ProgramFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   /**
    * Xs < 576px span size

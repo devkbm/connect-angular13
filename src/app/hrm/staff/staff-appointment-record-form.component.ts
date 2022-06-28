@@ -19,7 +19,7 @@ import { StaffAppointmentRecordService } from './staff-appointment-record.servic
 })
 export class StaffAppointmentRecordFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
   bizTypeList = [{code:'code', name:'name'},{code:'code2', name:'name2'}];
 
   /**

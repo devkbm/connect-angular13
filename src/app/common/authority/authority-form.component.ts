@@ -16,8 +16,6 @@ import { AuthorityService } from './authority.service';
 })
 export class AuthorityFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
-
   constructor(private fb: FormBuilder,
               private service: AuthorityService,
               private appAlarmService: AppAlarmService) { super(); }
@@ -29,7 +27,8 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
                                               asyncValidators: [existingAuthorityValidator(this.service)],
                                               updateOn: 'blur'
                                             }),
-      description   : [ null ]
+      description   : [ null ],
+      appId         : [ null ]
     });
 
     this.newForm();
@@ -40,6 +39,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
 
     this.fg.reset();
     this.fg.get('authority')?.enable();
+    this.fg.get('appId')?.setValue(this.appId);
   }
 
   modifyForm(formData: Authority): void {
@@ -47,6 +47,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
 
     this.fg.get('authority')?.disable();
     this.fg.patchValue(formData);
+    this.fg.get('appId')?.setValue(this.appId);
   }
 
   getAuthority(id: string): void {
@@ -65,6 +66,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
   }
 
   saveAuthority(): void {
+    console.log(this.fg.getRawValue());
     this.service
       .registerAuthority(this.fg.getRawValue())
       .subscribe(

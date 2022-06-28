@@ -21,7 +21,7 @@ import { BizDetail } from './biz-detail.model';
 })
 export class BizDetailFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private formService: BizDetailService,

@@ -20,7 +20,7 @@ import { existingHrmTypeValidator } from '../../validator/hrm-type-duplication-v
 export class HrmTypeFormComponent extends FormBase implements OnInit {
 
   appointmentTypeList: any[] = [];
-  fg: FormGroup = new FormGroup({});
+   ;
 
   constructor(private fb: FormBuilder,
               private hrmCodeService: HrmCodeService,

@@ -29,7 +29,7 @@ import { Dept } from 'src/app/common/dept/dept.model';
 })
 export class LedgerListFormComponent extends FormBase implements OnInit {
 
-  fg: FormGroup = new FormGroup({});
+   ;
 
   appointmentCodeList: any;
   employeeList: LedgerEmployee[] = [];
