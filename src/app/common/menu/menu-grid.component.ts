@@ -65,13 +65,13 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
           width: 70,
           cellStyle: {'text-align': 'center'}
         },
-        {headerName: '메뉴그룹코드',  field: 'menuGroupCode',           width: 80 },
-        {headerName: '메뉴코드',      field: 'menuCode',                width: 100},
-        {headerName: '메뉴명',        field: 'menuName',                width: 150},
-        {headerName: '메뉴타입',      field: 'menuType',                width: 100 },
-        {headerName: '상위메뉴',      field: 'parentMenuCode',          width: 100 },
-        {headerName: '순번',          field: 'sequence',                width: 80},
-        {headerName: '프로그램',      field: 'resource.resourceCode',   width: 100 }
+        {headerName: '메뉴그룹코드',  field: 'menuGroupId',           width: 80 },
+        {headerName: '메뉴코드',      field: 'menuId',                width: 100},
+        {headerName: '메뉴명',        field: 'menuName',              width: 150},
+        {headerName: '메뉴타입',      field: 'menuType',              width: 100 },
+        {headerName: '상위메뉴',      field: 'parentMenuId',          width: 100 },
+        {headerName: '순번',          field: 'sequence',              width: 80},
+        {headerName: '프로그램',      field: 'resource.resourceCode', width: 100 }
       ];
 
       this.defaultColDef = {
@@ -80,7 +80,7 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
       };
 
       this.getRowId = (data: any) => {
-          return data.menuCode;
+          return data.data.menuId;
       };
   }
 

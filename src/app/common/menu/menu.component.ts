@@ -15,11 +15,11 @@ export class MenuComponent extends AppBase implements OnInit {
 
   menuGroupFormVisible = false;
   menuFormVisible = false;
-  selectedMenuGroupCode: string = '';
+  selectedMenuGroupId: string = '';
 
-  menuGroupQueryKey: string = 'menuGroupCode';
+  menuGroupQueryKey: string = 'menuGroupId';
   menuGroupQueryValue: string = '';
-  menuQueryKey: string = 'menuCode';
+  menuQueryKey: string = 'menuId';
   menuQueryValue: string = '';
 
   //@ViewChild('menuGroupGrid', {static: false})
@@ -57,7 +57,7 @@ export class MenuComponent extends AppBase implements OnInit {
     this.menuGroupFormVisible = true;
 
     setTimeout(() => {
-      this.menuGroupForm.getMenuGroup(item.menuGroupCode);
+      this.menuGroupForm.getMenuGroup(item.menuGroupId);
     },10);
   }
 
@@ -69,7 +69,7 @@ export class MenuComponent extends AppBase implements OnInit {
     this.menuFormVisible = true;
 
     setTimeout(() => {
-      this.menuForm.newForm(this.selectedMenuGroupCode);
+      this.menuForm.newForm(this.selectedMenuGroupId);
     },10);
   }
 
@@ -77,7 +77,7 @@ export class MenuComponent extends AppBase implements OnInit {
     this.menuFormVisible = true;
 
     setTimeout(() => {
-      this.menuForm.getMenu(item.menuCode);
+      this.menuForm.getMenu(item.menuId);
     },10);
   }
 
@@ -98,7 +98,7 @@ export class MenuComponent extends AppBase implements OnInit {
 
   getMenuList(): void {
     let params: any = new Object();
-    params['menuGroupCode'] = this.selectedMenuGroupCode;
+    params['menuGroupId'] = this.selectedMenuGroupId;
 
     if ( this.menuQueryValue !== '') {
       params[this.menuQueryKey] = this.menuQueryValue;
@@ -109,7 +109,7 @@ export class MenuComponent extends AppBase implements OnInit {
   }
 
   selectMenuGroup(item: any): void {
-    this.selectedMenuGroupCode = item.menuGroupCode;
+    this.selectedMenuGroupId = item.menuGroupId;
     this.getMenuList();
   }
 

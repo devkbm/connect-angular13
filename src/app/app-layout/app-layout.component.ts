@@ -11,11 +11,11 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AppAlarmService } from '../core/service/app-alarm.service';
 import { MenuService } from '../common/menu/menu.service';
 
-import { MenuGroup } from '../common/menu/menu-group.model';
 import { MenuHierarchy } from '../common/menu/menu-hierarchy.model';
 import { ResponseList } from '../core/model/response-list';
 import { UserSessionService } from '../core/service/user-session.service';
 import { UserPopupComponent } from '../common/user/user-popup.component';
+import { SelectControlModel } from '../core/model/select-control.model.ts';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class AppLayoutComponent implements OnInit  {
   menuGroupCode: string = '';
   avartarImgSrc = '';
 
-  menuGroupList: MenuGroup[] = [];
+  menuGroupList: SelectControlModel[] = [];
   menuItems: MenuHierarchy[] = [];
 
   @ViewChild('treeCom', {static: false}) treeCom: any;
@@ -64,7 +64,7 @@ export class AppLayoutComponent implements OnInit  {
     if ( selectedMenuGroup != null ) {
       this.selectedValue = selectedMenuGroup;
     } else {
-      this.selectedValue = this.menuGroupList[0].menuGroupCode;
+      this.selectedValue = this.menuGroupList[0].value;
     }
 
     if (this.selectedValue != null) {

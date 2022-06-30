@@ -39,7 +39,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
 
   ngOnInit() {
     this.fg = this.fb.group({
-      menuGroupCode   : new FormControl(null, {
+      menuGroupId     : new FormControl(null, {
                                                 validators: Validators.required,
                                                 asyncValidators: [existingMenuGroupValidator(this.menuService)],
                                                 updateOn: 'blur'
@@ -55,19 +55,19 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.controls['menuGroupCode'].enable();
+    this.fg.controls['menuGroupId'].enable();
   }
 
   modifyForm(formData: MenuGroup): void {
     this.formType = FormType.MODIFY;
-    this.fg.controls['menuGroupCode'].disable();
+    this.fg.controls['menuGroupId'].disable();
 
     this.fg.patchValue(formData);
   }
 
-  getMenuGroup(menuGroupCode: string) {
+  getMenuGroup(menuGroupId: string) {
     this.menuService
-      .getMenuGroup(menuGroupCode)
+      .getMenuGroup(menuGroupId)
       .subscribe(
         (model: ResponseObject<MenuGroup>) => {
           if ( model.total > 0 ) {
@@ -96,7 +96,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
 
   deleteMenuGroup() {
     this.menuService
-      .deleteMenuGroup(this.fg.get('menuGroupCode')?.value)
+      .deleteMenuGroup(this.fg.get('menuGroupId')?.value)
       .subscribe(
         (model: ResponseObject<MenuGroup>) => {
           this.formDeleted.emit(this.fg.getRawValue());

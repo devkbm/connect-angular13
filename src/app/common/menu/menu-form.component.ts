@@ -26,7 +26,6 @@ import { existingMenuValidator } from './menu-duplication-validator.directive';
 })
 export class MenuFormComponent extends FormBase implements OnInit {
 
-   ;
   programList: any;
   menuGroupList: any;
   menuTypeList: any;
@@ -63,15 +62,15 @@ export class MenuFormComponent extends FormBase implements OnInit {
 
   ngOnInit() {
     this.fg = this.fb.group({
-      menuGroupCode     : [ null, [ Validators.required ] ],
-      menuCode          : new FormControl(null, {
+      menuGroupId       : [ null, [ Validators.required ] ],
+      menuId            : new FormControl(null, {
                                                   validators: Validators.required,
                                                   asyncValidators: [existingMenuValidator(this.menuService)],
                                                   updateOn: 'blur'
                                                 }),
       menuName          : [ null, [ Validators.required ] ],
       menuType          : [ null, [ Validators.required ] ],
-      parentMenuCode    : [ null ],
+      parentMenuId      : [ null ],
       sequence          : [ null ],
       resource          : [ null ]
     });
@@ -79,22 +78,22 @@ export class MenuFormComponent extends FormBase implements OnInit {
     this.newForm('');
   }
 
-  public newForm(menuGroupCode: string): void {
+  public newForm(menuGroupId: string): void {
     this.formType = FormType.NEW;
 
-    this.getMenuHierarchy(menuGroupCode);
+    this.getMenuHierarchy(menuGroupId);
 
     this.fg.reset();
-    this.fg.controls['menuGroupCode'].setValue(menuGroupCode);
-    this.fg.controls['menuCode'].enable();
+    this.fg.controls['menuGroupId'].setValue(menuGroupId);
+    this.fg.controls['menuId'].enable();
   }
 
   public modifyForm(formData: Menu): void {
     this.formType = FormType.MODIFY;
 
-    this.getMenuHierarchy(formData.menuGroupCode);
+    this.getMenuHierarchy(formData.menuGroupId);
 
-    this.fg.controls['menuCode'].disable();
+    this.fg.controls['menuId'].disable();
 
     this.fg.patchValue(formData);
   }
@@ -111,11 +110,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
             this.newForm('');
           }
           this.appAlarmService.changeMessage(model.message);
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => { }
+        }
       );
   }
 
@@ -129,11 +124,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
         (model: ResponseObject<Menu>) => {
           this.formSaved.emit(this.fg.getRawValue());
           this.appAlarmService.changeMessage(model.message);
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => { }
+        }
       );
   }
 
@@ -144,11 +135,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
         (model: ResponseObject<Menu>) => {
           this.formDeleted.emit(this.fg.getRawValue());
           this.appAlarmService.changeMessage(model.message);
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => { }
+        }
       );
   }
 
@@ -167,11 +154,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
           } else {
             this.menuHiererachy = [];
           }
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => { }
+        }
       );
   }
 
@@ -185,11 +168,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
           } else {
             this.programList = [];
           }
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {}
+        }
       );
   }
 
@@ -204,11 +183,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
           } else {
             this.menuGroupList = [];
           }
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {}
+        }
       );
   }
 
@@ -222,16 +197,12 @@ export class MenuFormComponent extends FormBase implements OnInit {
           } else {
             this.menuTypeList = [];
           }
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {}
+        }
       );
   }
 
-  selectMenuGroup(menuGroupCode: any): void {
-    this.getMenuHierarchy(menuGroupCode);
+  selectMenuGroup(menuGroupId: any): void {
+    this.getMenuHierarchy(menuGroupId);
   }
 
 }

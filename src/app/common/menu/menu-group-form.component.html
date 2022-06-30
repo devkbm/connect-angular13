@@ -6,9 +6,9 @@
         <div nz-col nzSpan="12">
             <!--메뉴그룹코드 필드-->
             <nz-form-item>
-                <nz-form-label nzFor="menuGroupCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드c</nz-form-label>
+                <nz-form-label nzFor="menuGroupId" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드c</nz-form-label>
                 <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm" [nzErrorTip]="errorTpl">
-                    <input nz-input id="menuGroupCode" formControlName="menuGroupCode" placeholder="메뉴그룹코드를 입력해주세요.">
+                    <input nz-input id="menuGroupId" formControlName="menuGroupId" placeholder="메뉴그룹코드를 입력해주세요.">
                     <ng-template #errorTpl let-control>
                       <ng-container *ngIf="control.hasError('required')">
                           필수 입력 값입니다.

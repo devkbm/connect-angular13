@@ -7,15 +7,15 @@
       <!--메뉴그룹코드 필드-->
       <nz-form-item>
         <nz-form-label
-            nzFor="menuGroupCode" nzRequired
+            nzFor="menuGroupId" nzRequired
             [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            메뉴그룹코드
+            메뉴그룹아이디
         </nz-form-label>
 
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
           <nz-select
-              id="menuGroupCode"
-              formControlName="menuGroupCode"
+              id="menuGroupId"
+              formControlName="menuGroupId"
               nzShowSearch
 
               nzPlaceHolder="Please select"
@@ -23,7 +23,7 @@
               <nz-option
                   *ngFor="let option of menuGroupList"
                   [nzLabel]="option.menuGroupName"
-                  [nzValue]="option.menuGroupCode">
+                  [nzValue]="option.menuGroupId">
               </nz-option>
           </nz-select>
         </nz-form-control>
@@ -41,11 +41,11 @@
 
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" >
             <nz-tree-select
-                id="parentMenuCode"
+                id="parentMenuId"
                 [nzNodes]="menuHiererachy"
                 [nzAllowClear]="true"
                 [nzPlaceHolder]="'상위 메뉴 없음'"
-                formControlName="parentMenuCode">
+                formControlName="parentMenuId">
             </nz-tree-select>
         </nz-form-control>
       </nz-form-item>
@@ -58,14 +58,14 @@
       <!--메뉴코드 필드-->
       <nz-form-item>
         <nz-form-label
-            nzFor="menuCode" nzRequired
+            nzFor="menuId" nzRequired
             [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴코드
         </nz-form-label>
         <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="formControlSm" [nzErrorTip]="errorTpl">
           <input
               nz-input
-              id="menuCode"
-              formControlName="menuCode"
+              id="menuId"
+              formControlName="menuId"
               placeholder="메뉴코드를 입력해주세요.">
             <ng-template #errorTpl let-control>
                 <ng-container *ngIf="control.hasError('required')">
