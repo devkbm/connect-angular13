@@ -143,10 +143,11 @@ export class MenuFormComponent extends FormBase implements OnInit {
     this.formClosed.emit(this.fg.getRawValue());
   }
 
-  getMenuHierarchy(menuGroupCode: string): void {
+  getMenuHierarchy(menuGroupId: string): void {
+    if (!menuGroupId) return;
 
     this.menuService
-      .getMenuHierarchy(menuGroupCode)
+      .getMenuHierarchy(menuGroupId)
       .subscribe(
         (model: ResponseList<MenuHierarchy>) => {
           if ( model.total > 0 ) {
@@ -202,6 +203,9 @@ export class MenuFormComponent extends FormBase implements OnInit {
   }
 
   selectMenuGroup(menuGroupId: any): void {
+    if (!menuGroupId) return;
+
+    console.log(menuGroupId);
     this.getMenuHierarchy(menuGroupId);
   }
 

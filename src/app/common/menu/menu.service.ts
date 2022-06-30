@@ -176,6 +176,7 @@ export class MenuService extends DataService {
   }
 
   getMenuHierarchy(menuGroupId: String): Observable<ResponseList<MenuHierarchy>> {
+    console.log(menuGroupId);
     const url = `${this.API_URL}/menuhierarchy/${menuGroupId}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),

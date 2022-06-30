@@ -69,6 +69,7 @@ export class MenuComponent extends AppBase implements OnInit {
     this.menuFormVisible = true;
 
     setTimeout(() => {
+      console.log(this.selectedMenuGroupId);
       this.menuForm.newForm(this.selectedMenuGroupId);
     },10);
   }
@@ -109,6 +110,7 @@ export class MenuComponent extends AppBase implements OnInit {
   }
 
   selectMenuGroup(item: any): void {
+
     this.selectedMenuGroupId = item.menuGroupId;
     this.getMenuList();
   }
