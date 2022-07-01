@@ -97,12 +97,10 @@ export class AppLayoutComponent implements OnInit  {
   }
 
   selectMenu(event: NzFormatEmitEvent): void {
-    // console.log(event, event.selectedKeys, event.keys, event.nodes);
-    // console.log(event.nodes[0].origin);
-    const node = event.node?.origin as NzTreeNodeOptions;
-    //const node = event.nodes[0].origin;
-    sessionStorage.setItem('selectedMenu', node.key);
 
+    console.log(event.node?.origin);
+    const node = event.node?.origin as NzTreeNodeOptions;
+    sessionStorage.setItem('selectedMenu', node.key);
     this.router.navigate([node['url']]);
   }
 

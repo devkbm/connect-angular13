@@ -7,13 +7,11 @@ import {
 } from '@angular/forms';
 
 import { MenuService } from './menu.service';
-import { ProgramService } from '../program/program.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseList } from '../../core/model/response-list';
 import { ResponseObject } from '../../core/model/response-object';
 import { Menu } from './menu.model';
-import { WebResource } from '../program/web-resource';
 import { MenuHierarchy } from './menu-hierarchy.model';
 import { MenuGroup } from './menu-group.model';
 import { FormBase, FormType } from '../../core/form/form-base';
@@ -50,13 +48,11 @@ export class MenuFormComponent extends FormBase implements OnInit {
 
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
-              private programService: ProgramService,
               private appAlarmService: AppAlarmService) {
     super();
     this.menuHiererachy = [];
 
     this.getMenuTypeList();
-    this.getProgramList();
     this.getMenuGroupList();
   }
 
@@ -72,7 +68,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
       menuType          : [ null, [ Validators.required ] ],
       parentMenuId      : [ null ],
       sequence          : [ null ],
-      resource          : [ null ]
+      appUrl            : [ null, [ Validators.required ] ]
     });
 
     this.newForm('');
@@ -154,20 +150,6 @@ export class MenuFormComponent extends FormBase implements OnInit {
             this.menuHiererachy = model.data;
           } else {
             this.menuHiererachy = [];
-          }
-        }
-      );
-  }
-
-  getProgramList(): void {
-    this.programService
-      .getProgramList()
-      .subscribe(
-        (model: ResponseList<WebResource>) => {
-          if (model.total > 0) {
-            this.programList = model.data;
-          } else {
-            this.programList = [];
           }
         }
       );

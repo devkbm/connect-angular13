@@ -10,7 +10,7 @@ export enum FormType {
 })
 export abstract class FormBase {
 
-  appId: string = '';
+  appUrl: string = '';
   formType: FormType = FormType.NEW;
   fg: FormGroup = new FormGroup({});
 

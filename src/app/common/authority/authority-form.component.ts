@@ -28,7 +28,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
                                               updateOn: 'blur'
                                             }),
       description   : [ null ],
-      appId         : [ null ]
+      appUrl        : [ null ]
     });
 
     this.newForm();
@@ -39,7 +39,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
 
     this.fg.reset();
     this.fg.get('authority')?.enable();
-    this.fg.get('appId')?.setValue(this.appId);
+    this.fg.get('appUrl')?.setValue(this.appUrl);
   }
 
   modifyForm(formData: Authority): void {
@@ -47,7 +47,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
 
     this.fg.get('authority')?.disable();
     this.fg.patchValue(formData);
-    this.fg.get('appId')?.setValue(this.appId);
+    this.fg.get('appUrl')?.setValue(this.appUrl);
   }
 
   getAuthority(id: string): void {

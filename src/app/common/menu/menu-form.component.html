@@ -1,33 +1,26 @@
 {{fg.value | json}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
 
   <!-- 1 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <!--메뉴그룹코드 필드-->
-      <nz-form-item>
-        <nz-form-label
-            nzFor="menuGroupId" nzRequired
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            메뉴그룹아이디
-        </nz-form-label>
-
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-          <nz-select
-              id="menuGroupId"
-              formControlName="menuGroupId"
-              nzShowSearch
-
-              nzPlaceHolder="Please select"
-              (ngModelChange)="selectMenuGroup($event)">
-              <nz-option
-                  *ngFor="let option of menuGroupList"
-                  [nzLabel]="option.menuGroupName"
-                  [nzValue]="option.menuGroupId">
-              </nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
+      <!--메뉴그룹아이디 필드-->
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="menuGroupId" [fieldName]="'menuGroupId'"
+        [itemId]="'menuGroupId'" [label]="'메뉴그룹아이디'"
+        (ngModelChange)="selectMenuGroup($event)"
+        [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'"
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-select-custom>
     </div>
 
     <div nz-col nzSpan="12">
@@ -56,49 +49,23 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--메뉴코드 필드-->
-      <nz-form-item>
-        <nz-form-label
-            nzFor="menuId" nzRequired
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴코드
-        </nz-form-label>
-        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="formControlSm" [nzErrorTip]="errorTpl">
-          <input
-              nz-input
-              id="menuId"
-              formControlName="menuId"
-              placeholder="메뉴코드를 입력해주세요.">
-            <ng-template #errorTpl let-control>
-                <ng-container *ngIf="control.hasError('required')">
-                    필수 입력 값입니다.
-                </ng-container>
-                <ng-container *ngIf="control.hasError('exists')">
-                    기존 코드가 존재합니다.
-                </ng-container>
-            </ng-template>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="menuId" [fieldName]="'menuId'"
+        [itemId]="'menuId'" [label]="'메뉴코드'"
+        placeholder="메뉴코드를 입력해주세요."
+        [required]="true"
+        [nzErrorTip]="errorTpl">
+      </app-nz-input-text>
     </div>
+
     <div nz-col nzSpan="12">
       <!--메뉴명 필드-->
-      <nz-form-item>
-        <nz-form-label
-          nzFor="menuName"
-          nzRequired
-          [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴명
-        </nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" [nzErrorTip]="errorTpl">
-          <input
-              nz-input
-              id="menuName"
-              formControlName="menuName"
-              placeholder="메뉴명을 입력해주세요.">
-          <ng-template #errorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">
-                필수 입력 값입니다.
-            </ng-container>
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="menuName" [fieldName]="'menuName'"
+        [itemId]="'menuName'" [label]="'메뉴명'"
+        placeholder="메뉴명을 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-input-text>
     </div>
   </div>
 
@@ -106,67 +73,22 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--메뉴타입 필드-->
-      <nz-form-item>
-        <nz-form-label
-            nzFor="menuType"
-            nzRequired
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            메뉴타입
-        </nz-form-label>
-
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" [nzErrorTip]="errorTpl">
-          <nz-select
-              id="menuType"
-              formControlName="menuType"
-
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="메뉴타입을 선택해주세요.">
-                  <nz-option
-                      *ngFor="let option of menuTypeList"
-                      [nzLabel]="option.label"
-                      [nzValue]="option.value">
-                  </nz-option>
-          </nz-select>
-          <ng-template #errorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">
-                필수 입력 값입니다.
-            </ng-container>
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="menuType" [fieldName]="'menuType'"
+        [itemId]="'menuType'" [label]="'메뉴타입'"
+        [options]="menuTypeList" [opt_value]="'value'" [opt_label]="'label'"
+        [placeholder]="'메뉴타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-select-custom>
     </div>
 
     <div nz-col nzSpan="12">
-      <!--프로그램 필드-->
-      <nz-form-item>
-        <nz-form-label
-            nzFor="resource"
-            nzRequired
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            프로그램
-        </nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" [nzErrorTip]="errorTpl">
-          <nz-select
-              id="resource"
-              formControlName="resource"
-
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="프로그램을 선택해주세요.">
-                  <nz-option
-                      *ngFor="let option of programList"
-                      [nzLabel]="option.resourceName"
-                      [nzValue]="option.resourceCode">
-                  </nz-option>
-          </nz-select>
-          <ng-template #errorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">
-                필수 입력 값입니다.
-            </ng-container>
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
+      <!--APP URL 필드-->
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="appUrl" [fieldName]="'appUrl'"
+        [itemId]="'appUrl'" [label]="'APP URL'"
+        placeholder="URL을 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-input-text>
     </div>
   </div>
 
