@@ -38,24 +38,14 @@ export class UserFormComponent extends FormBase implements OnInit {
   passwordConfirm: string = '';
   popup: boolean = false;
 
-
   showUploadList = {
     showPreviewIcon: true,
     showRemoveIcon: false
   };
 
-  fileList: NzUploadFile[] = [
-    /*{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }*/
-  ];
-
   previewImage: string | undefined = '';
   previewVisible = false;
-  imageUploadUrl: string = GlobalProperty.serverUrl + '/user/image/';
+  imageUploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image/';
   imageUploadHeader: any = {
     Authorization: sessionStorage.getItem('token')
     //'x-auth-token': sessionStorage.getItem('token')
@@ -112,7 +102,6 @@ export class UserFormComponent extends FormBase implements OnInit {
     this.formType = FormType.NEW;
     this.imageBase64 = null;
     this.previewImage = '';
-    this.fileList = [];
 
     this.fg.reset();
     this.fg.get('userId')?.enable();
@@ -120,7 +109,6 @@ export class UserFormComponent extends FormBase implements OnInit {
 
   public modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
-    this.fileList = [];
 
     this.fg.get('userId')?.disable();
 
@@ -148,7 +136,7 @@ export class UserFormComponent extends FormBase implements OnInit {
               "Accept": "application/json",
               "Authorization": sessionStorage.getItem('token')
             };
-            console.log(this.imageUploadHeader);
+
             this.imageUploadParam = { userId: model.data.userId };
             if (model.data.imageBase64 != null) {
               //this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;

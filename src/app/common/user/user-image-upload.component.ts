@@ -12,7 +12,7 @@ import { UserService } from './user.service';
 export class UserImageUploadComponent implements OnInit {
 
   previewImage: string | undefined = '';
-  imageUploadUrl: string = GlobalProperty.serverUrl + '/common/user/image/';
+  imageUploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image/';
   imageSrc: string = GlobalProperty.serverUrl + '/static/';
   isShowUploadButton: boolean = true;
   @Input() imageWidth: string = '150px';
@@ -68,11 +68,7 @@ export class UserImageUploadComponent implements OnInit {
           (model: Blob) => {
             const blob = new Blob([model], { type: 'application/octet-stream' });
             saveAs(blob, this.userId + ".jpg");
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
         );
   }
 

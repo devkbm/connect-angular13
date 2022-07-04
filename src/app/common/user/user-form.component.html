@@ -141,7 +141,7 @@
 
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-select formControlName="menuGroupList"  nzMode="multiple" nzPlaceHolder="Please select">
-                <nz-option *ngFor="let option of menuGroupList" [nzLabel]="option.menuGroupName" [nzValue]="option.menuGroupCode"></nz-option>
+                <nz-option *ngFor="let option of menuGroupList" [nzLabel]="option.menuGroupName" [nzValue]="option.menuGroupId"></nz-option>
             </nz-select>
         </nz-form-control>
       </nz-form-item>
