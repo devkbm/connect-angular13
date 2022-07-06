@@ -80,6 +80,8 @@ export class UserFormComponent extends FormBase implements OnInit {
         asyncValidators: [existingUserValidator(this.userService)],
         updateOn: 'blur'
       }),
+      organizationCode: [],
+      staffNo: [null],
       name: new FormControl({ value: null, disabled: false }, { validators: Validators.required }),
       enabled: [true],
       deptCode: [null],

@@ -23,6 +23,35 @@
 
     <div nz-col nzSpan="20">
       <div nz-row nzGutter="8">
+        <div nz-col nzSpan="10">
+          <app-nz-input-text
+            formControlName="organizationCode"
+            [parentFormGroup]="fg"
+            [fieldName]="'organizationCode'"
+            [itemId]="'organizationCode'"
+            [label]="'조직코드'"
+            placeholder="조직코드를 입력해주세요."
+            [required]="true"
+            [nzErrorTip]="errorTpl">
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="10">
+          <app-nz-input-text
+            formControlName="staffNo"
+            [parentFormGroup]="fg"
+            [fieldName]="'staffNo'"
+            [itemId]="'staffNo'"
+            [label]="'직원번호'"
+            placeholder="직원번호를 입력해주세요."
+            [required]="true"
+            [nzErrorTip]="errorTpl">
+          </app-nz-input-text>
+        </div>
+
+      </div>
+
+      <div nz-row nzGutter="8">
         <div nz-col nzSpan="3">
           <!--사용여부 필드-->
           <nz-form-item>
@@ -30,7 +59,6 @@
               사용여부
             </nz-form-label>
             <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-              <!--<label id="enabled" nz-checkbox formControlName="enabled"></label>-->
               <nz-switch formControlName="enabled"></nz-switch>
             </nz-form-control>
           </nz-form-item>
@@ -101,34 +129,22 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--권한 필드-->
-      <nz-form-item>
-        <nz-form-label nzFor="authorityList"
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            권한
-        </nz-form-label>
+      <app-nz-select-custom
+        [parentFormGroup]="fg"
+        [itemId]="'formauth'"
+        [fieldName]="'authorityList'"
+        formControlName="authorityList"
+        [label]="'권한'"
+        [mode]="'tags'"
+        [options]="authList"
+        [opt_value]="'authority'"
+        [opt_label]="'description'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl"
+        [required]="true">
+      </app-nz-select-custom>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-          <nz-select formControlName="authorityList"  nzMode="multiple" nzPlaceHolder="Please select">
-            <nz-option *ngFor="let option of authList" [nzLabel]="option.description" [nzValue]="option.authority"></nz-option>
-          </nz-select>
-        </nz-form-control>
 
-        <app-nz-select-custom
-          [parentFormGroup]="fg"
-          [itemId]="'formauth'"
-          [fieldName]="'authorityList'"
-          formControlName="authorityList"
-          [label]="'권한'"
-          [mode]="'tags'"
-          [options]="authList"
-          [opt_value]="'authority'"
-          [opt_label]="'description'"
-          [placeholder]="'Please select'"
-          [nzErrorTip]="errorTpl"
-          [required]="true">
-        </app-nz-select-custom>
-
-      </nz-form-item>
     </div>
 
     <div nz-col nzSpan="12">
