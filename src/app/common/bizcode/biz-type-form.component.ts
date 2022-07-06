@@ -21,8 +21,6 @@ import { BizTypeService } from './biz-type.service';
 })
 export class BizTypeFormComponent extends FormBase implements OnInit {
 
-   ;
-
   bizTypeList = [{code: 'HRM', name: 'HRM'}, {code: 'HRM2', name: 'HRM2'}]
 
   constructor(private fb: FormBuilder,

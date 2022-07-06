@@ -25,27 +25,19 @@
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="10">
           <app-nz-input-text
-            formControlName="organizationCode"
-            [parentFormGroup]="fg"
-            [fieldName]="'organizationCode'"
-            [itemId]="'organizationCode'"
-            [label]="'조직코드'"
+            [parentFormGroup]="fg" formControlName="organizationCode" [fieldName]="'organizationCode'"
+            [itemId]="'organizationCode'" [label]="'조직코드'"
             placeholder="조직코드를 입력해주세요."
-            [required]="true"
-            [nzErrorTip]="errorTpl">
+            [required]="true" [nzErrorTip]="errorTpl">
           </app-nz-input-text>
         </div>
 
         <div nz-col nzSpan="10">
           <app-nz-input-text
-            formControlName="staffNo"
-            [parentFormGroup]="fg"
-            [fieldName]="'staffNo'"
-            [itemId]="'staffNo'"
-            [label]="'직원번호'"
+            [parentFormGroup]="fg" formControlName="staffNo" [fieldName]="'staffNo'"
+            [itemId]="'staffNo'" [label]="'직원번호'"
             placeholder="직원번호를 입력해주세요."
-            [required]="true"
-            [nzErrorTip]="errorTpl">
+            [required]="true" [nzErrorTip]="errorTpl">
           </app-nz-input-text>
         </div>
 
@@ -66,57 +58,42 @@
         <div nz-col nzSpan="10">
           <!--아이디 필드-->
           <app-nz-input-text
-            formControlName="userId"
-            [parentFormGroup]="fg"
-            [fieldName]="'userId'"
-            [itemId]="'userId'"
-            [label]="'아이디'"
+            [parentFormGroup]="fg" formControlName="userId" [fieldName]="'userId'"
+            [itemId]="'userId'" [label]="'아이디'"
             placeholder="아이디를 입력해주세요."
-            [required]="true"
-            [nzErrorTip]="errorTpl">
+            [required]="true" [nzErrorTip]="errorTpl">
           </app-nz-input-text>
         </div>
 
         <div nz-col nzSpan="11">
           <!--이름 필드-->
           <app-nz-input-text
-            formControlName="name"
-            [parentFormGroup]="fg"
-            [fieldName]="'name'"
-            [itemId]="'name'"
-            [label]="'이름'"
+            [parentFormGroup]="fg" formControlName="name" [fieldName]="'name'"
+            [itemId]="'name'" [label]="'이름'"
             placeholder="이름을 입력해주세요."
-            [required]="true"
-            [nzErrorTip]="errorTpl">
+            [required]="true" [nzErrorTip]="errorTpl">
           </app-nz-input-text>
         </div>
-
       </div>
 
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <!--핸드폰번호 필드-->
-          <nz-form-item>
-              <nz-form-label nzFor="mobileNum" [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-                  핸드폰 번호
-              </nz-form-label>
-
-              <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzHasFeedback>
-                  <input style="ime-mode: inactive" id="mobileNum" nz-input formControlName="mobileNum">
-              </nz-form-control>
-          </nz-form-item>
+          <app-nz-input-text
+            [parentFormGroup]="fg" formControlName="mobileNum" [fieldName]="'mobileNum'"
+            [itemId]="'mobileNum'" [label]="'휴대폰번호'"
+            placeholder="휴대폰 번호을 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">
+          </app-nz-input-text>
         </div>
         <div nz-col nzSpan="12">
           <!--이메일 필드-->
-          <nz-form-item>
-            <nz-form-label nzFor="email" [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-              이메일
-            </nz-form-label>
-
-            <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzHasFeedback>
-              <input style="ime-mode: inactive" id="email" nz-input formControlName="email">
-            </nz-form-control>
-          </nz-form-item>
+          <app-nz-input-text
+            [parentFormGroup]="fg" formControlName="email" [fieldName]="'email'"
+            [itemId]="'email'" [label]="'이메일'"
+            placeholder=""
+            [required]="true" [nzErrorTip]="errorTpl">
+          </app-nz-input-text>
         </div>
       </div>
 
@@ -130,37 +107,23 @@
     <div nz-col nzSpan="12">
       <!--권한 필드-->
       <app-nz-select-custom
-        [parentFormGroup]="fg"
-        [itemId]="'formauth'"
-        [fieldName]="'authorityList'"
-        formControlName="authorityList"
-        [label]="'권한'"
-        [mode]="'tags'"
-        [options]="authList"
-        [opt_value]="'authority'"
-        [opt_label]="'description'"
+        [parentFormGroup]="fg" formControlName="authorityList" [fieldName]="'authorityList'"
+        [itemId]="'formauth'" [label]="'권한'"
+        [options]="authList" [opt_value]="'authority'" [opt_label]="'description'" [mode]="'tags'"
         [placeholder]="'Please select'"
-        [nzErrorTip]="errorTpl"
-        [required]="true">
+        [nzErrorTip]="errorTpl" [required]="true">
       </app-nz-select-custom>
-
-
     </div>
 
     <div nz-col nzSpan="12">
       <!--메뉴그룹 필드-->
-      <nz-form-item>
-        <nz-form-label nzFor="menuGroupList"
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            메뉴그룹
-        </nz-form-label>
-
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-            <nz-select formControlName="menuGroupList"  nzMode="multiple" nzPlaceHolder="Please select">
-                <nz-option *ngFor="let option of menuGroupList" [nzLabel]="option.menuGroupName" [nzValue]="option.menuGroupId"></nz-option>
-            </nz-select>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="menuGroupList" [fieldName]="'menuGroupList'"
+        [itemId]="'menuGroupList'" [label]="'메뉴그룹'"
+        [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'" [mode]="'multiple'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-select-custom>
     </div>
 
   </div>
