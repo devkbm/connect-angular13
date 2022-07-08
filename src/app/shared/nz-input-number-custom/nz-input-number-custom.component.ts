@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef } fr
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-nz-input-textarea',
+  selector: 'app-nz-input-number-custom',
   template: `
     <!--{{formField.errors | json}}-->
     <nz-form-item>
@@ -10,16 +10,16 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
         {{label}}
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
-        <textarea nz-input class="ime"
+        <nz-input-number
               [required]="required"
               [disabled]="disabled"
-              [id]="itemId"
-              [placeholder]="placeholder"
+              [nzId]="itemId"
+              placeholder="placeholder"
               [ngModel]="value"
-              [nzAutosize]="nzAutoSize"
+              [nzMin]="1" [nzMax]="9999" [nzStep]="1"
               (ngModelChange)="onChange($event)"
               (blur)="onTouched()">
-        </textarea>
+        </nz-input-number>
       </nz-form-control>
     </nz-form-item>
   `,
@@ -28,13 +28,13 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(
-        () => NzInputTextareaComponent
+        () => NzInputNumberCustomComponent
       ),
       multi: true
     }
   ]
 })
-export class NzInputTextareaComponent implements ControlValueAccessor {
+export class NzInputNumberCustomComponent implements ControlValueAccessor {
 
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
@@ -43,7 +43,6 @@ export class NzInputTextareaComponent implements ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
-  @Input() nzAutoSize: boolean | { minRows: number, maxRows: number } = false;
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -73,5 +72,7 @@ export class NzInputTextareaComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
+
+
 
 }

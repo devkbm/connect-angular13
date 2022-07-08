@@ -25,23 +25,11 @@
 
     <div nz-col nzSpan="12">
       <!--상위메뉴코드 필드-->
-      <nz-form-item>
-        <nz-form-label
-            nzFor="parentMenuCode"
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            상위 메뉴코드
-        </nz-form-label>
-
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" >
-            <nz-tree-select
-                id="parentMenuId"
-                [nzNodes]="menuHiererachy"
-                [nzAllowClear]="true"
-                [nzPlaceHolder]="'상위 메뉴 없음'"
-                formControlName="parentMenuId">
-            </nz-tree-select>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-tree-select-custom
+        [parentFormGroup]="fg" formControlName="parentMenuId" [fieldName]="'parentMenuId'"
+        [itemId]="'parentMenuId'" [label]="'상위 메뉴코드'" [nodes]="menuHiererachy"
+        [placeholder]="'상위 메뉴 없음'">
+      </app-nz-tree-select-custom>
     </div>
   </div>
 
@@ -53,8 +41,7 @@
         [parentFormGroup]="fg" formControlName="menuId" [fieldName]="'menuId'"
         [itemId]="'menuId'" [label]="'메뉴코드'"
         placeholder="메뉴코드를 입력해주세요."
-        [required]="true"
-        [nzErrorTip]="errorTpl">
+        [required]="true" [nzErrorTip]="errorTpl">
       </app-nz-input-text>
     </div>
 
@@ -96,21 +83,12 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--순번 필드-->
-      <nz-form-item>
-        <nz-form-label
-            nzFor="sequence"
-            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
-            순번
-        </nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-            <nz-input-number
-                id="sequence"
-                formControlName="sequence"
-                placeholder="순번을 입력해주세요."
-                [nzMin]="1" [nzMax]="9999" [nzStep]="1">
-            </nz-input-number>
-        </nz-form-control>
-    </nz-form-item>
+      <app-nz-input-number-custom
+        [parentFormGroup]="fg" formControlName="sequence" [fieldName]="'sequence'"
+        [itemId]="'sequence'" [label]="'순번'"
+        placeholder="순번을 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-input-number-custom>
     </div>
   </div>
 

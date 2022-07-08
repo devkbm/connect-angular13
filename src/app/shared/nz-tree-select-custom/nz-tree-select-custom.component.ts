@@ -2,48 +2,47 @@ import { ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef } fr
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-nz-input-textarea',
+  selector: 'app-nz-tree-select-custom',
   template: `
-    <!--{{formField.errors | json}}-->
     <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         {{label}}
       </nz-form-label>
-      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
-        <textarea nz-input class="ime"
-              [required]="required"
-              [disabled]="disabled"
-              [id]="itemId"
-              [placeholder]="placeholder"
-              [ngModel]="value"
-              [nzAutosize]="nzAutoSize"
-              (ngModelChange)="onChange($event)"
-              (blur)="onTouched()">
-        </textarea>
+      <nz-form-control [nzErrorTip]="nzErrorTip">
+       <nz-tree-select
+            [nzId]="itemId"
+            [ngModel]="value"
+            [nzNodes]="nodes"
+            [nzDisabled]="disabled"
+            [nzPlaceHolder]="placeholder"
+            (blur)="onTouched()"
+            (ngModelChange)="onChange($event)">
+        </nz-tree-select>
       </nz-form-control>
     </nz-form-item>
   `,
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.Default,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(
-        () => NzInputTextareaComponent
+        () => NzTreeSelectCustomComponent
       ),
       multi: true
     }
   ]
 })
-export class NzInputTextareaComponent implements ControlValueAccessor {
+export class NzTreeSelectCustomComponent implements ControlValueAccessor {
 
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName!: string;
+  @Input() fieldName: string = '';
   @Input() itemId: string = '';
-  @Input() label!: string;
+  @Input() label: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
-  @Input() nzAutoSize: boolean | { minRows: number, maxRows: number } = false;
+  @Input() nodes!: any[];
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -54,24 +53,19 @@ export class NzInputTextareaComponent implements ControlValueAccessor {
 
   constructor() { }
 
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
-  }
-
   writeValue(obj: any): void {
     this.value = obj;
   }
-
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
+  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.value === o2.value : o1 === o2);
 
 }

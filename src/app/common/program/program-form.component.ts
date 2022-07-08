@@ -18,18 +18,6 @@ import { ResouceTypeEnum } from './resource-type-enum';
 })
 export class ProgramFormComponent extends FormBase implements OnInit {
 
-   ;
-
-  /**
-   * Xs < 576px span size
-   * Sm >= 576px span size
-   */
-  formLabelXs = 24;
-  formControlXs = 24;
-
-  formLabelSm = 24;
-  formControlSm = 24;
-
   resourceTypeList: ResouceTypeEnum[] = [];
 
   constructor(private fb: FormBuilder,

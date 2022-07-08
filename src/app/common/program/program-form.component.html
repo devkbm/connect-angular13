@@ -14,26 +14,18 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        formControlName="resourceCode"
-        [parentFormGroup]="fg"
-        [fieldName]="'resourceCode'"
-        [itemId]="'resourceCode'"
-        [label]="'리소스코드'"
+        [parentFormGroup]="fg" formControlName="resourceCode" [fieldName]="'resourceCode'"
+        [itemId]="'resourceCode'" [label]="'리소스코드'"
         placeholder="리소스코드를 입력해주세요."
-        [required]="true"
-        [nzErrorTip]="errorTpl">
+        [required]="true" [nzErrorTip]="errorTpl">
       </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        formControlName="resourceName"
-        [parentFormGroup]="fg"
-        [fieldName]="'resourceName'"
-        [itemId]="'resourceName'"
-        [label]="'리소스명'"
-        [required]="true"
-        [nzErrorTip]="errorTpl">
+        [parentFormGroup]="fg" formControlName="resourceName" [fieldName]="'resourceName'"
+        [itemId]="'resourceName'" [label]="'리소스명'"
+        [required]="true" [nzErrorTip]="errorTpl">
       </app-nz-input-text>
     </div>
   </div>
@@ -41,24 +33,18 @@
   <!-- 2 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <nz-form-item>
-        <nz-form-label nzFor="resourceType" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">리소스타입</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzErrorTip="필수 입력 값입니다.">
-            <!--<input nz-input id="resourceType" formControlName="resourceType" placeholder="리소스타입을 입력해주세요.">-->
-            <nz-select formControlName="resourceType"  nzPlaceHolder="Please select">
-                <nz-option *ngFor="let option of resourceTypeList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-            </nz-select>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="resourceType" [fieldName]="'resourceType'"
+        [itemId]="'resourceType'" [label]="'리소스타입'"
+        [options]="resourceTypeList" [opt_value]="'value'" [opt_label]="'label'"
+        [placeholder]="'리소스타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-select-custom>
     </div>
 
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        formControlName="url"
-        [parentFormGroup]="fg"
-        [fieldName]="'url'"
-        [itemId]="'url'"
-        [label]="'URL 정보'"
+        [parentFormGroup]="fg" formControlName="url" [fieldName]="'url'"
+        [itemId]="'url'" [label]="'URL 정보'"
         [required]="true"
         placeholder="URL 정보를 입력해주세요."
         [nzErrorTip]="errorTpl">
@@ -70,12 +56,13 @@
   <!-- 3 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
-      <nz-form-item>
-        <nz-form-label nzFor="description" [nzXs]="formLabelXs" [nzSm]="formLabelSm">설명</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-            <textarea nz-input id="description" formControlName="description" placeholder="리소스 설명을 입력해주세요." [nzAutosize]="{ minRows: 6, maxRows: 10 }"></textarea>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
+        [itemId]="'description'" [label]="'설명'"
+        placeholder="설명를 입력해주세요."
+        nzAutosize="{ minRows: 6, maxRows: 10 }"
+        >
+      </app-nz-input-textarea>
     </div>
   </div>
 

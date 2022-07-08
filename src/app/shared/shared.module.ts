@@ -12,10 +12,14 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CustomInputTextComponent } from './custom-input-text/custom-input-text.component';
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
+import { NzInputNumberCustomComponent } from './nz-input-number-custom/nz-input-number-custom.component';
 import { NzSelectCustomComponent } from './nz-select-custom/nz-select-custom.component';
 import { NzCrudButtonGroupComponent } from './nz-crud-button-group/nz-crud-button-group.component';
 import { FormCrudButtonGroupComponent } from './form-crud-button-group/form-crud-button-group.component';
 import { AutoFocusDirective } from './auto-focus.directive';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzTreeSelectCustomComponent } from './nz-tree-select-custom/nz-tree-select-custom.component';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 @NgModule({
   imports: [
@@ -24,19 +28,23 @@ import { AutoFocusDirective } from './auto-focus.directive';
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
+    NzInputNumberModule,
     NzSelectModule,
     NzButtonModule,
     NzDividerModule,
     NzPopconfirmModule,
-    NzIconModule
+    NzIconModule,
+    NzTreeSelectModule
   ],
   declarations: [
     CustomInputTextComponent,
     FormCrudButtonGroupComponent,
     NzInputTextComponent,
     NzInputTextareaComponent,
+    NzInputNumberCustomComponent,
     NzSelectCustomComponent,
     NzCrudButtonGroupComponent,
+    NzTreeSelectCustomComponent,
     AutoFocusDirective
    ],
   exports: [
@@ -44,8 +52,10 @@ import { AutoFocusDirective } from './auto-focus.directive';
     FormCrudButtonGroupComponent,
     NzInputTextComponent,
     NzInputTextareaComponent,
+    NzInputNumberCustomComponent,
     NzSelectCustomComponent,
-    NzCrudButtonGroupComponent
+    NzCrudButtonGroupComponent,
+    NzTreeSelectCustomComponent
   ]
 })
 export class SharedModule { }

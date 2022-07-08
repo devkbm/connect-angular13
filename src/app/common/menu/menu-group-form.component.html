@@ -1,50 +1,44 @@
 {{fg.value | json}}
-{{this.formType}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
 
-    <div nz-row nzGutter="8">
-        <div nz-col nzSpan="12">
-            <!--메뉴그룹코드 필드-->
-            <nz-form-item>
-                <nz-form-label nzFor="menuGroupId" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드c</nz-form-label>
-                <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm" [nzErrorTip]="errorTpl">
-                    <input nz-input id="menuGroupId" formControlName="menuGroupId" placeholder="메뉴그룹코드를 입력해주세요.">
-                    <ng-template #errorTpl let-control>
-                      <ng-container *ngIf="control.hasError('required')">
-                          필수 입력 값입니다.
-                      </ng-container>
-                      <ng-container *ngIf="control.hasError('exists')">
-                          기존 코드가 존재합니다.
-                      </ng-container>
-                  </ng-template>
-                </nz-form-control>
-            </nz-form-item>
-        </div>
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+        필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+        기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
 
-        <div nz-col nzSpan="12">
-            <!--메뉴그룹명 필드-->
-            <nz-form-item>
-                <nz-form-label nzFor="menuGroupName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹명</nz-form-label>
-                <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm" [nzErrorTip]="errorTpl">
-                    <input nz-input id="menuGroupName" formControlName="menuGroupName" placeholder="메뉴그룹명을 입력해주세요.">
-                    <ng-template #errorTpl let-control>
-                        <ng-container *ngIf="control.hasError('required')">
-                            필수 입력 값입니다.
-                        </ng-container>
-                    </ng-template>
-                </nz-form-control>
-            </nz-form-item>
-        </div>
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--메뉴그룹코드 필드-->
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="menuGroupId" [fieldName]="'menuGroupId'"
+        [itemId]="'menuGroupId'" [label]="'메뉴그룹코드'"
+        placeholder="메뉴그룹코드를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">
+      </app-nz-input-text>
     </div>
 
-    <!--비고 필드-->
-    <nz-form-item>
-        <nz-form-label nzFor="description" [nzXs]="formLabelXs" [nzSm]="formLabelSm">비고</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
-            <textarea nz-input id="description" formControlName="description" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
-        </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <!--메뉴그룹명 필드-->
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="menuGroupName" [fieldName]="'menuGroupName'"
+        [itemId]="'menuGroupName'" [label]="'메뉴그룹명'"
+        placeholder="메뉴그룹명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">
+      </app-nz-input-text>
+    </div>
+  </div>
 
+  <!--비고 필드-->
+  <app-nz-input-textarea
+    [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
+    [itemId]="'description'" [label]="'비고'"
+    placeholder="비고를 입력해주세요.">
+  </app-nz-input-textarea>
 </form>
 
 <div class="footer">
