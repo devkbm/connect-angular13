@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -20,8 +20,8 @@ import { existingUserValidator } from './user-duplication-validator.directive';
 import { FormType, FormBase } from '../../core/form/form-base';
 import { DeptHierarchy } from '../dept/dept-hierarchy.model';
 import { DeptService } from '../dept/dept.service';
-import { HttpHeaders } from '@angular/common/http';
 import { GlobalProperty } from 'src/app/global-property';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-user-form',
@@ -68,6 +68,8 @@ export class UserFormComponent extends FormBase implements OnInit {
 
   /* #endregion */
 
+  @ViewChild('staffNo') staffNoField?: NzInputTextComponent;
+
   constructor(private fb: FormBuilder,
               private userService: UserService,
               private deptService: DeptService,
@@ -80,7 +82,7 @@ export class UserFormComponent extends FormBase implements OnInit {
         asyncValidators: [existingUserValidator(this.userService)],
         updateOn: 'blur'
       }),
-      organizationCode: [],
+      organizationCode: new FormControl({ value: null, disabled: true }, { validators: Validators.required }),
       staffNo: [null],
       name: new FormControl({ value: null, disabled: false }, { validators: Validators.required }),
       enabled: [true],
@@ -90,6 +92,12 @@ export class UserFormComponent extends FormBase implements OnInit {
       imageBase64: [null],
       authorityList: new FormControl({ value: null, disabled: false }, { validators: Validators.required }),
       menuGroupList: [null]
+    });
+
+    this.fg.get('staffNo')?.valueChanges.subscribe(x => {
+      if (x === null) return;
+      const organizationCode = this.fg.get('organizationCode')?.value;
+      this.fg.get('userId')?.setValue(organizationCode + x);
     });
 
     this.newForm();
@@ -106,13 +114,14 @@ export class UserFormComponent extends FormBase implements OnInit {
     this.previewImage = '';
 
     this.fg.reset();
-    this.fg.get('userId')?.enable();
+    this.fg.get('enabled')?.setValue(true);
+    this.setSessionInfo();
+
+    this.staffNoField?.focus();
   }
 
   public modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
-
-    this.fg.get('userId')?.disable();
 
     this.fg.patchValue(formData);
   }
@@ -164,26 +173,25 @@ export class UserFormComponent extends FormBase implements OnInit {
       return;
 
     this.userService
-      .registerUser(this.fg.getRawValue())
-      .subscribe(
-        (model: ResponseObject<User>) => {
-          this.appAlarmService.changeMessage(model.message);
-          this.formSaved.emit(this.fg.value);
-        }
-      );
+        .registerUser(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<User>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formSaved.emit(this.fg.value);
+          }
+        );
   }
 
   public deleteUser(userId: string): void {
     this.userService
-      .deleteUser(userId)
-      .subscribe(
-        (model: ResponseObject<User>) => {
-          this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.fg.getRawValue());
-        }
-      );
+        .deleteUser(userId)
+        .subscribe(
+          (model: ResponseObject<User>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formDeleted.emit(this.fg.getRawValue());
+          }
+        );
   }
-
   protected checkUser(): void {
     const userId: string = this.fg.get('userId')?.value;
 
@@ -217,41 +225,44 @@ export class UserFormComponent extends FormBase implements OnInit {
   }
 
   private getAuthorityList(): void {
+
     this.userService
-      .getAuthorityList()
-      .subscribe(
-        (model: ResponseList<Authority>) => {
-          if (model.total > 0) {
-            this.authList = model.data;
+        .getAuthorityList()
+        .subscribe(
+          (model: ResponseList<Authority>) => {
+            if (model.total > 0) {
+              this.authList = model.data;
+            }
           }
-        }
-      );
+        );
   }
 
   private getMenuGroupList(): void {
+
     this.userService
-      .getMenuGroupList()
-      .subscribe(
-        (model: ResponseList<MenuGroup>) => {
-          if (model.total > 0) {
-            this.menuGroupList = model.data;
+        .getMenuGroupList()
+        .subscribe(
+          (model: ResponseList<MenuGroup>) => {
+            if (model.total > 0) {
+              this.menuGroupList = model.data;
+            }
           }
-        }
-      );
+        );
   }
 
   public getDeptHierarchy(): void {
+
     this.deptService
-      .getDeptHierarchyList()
-      .subscribe(
-        (model: ResponseList<DeptHierarchy>) => {
-          if (model.total > 0) {
-            this.deptHierarchy = model.data;
-          } else {
-            this.deptHierarchy = [];
+        .getDeptHierarchyList()
+        .subscribe(
+          (model: ResponseList<DeptHierarchy>) => {
+            if (model.total > 0) {
+              this.deptHierarchy = model.data;
+            } else {
+              this.deptHierarchy = [];
+            }
           }
-        }
-      );
+        );
   }
 
   public closeForm(): void {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -9,13 +9,14 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
         {{label}}
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
-        <input nz-input
+        <input #inputControl nz-input
               [required]="required"
               [disabled]="disabled"
               [id]="itemId"
               [placeholder]="placeholder"
               [ngModel]="value"
               (ngModelChange)="onChange($event)"
+              [readonly]="readonly"
               (blur)="onTouched()"/>
         <!--{{formField.errors | json}}-->
       </nz-form-control>
@@ -34,6 +35,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
 })
 export class NzInputTextComponent implements ControlValueAccessor {
 
+  @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
   @Input() itemId: string = '';
@@ -41,6 +43,7 @@ export class NzInputTextComponent implements ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
+  @Input() readonly: boolean = false;
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -69,5 +72,9 @@ export class NzInputTextComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  focus(): void {
+    this.element?.nativeElement.focus();
   }
 }

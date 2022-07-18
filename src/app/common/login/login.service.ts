@@ -24,8 +24,8 @@ export class LoginService extends DataService {
    * @paramTag 비밀번호
    * @returnType {UserToken} Token 정보
    */
-  doLogin(id: string, pwd: string): Observable<UserToken> {
-    const body = {username: id, password: pwd};
+  doLogin(organizationCode: string, staffNo: string, pwd: string): Observable<UserToken> {
+    const body = {organizationCode: organizationCode, staffNo: staffNo, password: pwd};
     const options = {
       headers: this.getHttpHeaders(),
       withCredentials: true

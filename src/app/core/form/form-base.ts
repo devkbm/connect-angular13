@@ -69,4 +69,11 @@ export abstract class FormBase {
     }
     return fg.valid;
   }
+
+  /**
+   * 세션정보를 입력한다.
+   */
+  setSessionInfo(): void {
+    this.fg.get('organizationCode')?.setValue(sessionStorage.getItem('organizationCode'));
+  }
 }

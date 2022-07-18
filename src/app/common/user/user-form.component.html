@@ -33,11 +33,11 @@
         </div>
 
         <div nz-col nzSpan="10">
+          <!--아이디 필드-->
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="staffNo" [fieldName]="'staffNo'"
-            [itemId]="'staffNo'" [label]="'직원번호'"
-            placeholder="직원번호를 입력해주세요."
-            [required]="true" [nzErrorTip]="errorTpl">
+            [parentFormGroup]="fg" formControlName="userId" [fieldName]="'userId'"
+            [itemId]="'userId'" [label]="'아이디'"
+            [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">
           </app-nz-input-text>
         </div>
 
@@ -56,11 +56,10 @@
           </nz-form-item>
         </div>
         <div nz-col nzSpan="10">
-          <!--아이디 필드-->
-          <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="userId" [fieldName]="'userId'"
-            [itemId]="'userId'" [label]="'아이디'"
-            placeholder="아이디를 입력해주세요."
+          <app-nz-input-text #staffNo
+            [parentFormGroup]="fg" formControlName="staffNo" [fieldName]="'staffNo'"
+            [itemId]="'staffNo'" [label]="'직원번호'"
+            placeholder="직원번호를 입력해주세요."
             [required]="true" [nzErrorTip]="errorTpl">
           </app-nz-input-text>
         </div>

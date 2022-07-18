@@ -88,6 +88,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
   }
 
   getAuthority(params?: any): void {
+
     this.service
         .getAuthorityList(params)
         .subscribe(

@@ -115,7 +115,7 @@ export class UserGridComponent extends AggridFunction implements OnInit {
     ];
 
     this.getRowId = function(data: any) {
-      return data.userId;
+      return data.data.userId;
     };
   }
 
@@ -127,7 +127,8 @@ export class UserGridComponent extends AggridFunction implements OnInit {
     this.editButtonClicked.emit(e.rowData);
   }
 
-  public getUserList(params?: any): void {
+  getUserList(params?: any): void {
+
     this.userService
         .getUserList(params)
         .subscribe(
@@ -152,7 +153,7 @@ export class UserGridComponent extends AggridFunction implements OnInit {
     this.rowDoubleClicked.emit(event.data);
   }
 
-  public getSelectedRow() {
+  getSelectedRow() {
     return this.gridApi.getSelectedRows()[0];
   }
 

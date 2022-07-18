@@ -61,6 +61,7 @@ export class UserComponent extends AppBase implements OnInit {
     if ( this.queryValue !== '') {
       params[this.queryKey] = this.queryValue;
     }
+    //params.organizationCode = "001";
 
     this.closeDrawer();
     this.grid.getUserList(params);

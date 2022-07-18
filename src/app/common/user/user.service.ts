@@ -194,11 +194,12 @@ export class UserService extends DataService {
       );
   }
 
-  getMenuGroupList(): Observable<ResponseList<MenuGroup>> {
+  getMenuGroupList(params?: any): Observable<ResponseList<MenuGroup>> {
     const url = GlobalProperty.serverUrl + `${this.MENU_GROUP_API_URI}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
-      withCredentials: true
+      withCredentials: true,
+      params: params
     };
 
     return this.http

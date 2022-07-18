@@ -22,7 +22,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
 
   ngOnInit() {
     this.fg = this.fb.group({
-      authority     : new FormControl(null, {
+      authorityCode : new FormControl(null, {
                                               validators: Validators.required,
                                               asyncValidators: [existingAuthorityValidator(this.service)],
                                               updateOn: 'blur'

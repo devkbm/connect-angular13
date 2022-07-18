@@ -2,11 +2,11 @@
   <nz-form-item>
     <nz-form-control>
       <nz-input-group nzPrefixIcon="user">
-        <input formControlName="userName" nz-input placeholder="Username">
+        <input formControlName="staffNo" nz-input placeholder="Username">
       </nz-input-group>
       <!--<nz-form-explain *ngIf="loginForm.get('userName').dirty && loginForm.get('userName').errors">Please input your username!</nz-form-explain>-->
       <ng-template #userNameErrorTpl let-control>
-        <ng-container *ngIf="control.hasError('required') && control.dirty">Please input your username!</ng-container>      
+        <ng-container *ngIf="control.hasError('required') && control.dirty">Please input your username!</ng-container>
       </ng-template>
     </nz-form-control>
   </nz-form-item>
@@ -17,7 +17,7 @@
       </nz-input-group>
       <!--<nz-form-explain *ngIf="loginForm.get('password').dirty && loginForm.get('password').errors">Please input your Password!</nz-form-explain>-->
       <ng-template #passwordErrorTpl let-control>
-        <ng-container *ngIf="control.hasError('required') && control.dirty">Please input your Password!</ng-container>      
+        <ng-container *ngIf="control.hasError('required') && control.dirty">Please input your Password!</ng-container>
       </ng-template>
     </nz-form-control>
   </nz-form-item>

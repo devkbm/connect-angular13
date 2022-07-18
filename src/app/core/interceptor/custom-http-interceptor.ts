@@ -15,7 +15,36 @@ export class CustomHttpInterceptor implements HttpInterceptor {
         if (token !== null && !req.headers.has(headerName)) {
             req = req.clone({ headers: req.headers.set(headerName, token) });
         }
+
+        if (req.method.toLowerCase() === 'get') {
+          req = this.setParamsGET(req);
+        } else if (req.method.toLowerCase() === 'post') {
+          if (req.body instanceof FormData) {
+            req =  this.setFormDataBodyPOST(req);
+          } else {
+            req = this.setBodyPOST(req);
+          }
+        }
+
         return next.handle(req);
+    }
+
+    private setParamsGET(req: HttpRequest<any>): HttpRequest<any> {
+      return req.clone({
+        params: req.params.set('organizationCode', String(sessionStorage.getItem('organizationCode')))
+      });
+    }
+
+    private setBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
+      return req.clone({
+        body: { ...req.body, organizationCode: String(sessionStorage.getItem('organizationCode')) }
+      });
+    }
+
+    private setFormDataBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
+      return req.clone({
+        body: req.body.append('organizationCode', String(sessionStorage.getItem('organizationCode')))
+      });
     }
 
 }
