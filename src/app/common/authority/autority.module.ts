@@ -21,6 +21,7 @@ import { AuthorityFormComponent } from './authority-form.component';
 import { AuthorityGridComponent } from './authority-grid.component';
 import { AuthorityComponent } from './authority.component';
 import { AuthorityService } from './authority.service';
+import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { AuthorityService } from './authority.service';
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
     AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent]),
     AllNgZorroModule,
-    SharedModule
+    SharedModule,
+    CalendarModule
   ],
   declarations: [
     AuthorityFormComponent,

@@ -16,6 +16,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
             req = req.clone({ headers: req.headers.set(headerName, token) });
         }
 
+        if (req.url === 'http://localhost:8090/common/user/login') {
+          return next.handle(req);
+        }
+
         if (req.method.toLowerCase() === 'get') {
           req = this.setParamsGET(req);
         } else if (req.method.toLowerCase() === 'post') {
@@ -37,13 +41,14 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
     private setBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
       return req.clone({
-        body: { ...req.body, organizationCode: String(sessionStorage.getItem('organizationCode')) }
+        body: { ...req.body, organizationCode: String(sessionStorage.getItem('organizationCode')), appUrl: req.url }
       });
     }
 
     private setFormDataBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
       return req.clone({
         body: req.body.append('organizationCode', String(sessionStorage.getItem('organizationCode')))
+                      .append('appUrl',req.url)
       });
     }
 

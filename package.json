@@ -20,6 +20,7 @@
     "@angular/router": "~13.3.9",
     "@ckeditor/ckeditor5-angular": "^4.0.0",
     "@ckeditor/ckeditor5-build-classic": "^34.0.0",
+    "@daypilot/daypilot-lite-angular": "^3.8.0",
     "@fullcalendar/angular": "^5.11.0",
     "@fullcalendar/daygrid": "^5.11.0",
     "@fullcalendar/interaction": "^5.11.0",

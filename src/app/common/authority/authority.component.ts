@@ -93,7 +93,7 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     this.openDrawer();
 
     setTimeout(() => {
-      this.form.appUrl = this._location.path(true);
+      //this.form.appUrl = this._location.path(true);
       console.log(this.form.appUrl);
       this.form.newForm();
     },50);
