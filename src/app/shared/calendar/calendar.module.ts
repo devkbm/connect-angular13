@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DayPilotModule } from '@daypilot/daypilot-lite-angular';
 import { DataService } from './data.service';
+import { CalendarDaypilotComponent } from './calendar-daypilot.component';
+import { CalendarDaypilotNavigatorComponent } from './calendar-daypilot-navigator.component';
 
 @NgModule({
   imports: [
@@ -15,8 +17,16 @@ import { DataService } from './data.service';
     HttpClientModule,
     DayPilotModule
   ],
-  declarations: [CalendarComponent],
+  declarations: [
+    CalendarComponent,
+    CalendarDaypilotComponent,
+    CalendarDaypilotNavigatorComponent
+  ],
   providers: [DataService],
-  exports: [CalendarComponent]
+  exports: [
+    CalendarComponent,
+    CalendarDaypilotComponent,
+    CalendarDaypilotNavigatorComponent
+  ]
 })
 export class CalendarModule { }
