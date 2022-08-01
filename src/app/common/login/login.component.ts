@@ -36,9 +36,7 @@ export class LoginComponent implements OnInit {
 
     console.log(token);
 
-    if (token == null) {
-      console.log('1');
-    } else {
+    if (token != null) {
       sessionStorage.setItem('token', token);
 
       this.loginService.getAuthToken()
