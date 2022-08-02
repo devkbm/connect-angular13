@@ -1,5 +1,3 @@
-import { WebResource } from '../program/web-resource';
-
 export class Menu {
   constructor(
     public createdDt: Date,
@@ -13,5 +11,5 @@ export class Menu {
     public parentMenuId: string,
     public sequence: number,
     public level: number,
-    public resource: WebResource) { }
+    public resource: string) { }
 }

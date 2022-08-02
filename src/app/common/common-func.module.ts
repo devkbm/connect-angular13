@@ -30,7 +30,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BizTypeGridComponent } from './bizcode/biz-type-grid.component';
 import { UserModule } from './user/user.module';
 import { AutorityModule } from './authority/autority.module';
-import { WebResourceModule } from './program/web-resource.module';
+import { WebResourceModule } from './webresource/web-resource.module';
 import { MenuModule } from './menu/menu.module';
 import { LoginModule } from './login/login.module';
 import { HolidayModule } from './holiday/holiday.module';

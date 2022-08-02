@@ -2,18 +2,18 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 
 import { ResponseObject } from '../model/response-object';
-import { WebResource } from '../../common/program/web-resource';
-import { ProgramService } from '../../common/program/program.service';
+import { WebResource } from '../../common/webresource/web-resource';
+import { WebResourceService } from '../../common/webresource/web-resource.service';
 import { AppInjector } from './app-injector.service';
 
 export class AppBase {
 
   protected appId: string = '';
 
-  private programService: ProgramService;
+  private programService: WebResourceService;
 
   constructor(protected _location: Location) {
-    this.programService = AppInjector.injector.get(ProgramService);
+    this.programService = AppInjector.injector.get(WebResourceService);
   }
 
   goBack() {

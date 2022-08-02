@@ -4,9 +4,9 @@ import { NG_ASYNC_VALIDATORS, AbstractControl, ValidationErrors, AsyncValidator,
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
-import { ProgramService } from './program.service';
+import { WebResourceService } from './web-resource.service';
 
-export function existingWebResourceValidator(programService: ProgramService): AsyncValidatorFn {
+export function existingWebResourceValidator(programService: WebResourceService): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
     return control.value ?
              programService.getProgramDupCheck(control.value)

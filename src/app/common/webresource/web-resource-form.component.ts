@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ProgramService } from './program.service';
+import { WebResourceService } from './web-resource.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseObject } from '../../core/model/response-object';
@@ -12,16 +12,16 @@ import { ResponseList } from '../../core/model/response-list';
 import { ResouceTypeEnum } from './resource-type-enum';
 
 @Component({
-  selector: 'app-program-form',
-  templateUrl: './program-form.component.html',
-  styleUrls: ['./program-form.component.css']
+  selector: 'app-web-resource-form',
+  templateUrl: './web-resource-form.component.html',
+  styleUrls: ['./web-resource-form.component.css']
 })
-export class ProgramFormComponent extends FormBase implements OnInit {
+export class WebResourceFormComponent extends FormBase implements OnInit {
 
   resourceTypeList: ResouceTypeEnum[] = [];
 
   constructor(private fb: FormBuilder,
-              private programService: ProgramService,
+              private programService: WebResourceService,
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit(): void {

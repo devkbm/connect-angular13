@@ -1,4 +1,5 @@
 import {Component, ViewChild, AfterViewInit, Input} from "@angular/core";
+// npm i @daypilot/daypilot-lite-angular
 import {
   DayPilot,
   DayPilotCalendarComponent,

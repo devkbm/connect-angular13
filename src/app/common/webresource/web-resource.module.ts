@@ -17,10 +17,10 @@ import { ButtonRendererComponent } from '../../core/grid/renderer/button-rendere
 import { CheckboxRendererComponent } from '../../core/grid/renderer/checkbox-renderer.component';
 
 /* Inner Component */
-import { ProgramComponent } from './program.component';
-import { ProgramFormComponent } from './program-form.component';
-import { ProgramGridComponent } from './program-grid.component';
-import { ProgramService } from './program.service';
+import { WebResourceComponent } from './web-resource.component';
+import { WebResourceFormComponent } from './web-resource-form.component';
+import { WebResourceGridComponent } from './web-resource-grid.component';
+import { WebResourceService } from './web-resource.service';
 
 @NgModule({
   imports: [
@@ -36,18 +36,18 @@ import { ProgramService } from './program.service';
     SharedModule
   ],
   declarations: [
-    ProgramFormComponent,
-    ProgramGridComponent,
-    ProgramComponent
+    WebResourceFormComponent,
+    WebResourceGridComponent,
+    WebResourceComponent
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
     { provide: COMPOSITION_BUFFER_MODE, useValue: false},
-    ProgramService
+    WebResourceService
   ],
   exports: [
-    ProgramComponent
+    WebResourceComponent
   ]
 })
 export class WebResourceModule { }

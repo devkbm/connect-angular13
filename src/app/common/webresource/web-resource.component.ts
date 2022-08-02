@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { ProgramGridComponent } from './program-grid.component';
-import { ProgramFormComponent } from './program-form.component';
+import { WebResourceGridComponent } from './web-resource-grid.component';
+import { WebResourceFormComponent } from './web-resource-form.component';
 import { AppBase } from '../../core/app/app-base';
 
 @Component({
-  selector: 'app-program',
-  templateUrl: './program.component.html',
-  styleUrls: ['./program.component.css']
+  selector: 'app-web-resource',
+  templateUrl: './web-resource.component.html',
+  styleUrls: ['./web-resource.component.css']
 })
-export class ProgramComponent extends AppBase  implements OnInit {
+export class WebResourceComponent extends AppBase  implements OnInit {
 
   drawerVisible = false;
 
@@ -17,13 +17,13 @@ export class ProgramComponent extends AppBase  implements OnInit {
   queryValue = '';
 
   @ViewChild('programGrid', {static: false})
-  grid!: ProgramGridComponent;
+  grid!: WebResourceGridComponent;
 
   @ViewChild('programForm', {static: false})
-  form!: ProgramFormComponent;
+  form!: WebResourceFormComponent;
 
   @ViewChild('deleteForm', {static: false})
-  deleteForm!: ProgramFormComponent;
+  deleteForm!: WebResourceFormComponent;
 
   constructor(location: Location) {
     super(location);

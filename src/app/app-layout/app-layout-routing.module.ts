@@ -2,20 +2,24 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppLayoutComponent } from './app-layout.component';
+import { AuthGuardService } from '../core/service/auth-guard.service';
 
 import { AuthorityComponent } from '../common/authority/authority.component';
 import { UserComponent } from '../common/user/user.component';
-import { ProgramComponent } from '../common/program/program.component';
+import { WebResourceComponent } from '../common/webresource/web-resource.component';
 import { MenuComponent } from '../common/menu/menu.component';
 import { TermComponent } from '../common/terms/term.component';
 import { CommonCodeComponent } from '../common/commoncode/common-code.component';
 import { DeptComponent } from '../common/dept/dept.component';
 import { HolidayComponent } from '../common/holiday/holiday.component';
+import { BizCodeComponent } from '../common/bizcode/biz-code.component';
 
 import { TeamComponent } from '../cooperation/communication/component/team.component';
 import { BoardComponent } from '../cooperation/board/component/board.component';
 import { SurveyFormComponent } from '../cooperation/survey/component/survey-form.component';
 import { WorkgroupComponent } from '../cooperation/workgroup/component/workgroup/workgroup.component';
+import { TodosComponent } from '../cooperation/todo/todos.component';
+
 import { AppointmentCodeComponent } from '../hrm/appointment/component/appointment-code/appointment-code.component';
 import { HrmRelationCodeComponent } from '../hrm/appointment/component/hrm-type/hrm-relation-code.component';
 import { HrmTypeComponent } from '../hrm/appointment/component/hrm-type/hrm-type.component';
@@ -26,11 +30,7 @@ import { EmployeeMasterComponent } from '../hrm/employee/component/basic-info/em
 import { DeptEmployeeListComponent } from '../hrm/employee/component/dept-employee-list/dept-employee-list.component';
 import { PayitemComponent } from './../hrm/payitem/component/pay-item/payitem.component';
 import { PayTableComponent } from '../hrm/payitem/component/paytable/pay-table.component';
-import { BizCodeComponent } from '../common/bizcode/biz-code.component';
 import { StaffRegistFormComponent } from '../hrm/staff/staff-regist-form.component';
-import { TodosComponent } from '../cooperation/todo/todos.component';
-import { AuthGuardService } from '../core/service/auth-guard.service';
-
 
 const layoutroutes: Routes = [
   {
@@ -39,7 +39,7 @@ const layoutroutes: Routes = [
       /* 공통 시스템 */
       {path: 'user',          component: UserComponent},
       {path: 'auth',          component: AuthorityComponent},
-      {path: 'program',       component: ProgramComponent},
+      {path: 'program',       component: WebResourceComponent},
       {path: 'menu',          component: MenuComponent},
       {path: 'commoncode',    component: CommonCodeComponent},
       {path: 'dept',          component: DeptComponent},

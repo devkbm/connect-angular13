@@ -12,7 +12,7 @@ import { WebResource } from './web-resource';
 import { ResouceTypeEnum } from './resource-type-enum';
 
 @Injectable()
-export class ProgramService extends DataService {
+export class WebResourceService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
     super('/api/common/webresource', http, tokenExtractor);

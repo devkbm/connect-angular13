@@ -22,7 +22,7 @@ export class CalendarDaypilotNavigatorComponent implements AfterViewInit {
 
   @Input()
   events: DayPilot.EventDataShort[] = [];
-  @Output() dateChanged:EventEmitter<DayPilot.Date> =new EventEmitter<DayPilot.Date>();
+  @Output() dateChanged:EventEmitter<DayPilot.Date> = new EventEmitter<DayPilot.Date>();
 
   date = DayPilot.Date.today();
 

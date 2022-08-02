@@ -40,13 +40,13 @@
 <h3 class="pgm-title">웹서버 리소스 목록</h3>
 
 <div class="grid-wrapper">
-    <app-program-grid
+    <app-web-resource-grid
         id="programGrid"
         #programGrid
         (rowSelected)="selectedItem($event)"
         (editButtonClicked)="editDrawerOpen($event)"
         (rowDoubleClicked)="editDrawerOpen($event)">
-    </app-program-grid>
+    </app-web-resource-grid>
 </div>
 
 
@@ -59,18 +59,18 @@
     nzTitle="리소스 등록"
     (nzOnClose)="closeDrawer()">
     <ng-container *nzDrawerContent>
-    <app-program-form
+    <app-web-resource-form
         id="programForm"
         #programForm
         (formSaved)="getProgramList()"
         (formDeleted)="getProgramList()"
         (formClosed)="closeDrawer()">
-    </app-program-form>
+    </app-web-resource-form>
     </ng-container>
 </nz-drawer>
 
-<app-program-form
+<app-web-resource-form
   #deleteForm
   style="display:none"
   (formDeleted)="getProgramList()">
-</app-program-form>
+</app-web-resource-form>

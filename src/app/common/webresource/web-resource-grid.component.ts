@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { ProgramService } from './program.service';
+import { WebResourceService } from './web-resource.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseList } from '../../core/model/response-list';
@@ -8,7 +8,7 @@ import { WebResource } from './web-resource';
 import { AggridFunction } from '../../core/grid/aggrid-function';
 
 @Component({
-  selector: 'app-program-grid',
+  selector: 'app-web-resource-grid',
   template: `
     <ag-grid-angular
       [ngStyle]="style"
@@ -25,7 +25,7 @@ import { AggridFunction } from '../../core/grid/aggrid-function';
   </ag-grid-angular>
   `
 })
-export class ProgramGridComponent extends AggridFunction implements OnInit {
+export class WebResourceGridComponent extends AggridFunction implements OnInit {
 
   programList: WebResource[] = [];
 
@@ -38,7 +38,7 @@ export class ProgramGridComponent extends AggridFunction implements OnInit {
   @Output()
   editButtonClicked = new EventEmitter();
 
-  constructor(private programService: ProgramService,
+  constructor(private programService: WebResourceService,
               private appAlarmService: AppAlarmService) {
 
     super();
@@ -74,7 +74,7 @@ export class ProgramGridComponent extends AggridFunction implements OnInit {
     };
 
     this.getRowId = function(data: any) {
-        return data.resourceCode;
+        return data.data.resourceCode;
     };
   }
 

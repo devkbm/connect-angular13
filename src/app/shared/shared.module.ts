@@ -1,6 +1,8 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -8,6 +10,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 import { CustomInputTextComponent } from './custom-input-text/custom-input-text.component';
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
@@ -16,13 +19,17 @@ import { NzInputNumberCustomComponent } from './nz-input-number-custom/nz-input-
 import { NzSelectCustomComponent } from './nz-select-custom/nz-select-custom.component';
 import { NzCrudButtonGroupComponent } from './nz-crud-button-group/nz-crud-button-group.component';
 import { FormCrudButtonGroupComponent } from './form-crud-button-group/form-crud-button-group.component';
-import { AutoFocusDirective } from './auto-focus.directive';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTreeSelectCustomComponent } from './nz-tree-select-custom/nz-tree-select-custom.component';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzInputDateComponent } from './nz-input-date/nz-input-date.component';
+import { NzInputSelectComponent } from './nz-input-select/nz-input-select.component';
+import { NzInputTreeSelectComponent } from './nz-input-tree-select/nz-input-tree-select.component';
+
 
 @NgModule({
   imports: [
+    BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -34,7 +41,8 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
     NzDividerModule,
     NzPopconfirmModule,
     NzIconModule,
-    NzTreeSelectModule
+    NzTreeSelectModule,
+    NzDatePickerModule
   ],
   declarations: [
     CustomInputTextComponent,
@@ -45,7 +53,9 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
     NzSelectCustomComponent,
     NzCrudButtonGroupComponent,
     NzTreeSelectCustomComponent,
-    AutoFocusDirective
+    NzInputDateComponent,
+    NzInputSelectComponent,
+    NzInputTreeSelectComponent
    ],
   exports: [
     CustomInputTextComponent,
@@ -55,7 +65,10 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
     NzInputNumberCustomComponent,
     NzSelectCustomComponent,
     NzCrudButtonGroupComponent,
-    NzTreeSelectCustomComponent
+    NzTreeSelectCustomComponent,
+    NzInputDateComponent,
+    NzInputSelectComponent,
+    NzInputTreeSelectComponent
   ]
 })
 export class SharedModule { }

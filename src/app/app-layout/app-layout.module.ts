@@ -10,7 +10,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { AppLayoutRoutingModule } from './app-layout-routing.module';
 
 import { MenuService } from '../common/menu/menu.service';
-import { ProgramService } from '../common/program/program.service';
+import { WebResourceService } from '../common/webresource/web-resource.service';
 import { AppAlarmService } from '../core/service/app-alarm.service';
 import { TermService } from '../common/terms/term.service';
 
@@ -40,7 +40,7 @@ import { AuthGuardService } from '../core/service/auth-guard.service';
   providers: [
     AppAlarmService,
     MenuService,
-    ProgramService,
+    WebResourceService,
     TermService,
     AuthGuardService
   ],

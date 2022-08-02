@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 
 @Component({
-  selector: 'app-nz-input-text',
+  selector: 'app-nz-input-date',
   template: `
     <!--{{formField.errors | json}}-->
     <nz-form-item>
@@ -10,16 +11,17 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
         {{label}}
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
-        <input #inputControl nz-input
+        <nz-date-picker #inputControl
+              [nzId]="itemId"
+              [nzPlaceHolder]="placeholder"
               [required]="required"
-              [disabled]="disabled"
-              [id]="itemId"
-              [placeholder]="placeholder"
+              [nzDisabled]="disabled"
               [ngModel]="value"
-              [readonly]="readonly"
+              [nzInputReadOnly]="readonly"
               (ngModelChange)="onChange($event)"
               (ngModelChange)="valueChange($event)"
-              (blur)="onTouched()"/>
+              (blur)="onTouched()">
+        </nz-date-picker>
       </nz-form-control>
     </nz-form-item>
   `,
@@ -28,15 +30,15 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(
-        () => NzInputTextComponent
+        () => NzInputDateComponent
       ),
       multi: true
     }
   ]
 })
-export class NzInputTextComponent implements ControlValueAccessor {
+export class NzInputDateComponent implements ControlValueAccessor {
 
-  @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
+  @ViewChild('inputControl') element?: NzDatePickerComponent;
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
   @Input() itemId: string = '';
@@ -76,11 +78,12 @@ export class NzInputTextComponent implements ControlValueAccessor {
   }
 
   focus(): void {
-    this.element?.nativeElement.focus();
+    this.element?.focus();
   }
 
   valueChange(val: any) {
-    console.log(val);
+    const nativeValue = this.element?.pickerInput?.nativeElement.value;
+    console.log('nativeValue: ' + nativeValue);
   }
 
 }

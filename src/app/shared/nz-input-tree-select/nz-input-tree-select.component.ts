@@ -2,47 +2,47 @@ import { ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef } fr
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-nz-input-number-custom',
+  selector: 'app-nz-input-tree-select',
   template: `
-    <!--{{formField.errors | json}}-->
-    <nz-form-item>
+   <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         {{label}}
       </nz-form-label>
-      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
-        <nz-input-number
-          [nzId]="itemId"
-          [required]="required"
-          [nzDisabled]="disabled"
-          placeholder="placeholder"
-          [ngModel]="value"
-          [nzMin]="1" [nzMax]="9999" [nzStep]="1"
-          (ngModelChange)="onChange($event)"
-          (blur)="onTouched()">
-        </nz-input-number>
+      <nz-form-control [nzErrorTip]="nzErrorTip">
+       <nz-tree-select
+            [nzId]="itemId"
+            [ngModel]="value"
+            [nzNodes]="nodes"
+            [nzDisabled]="disabled"
+            [nzPlaceHolder]="placeholder"
+            (blur)="onTouched()"
+            (ngModelChange)="onChange($event)">
+        </nz-tree-select>
       </nz-form-control>
     </nz-form-item>
   `,
+  styles: [],
   changeDetection: ChangeDetectionStrategy.Default,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(
-        () => NzInputNumberCustomComponent
+        () => NzInputTreeSelectComponent
       ),
       multi: true
     }
   ]
 })
-export class NzInputNumberCustomComponent implements ControlValueAccessor {
+export class NzInputTreeSelectComponent implements ControlValueAccessor {
 
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName!: string;
+  @Input() fieldName: string = '';
   @Input() itemId: string = '';
-  @Input() label!: string;
+  @Input() label: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
+  @Input() nodes!: any[];
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -53,26 +53,19 @@ export class NzInputNumberCustomComponent implements ControlValueAccessor {
 
   constructor() { }
 
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
-  }
-
   writeValue(obj: any): void {
     this.value = obj;
   }
-
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-
+  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.value === o2.value : o1 === o2);
 
 }
