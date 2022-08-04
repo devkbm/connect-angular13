@@ -5,7 +5,7 @@ import {
 } from "@daypilot/daypilot-lite-angular";
 
 @Component({
-  selector: 'app-calendar-daypilot-navigator',
+  selector: 'app-daypilot-calendar-navigator',
   template: `
     <daypilot-navigator #navigator
       [config]="configNavigator"
@@ -16,29 +16,30 @@ import {
   `,
   styles: []
 })
-export class CalendarDaypilotNavigatorComponent implements AfterViewInit {
+export class DaypilotCalendarNavigatorComponent implements AfterViewInit {
 
   @ViewChild("navigator") nav!: DayPilotNavigatorComponent;
 
-  @Input()
-  events: DayPilot.EventDataShort[] = [];
+  @Input() events: DayPilot.EventDataShort[] = [];
   @Output() dateChanged:EventEmitter<DayPilot.Date> = new EventEmitter<DayPilot.Date>();
+  @Output() rangeChanged:EventEmitter<{start:DayPilot.Date , end:DayPilot.Date}> = new EventEmitter<{start:DayPilot.Date , end:DayPilot.Date}>();
 
   date = DayPilot.Date.today();
 
   configNavigator: DayPilot.NavigatorConfig = {
+    orientation: 'Vertical',
     showMonths: 1,
     cellWidth: 25,
     cellHeight: 25,
-    onVisibleRangeChanged: (args: any) => {
-      console.log(args);
+    onVisibleRangeChanged: (args: {start:DayPilot.Date , end:DayPilot.Date}) => {
+      this.rangeChanged.emit(args);
     }
   };
 
   constructor() { }
 
   ngAfterViewInit(): void {
-
+    console.log('ngAfterViewInit event');
   }
 
   changeDate(date: DayPilot.Date): void {

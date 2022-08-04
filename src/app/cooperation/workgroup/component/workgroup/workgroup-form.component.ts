@@ -20,18 +20,6 @@ styleUrls: ['./workgroup-form.component.css']
 })
 export class WorkGroupFormComponent extends FormBase implements OnInit {
 
-     ;
-
-    /**
-     * Xs < 576px span size
-     * Sm >= 576px span size
-     */
-    formLabelXs = 24;
-    formControlXs = 24;
-
-    formLabelSm = 24;
-    formControlSm = 24;
-
     workGroupList: any;
     memberList: any;
     color: any;
@@ -80,9 +68,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
             } else {
                 this.newForm();
             }
-            },
-            (err) => {},
-            () => {}
+            }
         );
     }
 
@@ -92,12 +78,6 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         .subscribe(
             (model: ResponseObject<WorkGroup>) => {
             this.formSaved.emit(this.fg.getRawValue());
-            },
-            (err) => {
-            console.log(err);
-            },
-            () => {
-            console.log('완료');
             }
         );
     }
@@ -107,9 +87,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         .subscribe(
             (model: ResponseObject<WorkGroup>) => {
                 this.formDeleted.emit(this.fg.getRawValue());
-            },
-            (err) => {},
-            () => {}
+            }
         );
     }
 
@@ -126,9 +104,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
             } else {
                 this.memberList = [];
             }
-            },
-            (err) => {},
-            () => {}
+          }
         );
     }
 

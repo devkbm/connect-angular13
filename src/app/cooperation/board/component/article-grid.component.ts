@@ -84,7 +84,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
 
 
     this.getRowId = function(data: any) {
-        return data.pkArticle;
+        return data.data.pkArticle;
     };
   }
 

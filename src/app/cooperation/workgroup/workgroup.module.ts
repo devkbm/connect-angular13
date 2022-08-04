@@ -24,6 +24,8 @@ import { WorkGroupFormComponent } from './component/workgroup/workgroup-form.com
 import { WorkScheduleFormComponent } from './component/workgroup/work-schedule-form.component';
 import { WorkCalendarComponent } from './component/workgroup/work-calendar.component';
 import { MyWorkGroupGridComponent } from './component/workgroup/myworkgroup-grid.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   interactionPlugin,
@@ -42,7 +44,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AgGridModule.withComponents([ButtonRendererComponent]),
     CKEditorModule,
     FullCalendarModule,
-    ColorPickerModule
+    ColorPickerModule,
+    SharedModule,
+    CalendarModule
   ],
   declarations: [
     WorkGroupFormComponent,

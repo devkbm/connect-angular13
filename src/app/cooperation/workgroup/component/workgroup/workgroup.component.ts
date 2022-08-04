@@ -56,8 +56,12 @@ export class WorkgroupComponent implements OnInit {
   }
 
   public newWorkGroup(): void {
-    this.workGroupForm.newForm();
+
     this.openWorkGroupDrawer();
+
+    setTimeout(() => {
+      this.workGroupForm.newForm();
+    },10);
   }
 
   public modifyWorkGroup(workGroup: any): void {
@@ -66,8 +70,11 @@ export class WorkgroupComponent implements OnInit {
   }
 
   public newSchedule(): void {
-    this.workScheduleForm.newForm(this.workGroupId);
     this.openScheduleDrawer();
+
+    setTimeout(() => {
+      this.workScheduleForm.newForm(this.workGroupId);
+    },10);
   }
 
   public workGroupSelect(ids: any): void {

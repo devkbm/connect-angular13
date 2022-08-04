@@ -1,8 +1,9 @@
-<button nz-button (click)="test($event)">
-  test
-</button>
-
+<!--
 <div class="calendar-div">
     <full-calendar #calendar [options]="calendarOptions">
     </full-calendar>
+</div>
+-->
+<div class="calendar-div">
+  <app-daypilot-calendar (rangeChanged)="rangeChanged($event)"></app-daypilot-calendar>
 </div>

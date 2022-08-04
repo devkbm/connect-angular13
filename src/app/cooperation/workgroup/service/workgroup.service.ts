@@ -18,7 +18,7 @@ import { GlobalProperty } from 'src/app/global-property';
 export class WorkGroupService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-      super('/grw', http, tokenExtractor);
+      super('/api/grw', http, tokenExtractor);
   }
 
   /**
@@ -114,7 +114,7 @@ export class WorkGroupService extends DataService {
   }
 
   public getMemberList(params?: any): Observable<ResponseList<WorkGroupMember>> {
-    const url = GlobalProperty.serverUrl + `/common/user`;
+    const url = GlobalProperty.serverUrl + `/api/common/user`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true,

@@ -8,81 +8,67 @@ import {
 } from "@daypilot/daypilot-lite-angular";
 
 @Component({
-  selector: 'app-calendar-daypilot',
+  selector: 'app-daypilot-calendar-basic',
   template: `
     <div class="container">
       <div class="navigator">
         <daypilot-navigator [config]="configNavigator" [events]="events" [(date)]="date" (dateChange)="changeDate($event)" #navigator></daypilot-navigator>
       </div>
+
       <div class="content">
-        {{navigator.date.toDate() | date : 'YYYY-MM' }}
-        <div class="buttons">
-        <button (click)="viewDay()" [class]="this.configNavigator.selectMode == 'Day' ? 'selected' : ''">Day</button>
-        <button (click)="viewWeek()" [class]="this.configNavigator.selectMode == 'Week' ? 'selected' : ''">Week</button>
-        <button (click)="viewMonth()" [class]="this.configNavigator.selectMode == 'Month' ? 'selected' : ''">Month</button>
-        <button (click)="navigatePrevious($event)">Previous</button>
-        <button (click)="navigateToday($event)">Today</button>
-        <button (click)="navigateNext($event)">Next</button>
+
+        <div class="header">
+          <div class="nav-buttons">
+            <button (click)="navigatePrevious($event)" class="direction-button"><</button>
+            <button (click)="navigateToday($event)">Today</button>
+            <button (click)="navigateNext($event)" class="direction-button">></button>
+          </div>
+
+          <div class="title">
+            <div *ngIf="configNavigator.selectMode === 'Day'">
+              {{navigator.date.toDate() | date : 'YYYY-MM-dd' }}
+            </div>
+            <div *ngIf="configNavigator.selectMode === 'Week'">
+              {{navigator.date.toDate() | date : 'YYYY-MM' }}
+            </div>
+            <div *ngIf="configNavigator.selectMode === 'Month'">
+              {{navigator.date.toDate() | date : 'YYYY-MM' }}
+            </div>
+          </div>
+
+          <div class="view-buttons">
+            <button (click)="viewDay()" [class]="this.configNavigator.selectMode == 'Day' ? 'selected' : ''">Day</button>
+            <button (click)="viewWeek()" [class]="this.configNavigator.selectMode == 'Week' ? 'selected' : ''">Week</button>
+            <button (click)="viewMonth()" [class]="this.configNavigator.selectMode == 'Month' ? 'selected' : ''">Month</button>
+          </div>
         </div>
 
         <daypilot-calendar [config]="configDay" [events]="events" #day></daypilot-calendar>
         <daypilot-calendar [config]="configWeek" [events]="events" #week></daypilot-calendar>
         <daypilot-month [config]="configMonth" [events]="events" #month></daypilot-month>
+
       </div>
     </div>
   `,
-  styles: [`
-    .container {
-        display: flex;
-        flex-direction: row;
-      }
-
-      .navigator {
-        margin-right: 10px;
-      }
-
-      .content {
-        flex-grow: 1;
-      }
-
-      .buttons {
-        margin-bottom: 10px;
-      }
-
-      button {
-        background-color: #3c78d8;
-        color: white;
-        border: 0;
-        padding: .5rem 1rem;
-        width: 80px;
-        font-size: 14px;
-        cursor: pointer;
-        margin-right: 5px;
-      }
-
-      button.selected {
-        background-color: #1c4587;
-      }
-  `
-  ]
+  styleUrls: ['./daypilot-calendar-basic.component.css']
 })
-export class CalendarDaypilotComponent implements AfterViewInit {
+export class DaypilotCalendarBasicComponent implements AfterViewInit {
 
+  @ViewChild("navigator") nav!: DayPilotNavigatorComponent;
   @ViewChild("day") day!: DayPilotCalendarComponent;
   @ViewChild("week") week!: DayPilotCalendarComponent;
   @ViewChild("month") month!: DayPilotMonthComponent;
-  @ViewChild("navigator") nav!: DayPilotNavigatorComponent;
 
-  @Input()
-  events: DayPilot.EventData[] = [];
+  @Input() events: DayPilot.EventData[] = [];
 
   date = DayPilot.Date.today();
-
   configNavigator: DayPilot.NavigatorConfig = {
     showMonths: 1,
     cellWidth: 25,
     cellHeight: 25,
-    onVisibleRangeChanged: args => {
+    locale: 'ko-kr',
+    onVisibleRangeChanged: (args: {start:DayPilot.Date , end:DayPilot.Date}) => {
+      console.log(args);
       this.loadEvents();
     }
   };
@@ -96,16 +82,21 @@ export class CalendarDaypilotComponent implements AfterViewInit {
     this.configDay.startDate = date;
     this.configWeek.startDate = date;
     this.configMonth.startDate = date;
+
+    console.log('dateChanged: '+ date );
   }
 
   configDay: DayPilot.CalendarConfig = {
-    startDate: DayPilot.Date.today()
+    startDate: DayPilot.Date.today(),
+    locale: 'ko-kr'
   };
 
   configWeek: DayPilot.CalendarConfig = {
     startDate: DayPilot.Date.today(),
     viewType: "Week",
+    locale: 'ko-kr',
     onTimeRangeSelected: async (args) => {
+      console.log(args);
       const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
       const dp = args.control;
       dp.clearSelection();
@@ -120,12 +111,45 @@ export class CalendarDaypilotComponent implements AfterViewInit {
   };
 
   configMonth: DayPilot.MonthConfig = {
-    startDate: DayPilot.Date.today()
+    startDate: DayPilot.Date.today(),
+    locale: 'ko-kr',
+    onTimeRangeSelected: async (args: DayPilot.MonthTimeRangeSelectedArgs) => {
+      console.log(args);
+      const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
+      const dp = args.control;
+      dp.clearSelection();
+      if (!modal.result) { return; }
+      dp.events.add(new DayPilot.Event({
+        start: args.start,
+        end: args.end,
+        id: DayPilot.guid(),
+        text: modal.result
+      }));
+    },
+    onEventClick:async (args: DayPilot.MonthEventClickArgs) => {
+      //console.log(args);
+    }
   };
 
   constructor() {
-    this.viewWeek();
+    const localeKR = new DayPilot.Locale(
+      'ko-kr',
+      {
+        dayNames:['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
+        dayNamesShort:['일','월','화','수','목','금','토'],
+        monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월',''],
+        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월',''],
+        timePattern:'h:mm tt',
+        datePattern:'yyyy-M-d ddd',
+        dateTimePattern:'yyyy-M-d h:mm tt',
+        timeFormat:'Clock12Hours',
+        weekStarts: 0
+      }
+    );
 
+    DayPilot.Locale.register(localeKR);
+
+    this.viewMonth();
   }
 
   ngAfterViewInit(): void {
@@ -135,24 +159,25 @@ export class CalendarDaypilotComponent implements AfterViewInit {
   loadEvents(): void {
     const from = this.nav.control.visibleStart();
     const to = this.nav.control.visibleEnd();
-
+    //console.log('from: ' + from);
+    //console.log('to: ' + to);
   }
 
-  viewDay():void {
+  viewDay(): void {
     this.configNavigator.selectMode = "Day";
     this.configDay.visible = true;
     this.configWeek.visible = false;
     this.configMonth.visible = false;
   }
 
-  viewWeek():void {
+  viewWeek(): void {
     this.configNavigator.selectMode = "Week";
     this.configDay.visible = false;
     this.configWeek.visible = true;
     this.configMonth.visible = false;
   }
 
-  viewMonth():void {
+  viewMonth(): void {
     this.configNavigator.selectMode = "Month";
     this.configDay.visible = false;
     this.configWeek.visible = false;
