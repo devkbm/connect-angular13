@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { ResponseList } from '../../../../core/model/response-list';
 import { WorkGroupService } from '../../service/workgroup.service';
 import { WorkGroupSchedule } from '../../model/workgroup-schedule.model';
+import { DayPilot } from '@daypilot/daypilot-lite-angular';
 
 @Component({
 selector: 'app-work-calendar',
@@ -19,6 +20,7 @@ export class WorkCalendarComponent implements OnInit {
 
   @Output() itemSelected = new EventEmitter();
   @Output() newDateSelected = new EventEmitter();
+  eventData: any[] = [];
 
   constructor(private workGroupService: WorkGroupService,
               private datePipe: DatePipe) { }
@@ -31,10 +33,14 @@ export class WorkCalendarComponent implements OnInit {
   }
 
   rangeChanged(e: any): void {
-    const from: Date = e.start;
-    console.log(from);
-    this.getWorkScheduleList(e.start, e.end);
+    const from: string = this.datePipe.transform(e.start,'yyyyMMdd') ?? '';
+    const to: string = this.datePipe.transform(e.end,'yyyyMMdd') ?? '';
+
+    this.getWorkScheduleList(from, to);
+
   }
+
+
 
   getWorkScheduleList(from: string, to: string): void {
 
@@ -43,25 +49,20 @@ export class WorkCalendarComponent implements OnInit {
       fromDate: from,
       toDate: to
     };
-    //console.log(info);
+
     this.workGroupService.getWorkScheduleList(param)
     .subscribe(
         (model: ResponseList<WorkGroupSchedule>) => {
-          /*
-          successCallback(model.data.map((e) => {
-            this.calendarComponent.getApi().render();
-            return {
-              id : e.id.toString(),
-              title : e.title,
-              start : e.start,
-              end : e.end,
-              allDay : e.allDay,
-              color: e.color
-            }
+          this.eventData = [];
+          console.log(model.data);
+          model.data.forEach(e => this.eventData.push({
+            id: e.id,
+            text: e.text,
+            start: e.start,
+            end: e.end
           }));
-          */
         }
-    )
+    );
   }
 
   onEventClick(param: any): void {
