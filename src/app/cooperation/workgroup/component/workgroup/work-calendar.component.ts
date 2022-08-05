@@ -53,14 +53,15 @@ export class WorkCalendarComponent implements OnInit {
     this.workGroupService.getWorkScheduleList(param)
     .subscribe(
         (model: ResponseList<WorkGroupSchedule>) => {
-          this.eventData = [];
-          console.log(model.data);
-          model.data.forEach(e => this.eventData.push({
+          let data:any[] = [];
+          model.data.forEach(e => data.push({
             id: e.id,
             text: e.text,
             start: e.start,
-            end: e.end
+            end: e.end,
+            barColor: e.color
           }));
+          this.eventData = data;
         }
     );
   }

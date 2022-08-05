@@ -63,9 +63,9 @@
         <nz-form-label nzFor="start" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">기간</nz-form-label>
         <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
           <nz-date-picker formControlName="start" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
-          <nz-time-picker formControlName="start" style="width: 105px"></nz-time-picker> ~
+          <nz-time-picker formControlName="start" [nzMinuteStep]="30" [nzFormat]="'HH:mm'" style="width: 105px"></nz-time-picker> ~
           <nz-date-picker formControlName="end" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
-          <nz-time-picker formControlName="end" style="width: 105px"></nz-time-picker>
+          <nz-time-picker formControlName="end" [nzMinuteStep]="30" [nzFormat]="'HH:mm'" style="width: 105px"></nz-time-picker>
         </nz-form-control>
       </nz-form-item>
     </div>

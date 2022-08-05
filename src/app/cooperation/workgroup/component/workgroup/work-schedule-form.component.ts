@@ -50,11 +50,20 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit {
     public newForm(workGroupId: string): void {
         this.formType = FormType.NEW;
 
+        let start: Date = new Date();
+        start.setMinutes(0);
+        start.setSeconds(0);
+
+        let end: Date = new Date();
+        end.setHours(end.getHours()+1);
+        end.setMinutes(0);
+        end.setSeconds(0);
+
         this.form = this.fb.group({
             id              : new FormControl({value: null, disabled: true}),
             title           : [ null, [ Validators.required ] ],
-            start           : [ new Date(), [ Validators.required ] ],
-            end             : [ new Date(), [ Validators.required ] ],
+            start           : [ start, [ Validators.required ] ],
+            end             : [ end, [ Validators.required ] ],
             allDay          : [ null, [ Validators.required ] ],
             workGroupId     : [ Number.parseInt(workGroupId,10), [ Validators.required ] ]
         });

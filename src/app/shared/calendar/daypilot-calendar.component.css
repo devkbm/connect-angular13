@@ -75,8 +75,7 @@ button.selected {
 
 /* 달력 높이 100%가 안됨 */
 .contents {
-  flex: 1 1 700px;
-  background-color: black;
-  height: auto;
+  flex: 0 0 100%;
+  /*height: auto;*/
 }
 

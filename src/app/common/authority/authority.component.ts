@@ -49,29 +49,21 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     this.drawerVisible = false;
   }
 
-  openDrawer(): void {
-    this.drawerVisible = true;
-
-    this.getAppInfo().subscribe(
-      (model: ResponseObject<WebResource>) => {
-        console.log(model);
-      }
-    );
-  }
-
   selectedItem(item: any): void {
     //this.form.fg.patchValue(item);
   }
 
-  editDrawOpen(item: any): void {
+  async editDrawOpen(item: any) {
 
-    this.openDrawer();
+    await this.openDrawer();
 
+    this.form.getAuthority(item.authority);
+    /*
     setTimeout(() => {
       this.form.appUrl = this.appId;
       this.form.getAuthority(item.authority);
     },10);
-
+    */
   }
 
   getAuthorityList(): void {
@@ -89,15 +81,20 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     this.deleteform.deleteAuthority(id);
   }
 
-  initForm(): void {
-    this.openDrawer();
+  openDrawer() {
+    this.drawerVisible = true;
+  }
 
+  async initForm() {
+    await this.openDrawer();
+
+    this.form.newForm();
+    /*
     setTimeout(() => {
-      //this.form.appUrl = this._location.path(true);
       console.log(this.form.appUrl);
       this.form.newForm();
     },50);
-
+    */
 
   }
 

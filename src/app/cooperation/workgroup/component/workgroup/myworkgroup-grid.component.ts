@@ -71,7 +71,7 @@ export class MyWorkGroupGridComponent extends AggridFunction implements OnInit {
     ];
 
     this.getRowId = (data: any) => {
-        return data.id;
+        return data.data.id;
     };
   }
 
