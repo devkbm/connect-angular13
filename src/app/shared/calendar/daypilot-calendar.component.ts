@@ -70,9 +70,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     //heightSpec: 'Full',
     //height: 50,
     onTimeRangeSelected: (args: DayPilot.CalendarTimeRangeSelectedArgs) => {
-      this.datesSelected.emit({start: args.start.toDate(), end: args.end.toDate()});
-
-      this.newEvent(args);
+      this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
+      //this.newEvent(args);
     },
     onEventClicked: (args: DayPilot.CalendarEventClickedArgs) => {
 
@@ -87,9 +86,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     //heightSpec: 'Full',
     //height: 50,
     onTimeRangeSelected: (args: DayPilot.CalendarTimeRangeSelectedArgs) => {
-      this.datesSelected.emit({start: args.start.toDate(), end: args.end.toDate()});
-
-      this.newEvent(args);
+      this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
+      //this.newEvent(args);
     },
     onEventClicked: (args: DayPilot.CalendarEventClickedArgs) => {
       this.eventClicked.emit(args.e.data);
@@ -100,8 +98,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     startDate: DayPilot.Date.today(),
     locale: 'ko-kr',
     onTimeRangeSelected: (args: DayPilot.MonthTimeRangeSelectedArgs) => {
-      this.datesSelected.emit({start: args.start.toDate(), end: args.end.toDate()});
-      this.newEvent(args);
+      this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
+      //this.newEvent(args);
     },
     onEventClicked: (args: DayPilot.MonthEventClickedArgs) => {
       this.eventClicked.emit(args.e.data);
@@ -242,16 +240,16 @@ export class DaypilotCalendarComponent implements AfterViewInit {
 
   rangeChangedEvent(date: DayPilot.Date): void {
     if (this.selectMode === 'Day') {
-      const range = {start: date.toDate(), end: date.toDate()};
+      const range = {start: date.toDateLocal(), end: date.toDateLocal()};
       this.rangeChanged.emit(range);
     } else if (this.selectMode === 'Week') {
       const sunday: DayPilot.Date = this.date.firstDayOfWeek('ko-kr');
-      const range = {start: sunday.toDate(), end: sunday.addDays(6).toDate()};
+      const range = {start: sunday.toDateLocal(), end: sunday.addDays(6).toDateLocal()};
       this.rangeChanged.emit(range);
     } else if (this.selectMode === 'Month') {
       const fistday: DayPilot.Date = this.date.firstDayOfMonth().firstDayOfWeek('ko-kr');
       const lastday: DayPilot.Date = this.date.lastDayOfMonth().addDays(7).firstDayOfWeek('ko-kr').addDays(-1);
-      const range = {start: fistday.toDate(), end: lastday.toDate()};
+      const range = {start: fistday.toDateLocal(), end: lastday.toDateLocal()};
       this.rangeChanged.emit(range);
     }
   }

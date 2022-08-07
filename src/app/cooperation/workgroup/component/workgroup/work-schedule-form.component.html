@@ -1,58 +1,32 @@
-{{form.getRawValue() | json}}
-<div class="footer">
-  <!--
-  <button nz-button (click)="getWorkGroupSchedule(form.get('id').value)">
-      조회
-  </button>
-  -->
-  <button nz-button (click)="closeForm()">
-      <i nz-icon nzType="close" nzTheme="outline"></i>
-      닫기
-  </button>
-  <nz-divider nzType="vertical"></nz-divider>
-  <button nz-button nzType="primary" (click)="saveWorkGroupSchedule()">
-    <i nz-icon nzType="save" nzTheme="outline"></i>
-      저장
-  </button>
-  <nz-divider nzType="vertical"></nz-divider>
-  <button nz-button nzDanger nz-popconfirm nzTitle="삭제하시겠습니까?"
-      (nzOnConfirm)="deleteWorkGroupSchedule(form.get('id')?.value)" (nzOnCancel)="false">
-      <i nz-icon nzType="delete" nzTheme="outline"></i>
-      삭제
-  </button>
-</div>
+{{fg.getRawValue() | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- ERROR TEMPLATE-->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+  </ng-template>
 
-<form nz-form [formGroup]="form" nzLayout="vertical">
+  <!-- 1 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--작업그룹ID 필드-->
-      <nz-form-item>
-        <nz-form-label nzFor="workGroupId" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">작업그룹 ID</nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-          <nz-select
-              id="workGroupId"
-              formControlName="workGroupId"
-              nzShowSearch="true"
-
-              nzPlaceHolder="Please select">
-              <nz-option
-                *ngFor="let item of workGroupList"
-                [nzLabel]="item.name"
-                [nzValue]="item.id">
-              </nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="workGroupId" [fieldName]="'workGroupId'"
+        [itemId]="'workGroupId'" [label]="'작업그룹 ID'"
+        [options]="workGroupList" [opt_value]="'id'" [opt_label]="'name'"
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">
+      </app-nz-select-custom>
     </div>
 
     <div nz-col nzSpan="12">
       <!--스케쥴ID 필드-->
-      <nz-form-item>
-        <nz-form-label nzFor="id" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">스케쥴 Id</nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-          <input nz-input id="id" formControlName="id">
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="id" [fieldName]="'id'"
+        [itemId]="'id'" [label]="'스케쥴 Id'"
+        placeholder="스케쥴 Id를 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">
+      </app-nz-input-text>
     </div>
   </div>
 
@@ -87,8 +61,16 @@
   <nz-form-item>
     <nz-form-label nzFor="title" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">제목</nz-form-label>
     <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-      <textarea nz-input id="title" formControlName="title" placeholder="제목을 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
+      <textarea nz-input id="text" formControlName="text" placeholder="제목을 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
     </nz-form-control>
   </nz-form-item>
 
 </form>
+
+<div class="footer">
+  <app-nz-crud-button-group
+    (closeClick)="closeForm()"
+    (saveClick)="saveWorkGroupSchedule()"
+    (deleteClick)="deleteWorkGroupSchedule(fg.get('id')?.value)">
+  </app-nz-crud-button-group>
+</div>

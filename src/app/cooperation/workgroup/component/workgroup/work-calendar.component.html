@@ -5,5 +5,9 @@
 </div>
 -->
 <div class="calendar-div">
-  <app-daypilot-calendar (rangeChanged)="rangeChanged($event)" [events]="eventData"></app-daypilot-calendar>
+  <app-daypilot-calendar
+    [events]="eventData"
+    (eventClicked)="eventClicked($event)"
+    (rangeChanged)="rangeChanged($event)"
+    (datesSelected)="onDateClick($event)"></app-daypilot-calendar>
 </div>

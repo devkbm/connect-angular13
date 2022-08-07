@@ -4,7 +4,6 @@ import { DatePipe } from '@angular/common';
 import { ResponseList } from '../../../../core/model/response-list';
 import { WorkGroupService } from '../../service/workgroup.service';
 import { WorkGroupSchedule } from '../../model/workgroup-schedule.model';
-import { DayPilot } from '@daypilot/daypilot-lite-angular';
 
 @Component({
 selector: 'app-work-calendar',
@@ -13,10 +12,10 @@ styleUrls: ['./work-calendar.component.css']
 })
 export class WorkCalendarComponent implements OnInit {
 
-  @Input() fkWorkGroup: string = '';
+  @Input() fkWorkGroup: number = 0;
 
-  fromDate: Date = new Date();
-  toDate: Date = new Date();
+  from: string = this.datePipe.transform(new Date(),'yyyyMMdd') ?? '';
+  to: string = this.datePipe.transform(new Date(),'yyyyMMdd') ?? '';
 
   @Output() itemSelected = new EventEmitter();
   @Output() newDateSelected = new EventEmitter();
@@ -26,70 +25,54 @@ export class WorkCalendarComponent implements OnInit {
               private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    //this.getScheduleList(this.fkWorkGroup);
-    this.fromDate = new Date('2020-10-01');
-    this.toDate = new Date('2020-10-30');
-    //this.getScheduleList('55');
   }
 
   rangeChanged(e: any): void {
-    const from: string = this.datePipe.transform(e.start,'yyyyMMdd') ?? '';
-    const to: string = this.datePipe.transform(e.end,'yyyyMMdd') ?? '';
+    this.from = this.datePipe.transform(e.start,'yyyyMMdd') ?? '';
+    this.to = this.datePipe.transform(e.end,'yyyyMMdd') ?? '';
 
-    this.getWorkScheduleList(from, to);
-
+    this.getWorkScheduleList();
   }
 
+  getWorkScheduleList(): void {
+    const workGroupId: string = this.fkWorkGroup.toString();
 
-
-  getWorkScheduleList(from: string, to: string): void {
+    if (workGroupId === "" || workGroupId === null || workGroupId === undefined) {
+      this.eventData = [];
+      console.log('null');
+      return;
+    }
 
     const param = {
       fkWorkGroup : this.fkWorkGroup,
-      fromDate: from,
-      toDate: to
+      fromDate: this.from,
+      toDate: this.to
     };
 
-    this.workGroupService.getWorkScheduleList(param)
-    .subscribe(
-        (model: ResponseList<WorkGroupSchedule>) => {
-          let data:any[] = [];
-          model.data.forEach(e => data.push({
-            id: e.id,
-            text: e.text,
-            start: e.start,
-            end: e.end,
-            barColor: e.color
-          }));
-          this.eventData = data;
-        }
-    );
+    this.workGroupService
+        .getWorkScheduleList(param)
+        .subscribe(
+            (model: ResponseList<WorkGroupSchedule>) => {
+              let data: any[] = [];
+              model.data.forEach(e => data.push({
+                id: e.id,
+                text: e.text,
+                start: e.start,
+                end: e.end,
+                barColor: e.color
+              }));
+              this.eventData = data;
+            }
+        );
   }
 
-  onEventClick(param: any): void {
-      console.log(param);
-      console.log(param.event.id);
-      this.itemSelected.emit(param.event.id);
+  eventClicked(param: any): void {
+    this.itemSelected.emit(param.id);
   }
 
   onDateClick(args: any): void {
-    this.newDateSelected.emit({fkWorkGroup: this.fkWorkGroup, date: args.date});
+    this.newDateSelected.emit({fkWorkGroup: this.fkWorkGroup, start: args.start, end: args.end});
   }
 
-  onDatesRender(param: any): void {
-    console.log(param);
-    //console.log(param[0]._context.viewApi);
-
-    const endDate: Date = param[0]._context.viewApi.currentEnd;
-    endDate.setDate(endDate.getDate() - 1);
-
-    this.fromDate = param[0]._context.viewApi.currentStart;
-    this.toDate = endDate;
-    // console.log(param.view.currentStart);
-    // console.log(param.view.currentEnd);
-    // console.log(endDate);
-    //this.getScheduleList(this.fkWorkGroup);
-
-  }
 
 }
