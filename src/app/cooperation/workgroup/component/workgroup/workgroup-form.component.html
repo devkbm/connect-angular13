@@ -23,7 +23,7 @@
 
     <div nz-col nzSpan="12">
       <!--작업그룹 Id 필드-->
-      <app-nz-input-text
+      <app-nz-input-text #workGroupName
         [parentFormGroup]="fg" formControlName="workGroupName" [fieldName]="'workGroupName'"
         [itemId]="'workGroupName'" [label]="'작업그룹명'"
         placeholder="작업그룹명을 입력해주세요."
@@ -35,16 +35,17 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <nz-form-item>
-          <nz-form-label nzFor="color" nzRequired>색상</nz-form-label>
-          <nz-form-control>
-              <input formControlName="color"
-                      [style.background]="color"
-                      [cpAlphaChannel]="'always'"
-                      [cpOutputFormat]="'hex'"
-                      [cpOKButton]=true
-                      [(colorPicker)]="color"
-                      (colorPickerChange)="selectColor($event)"/>
-          </nz-form-control>
+        <nz-form-label nzFor="color" nzRequired>색상</nz-form-label>
+        <nz-form-control>
+          <input
+            formControlName="color"
+            [style.background]="color"
+            [cpAlphaChannel]="'always'"
+            [cpOutputFormat]="'hex'"
+            [cpOKButton]=true
+            [(colorPicker)]="color"
+            (colorPickerChange)="selectColor($event)"/>
+        </nz-form-control>
       </nz-form-item>
     </div>
 

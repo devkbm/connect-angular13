@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nz-crud-button-group',
@@ -9,16 +9,30 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
         조회
       </button>
       <nz-divider nzType="vertical"></nz-divider>
-      <button nz-button nzType="primary"
+      <!--저장 재확인할 경우 -->
+      <button *ngIf="isSavePopupConfirm" nz-button nzType="primary"
         nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
         (nzOnConfirm)="saveButtonClick()" (nzOnCancel)="false">
         <i nz-icon nzType="save" nzTheme="outline"></i>
         저장
       </button>
+      <!--저장 재확인하지 않을 경우 -->
+      <button *ngIf="!isSavePopupConfirm" nz-button nzType="primary"
+        (click)="saveButtonClick()">
+        <i nz-icon nzType="save" nzTheme="outline"></i>
+        저장
+      </button>
       <nz-divider nzType="vertical"></nz-divider>
-      <button nz-button nzDanger
+      <!--삭제 재확인할 경우 -->
+      <button *ngIf="isDeletePopupConfirm" nz-button nzDanger
         nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
         (nzOnConfirm)="deleteButtonClick()" (nzOnCancel)="false">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
+        삭제
+      </button>
+      <!--삭제 재확인하지 않을 경우 -->
+      <button *ngIf="!isDeletePopupConfirm" nz-button nzDanger
+        (click)="deleteButtonClick()">
         <i nz-icon nzType="delete" nzTheme="outline"></i>
         삭제
       </button>
@@ -43,6 +57,9 @@ export class NzCrudButtonGroupComponent implements OnInit {
   @Output() searchClick = new EventEmitter();
   @Output() saveClick = new EventEmitter();
   @Output() deleteClick = new EventEmitter();
+
+  @Input() isSavePopupConfirm: boolean = true;
+  @Input() isDeletePopupConfirm: boolean = true;
 
   constructor() { }
 

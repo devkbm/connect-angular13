@@ -99,7 +99,7 @@ export class MyWorkGroupGridComponent extends AggridFunction implements OnInit {
     let ids = selectedRows.map((v: { id: any; }) => v.id)   // id 추출
                           .join(',');       // 콤마 구분자로 분리함
     this.rowSelected.emit(ids);
-    console.log(ids);
+    // console.log('ids ' + ids);
   }
 
   rowDbClicked(event: any): void {

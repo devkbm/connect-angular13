@@ -3,7 +3,6 @@ import { WorkScheduleFormComponent } from './work-schedule-form.component';
 import { WorkGroupFormComponent } from './workgroup-form.component';
 import { MyWorkGroupGridComponent } from './myworkgroup-grid.component';
 import { WorkCalendarComponent } from './work-calendar.component';
-import { DateTableComponent } from 'ng-zorro-antd/date-picker/lib/date-table.component';
 
 @Component({
   selector: 'app-workgroup',
@@ -69,8 +68,11 @@ export class WorkgroupComponent implements OnInit {
   }
 
   public modifyWorkGroup(workGroup: any): void {
-    this.workGroupForm.getWorkGroup(workGroup.id);
     this.openWorkGroupDrawer();
+
+    setTimeout(() => {
+      this.workGroupForm.getWorkGroup(workGroup.id);
+    },50);
   }
 
   public newSchedule(): void {
@@ -82,7 +84,6 @@ export class WorkgroupComponent implements OnInit {
   }
 
   public workGroupSelect(ids: any): void {
-    console.log(ids);
     this.workGroupId = ids;
     this.getScheduleList();
   }
@@ -93,9 +94,6 @@ export class WorkgroupComponent implements OnInit {
     setTimeout(() => {
       this.workScheduleForm.getWorkGroupSchedule(id);
     },50);
-
-    //console.log(this.workScheduleForm);
-    //this.workScheduleForm.getWorkGroupSchedule(id);
   }
 
   async newSchedule2(param: any) {

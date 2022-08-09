@@ -10,7 +10,7 @@
 
 <button nz-button (click)="newSchedule()">
   <i nz-icon nzType="form" nzTheme="outline"></i>
-  신규 스케쥴
+  신규 일정
 </button>
 
 <div class="grid-wrapper">
@@ -33,7 +33,7 @@
     [nzMaskClosable]="true"
     [nzWidth]="720"
     [nzVisible]="scheduleDrawerVisible"
-    nzTitle="스케쥴 등록"
+    nzTitle="일정 등록"
     (nzOnClose)="closeScheduleDrawer()">
 
     <app-work-schedule-form *nzDrawerContent

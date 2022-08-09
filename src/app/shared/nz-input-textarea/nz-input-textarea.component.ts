@@ -17,6 +17,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
               [placeholder]="placeholder"
               [ngModel]="value"
               [nzAutosize]="nzAutoSize"
+              [rows]="rows"
               (ngModelChange)="onChange($event)"
               (blur)="onTouched()">
         </textarea>
@@ -44,6 +45,7 @@ export class NzInputTextareaComponent implements ControlValueAccessor {
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
   @Input() nzAutoSize: boolean | { minRows: number, maxRows: number } = false;
+  @Input() rows: number = 1;
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 

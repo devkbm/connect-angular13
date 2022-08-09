@@ -1,7 +1,7 @@
 .calendar {
   display: flex;
   flex-direction: column;
-  align-content: stretch;
+  align-items: stretch;
   vertical-align: top;
 }
 
@@ -76,6 +76,5 @@ button.selected {
 /* 달력 높이 100%가 안됨 */
 .contents {
   flex: 0 0 100%;
-  /*height: auto;*/
 }
 

@@ -22,7 +22,7 @@ export class DaypilotCalendarNavigatorComponent implements AfterViewInit {
 
   @Input() events: DayPilot.EventDataShort[] = [];
   @Output() dateChanged:EventEmitter<DayPilot.Date> = new EventEmitter<DayPilot.Date>();
-  @Output() rangeChanged:EventEmitter<{start:DayPilot.Date , end:DayPilot.Date}> = new EventEmitter<{start:DayPilot.Date , end:DayPilot.Date}>();
+  @Output() rangeChanged:EventEmitter<{start: DayPilot.Date , end: DayPilot.Date}> = new EventEmitter<{start:DayPilot.Date , end:DayPilot.Date}>();
 
   date = DayPilot.Date.today();
 
@@ -31,7 +31,7 @@ export class DaypilotCalendarNavigatorComponent implements AfterViewInit {
     showMonths: 1,
     cellWidth: 25,
     cellHeight: 25,
-    onVisibleRangeChanged: (args: {start:DayPilot.Date , end:DayPilot.Date}) => {
+    onVisibleRangeChanged: (args: {start: DayPilot.Date , end: DayPilot.Date}) => {
       this.rangeChanged.emit(args);
     }
   };
