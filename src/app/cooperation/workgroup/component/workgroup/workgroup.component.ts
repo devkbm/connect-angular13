@@ -3,6 +3,9 @@ import { WorkScheduleFormComponent } from './work-schedule-form.component';
 import { WorkGroupFormComponent } from './workgroup-form.component';
 import { MyWorkGroupGridComponent } from './myworkgroup-grid.component';
 import { WorkCalendarComponent } from './work-calendar.component';
+import { DaypilotCalendarNavigatorComponent } from 'src/app/shared/calendar/daypilot-calendar-navigator.component';
+import { DayPilot } from '@daypilot/daypilot-lite-angular';
+import { ModeChangedArgs } from 'src/app/shared/calendar/daypilot-calendar.component';
 
 @Component({
   selector: 'app-workgroup',
@@ -16,10 +19,14 @@ export class WorkgroupComponent implements OnInit {
   @ViewChild('workScheduleForm', {static: false}) workScheduleForm!: WorkScheduleFormComponent;
   @ViewChild('workGroupForm', {static: false}) workGroupForm!: WorkGroupFormComponent;
 
+  @ViewChild('navigator', {static: false}) navigator!: DaypilotCalendarNavigatorComponent;
+
   scheduleDrawerVisible: boolean = false;
   workGroupDrawerVisible: boolean = false;
 
   workGroupId: number = 0;
+  eventData: any[] = [];
+  mode: "Day" | "Week" | "Month" | "None" = 'Month';
 
   constructor() { }
 
@@ -97,12 +104,11 @@ export class WorkgroupComponent implements OnInit {
   }
 
   async newSchedule2(param: any) {
-    console.log(param.fkWorkGroup);
     if (param.fkWorkGroup === 0 || param.fkWorkGroup === '') {
       alert('작업그룹을 선택해주세요.');
       return;
     }
-
+    this.navigator.date = param.start;
     await this.openScheduleDrawer();
     setTimeout(() => {
       const workGroupId: number = param.fkWorkGroup;
@@ -113,4 +119,35 @@ export class WorkgroupComponent implements OnInit {
     },50);
   }
 
+  eventDateChanged(event: any) {
+    this.eventData = event;
+  }
+
+  calendarVisibleRangeChanged(args: any) {
+    if (this.mode === 'Month') {
+      this.navigator.date = new DayPilot.Date(args.date, true);
+    } else {
+      this.navigator.date = new DayPilot.Date(args.start, true);
+    }
+  }
+
+  modeChanged(args: ModeChangedArgs): void {
+    this.mode = args.mode;
+    this.navigator.setMode(this.mode, args.date);
+  }
+
+  navigatorSelectChanged(args: any) {
+    console.log('navigatorSelectChanged' + args.start);
+    this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true));
+  }
+
+  navigatorRangeChanged(args: any) {
+    if (this.mode === 'Month') {
+      this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true).addDays(7));
+    } else {
+      this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true));
+    }
+
+
+  }
 }

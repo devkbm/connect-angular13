@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
         {{label}}
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
-        <textarea nz-input class="ime"
+        <textarea #inputControl nz-input class="ime"
               [required]="required"
               [disabled]="disabled"
               [id]="itemId"
@@ -37,6 +37,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
 })
 export class NzInputTextareaComponent implements ControlValueAccessor {
 
+  @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
   @Input() itemId: string = '';
@@ -60,6 +61,10 @@ export class NzInputTextareaComponent implements ControlValueAccessor {
     return this.parentFormGroup?.get(this.fieldName) as FormControl;
   }
 
+  focus(): void {
+    this.element?.nativeElement.focus();
+  }
+
   writeValue(obj: any): void {
     this.value = obj;
   }
@@ -75,5 +80,6 @@ export class NzInputTextareaComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
+
 
 }

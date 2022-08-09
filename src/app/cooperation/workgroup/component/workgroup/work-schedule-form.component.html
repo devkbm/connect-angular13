@@ -59,7 +59,7 @@
 
   <!--제목 필드-->
   <!-- [nzAutoSize]="{ minRows: 10, maxRows: 20 }" -->
-  <app-nz-input-textarea
+  <app-nz-input-textarea #text
     [parentFormGroup]="fg" formControlName="text" [fieldName]="'text'"
     [itemId]="'text'" [label]="'제목'"
     placeholder="제목을 입력해주세요."

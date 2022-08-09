@@ -14,17 +14,28 @@
 </button>
 
 <div class="grid-wrapper">
-  <app-myworkgroup-grid
+  <app-daypilot-calendar-navigator #navigator
+    class="navi"
+    [mode]='this.mode'
+    [events]="this.eventData"
+    (rangeChanged)="navigatorRangeChanged($event)"
+    (selectChanged)="navigatorSelectChanged($event)">
+  </app-daypilot-calendar-navigator>
+
+  <app-myworkgroup-grid class="title"
       #myWorkGroupGrid
       (rowSelected)="workGroupSelect($event)"
       (rowDoubleClicked)="modifyWorkGroup($event)">
   </app-myworkgroup-grid>
 
+  <!--(visibleRangeChanged)="calendarVisibleRangeChanged($event)"-->
   <app-work-calendar
-      #workCalendar
+      #workCalendar class="calendar"
       [fkWorkGroup]="workGroupId"
       (itemSelected)="itemSelect($event)"
-      (newDateSelected)="newSchedule2($event)">
+      (newDateSelected)="newSchedule2($event)"
+      (eventDataChanged)="eventDateChanged($event)"
+      (modeChanged)="modeChanged($event)">
   </app-work-calendar>
 </div>
 

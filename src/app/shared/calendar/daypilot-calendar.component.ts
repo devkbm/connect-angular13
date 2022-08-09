@@ -1,4 +1,3 @@
-import { ThisReceiver } from "@angular/compiler";
 import {Component, ViewChild, AfterViewInit, Input, Output, EventEmitter} from "@angular/core";
 import {
   DayPilot,
@@ -6,33 +5,41 @@ import {
   DayPilotMonthComponent
 } from "@daypilot/daypilot-lite-angular";
 
+export interface ModeChangedArgs {
+  readonly mode: "Day" | "Week" | "Month" | "None";
+  readonly date: DayPilot.Date;
+}
+
 @Component({
   selector: 'app-daypilot-calendar',
   template: `
     <div class="calendar">
       <div class="header">
+
         <div class="nav-buttons">
+          <!--
           <button (click)="navigatePrevious($event)" class="direction-button"><</button>
           <button (click)="navigateToday($event)">Today</button>
           <button (click)="navigateNext($event)" class="direction-button">></button>
+          -->
         </div>
 
         <div class="title">
-          <div *ngIf="selectMode === 'Day'">
+          <div *ngIf="this.mode === 'Day'">
             {{date.toDate() | date : 'YYYY-MM-dd' }}
           </div>
-          <div *ngIf="selectMode === 'Week'">
+          <div *ngIf="this.mode === 'Week'">
             {{start.toDate() | date : 'YYYY-MM-dd' }} ~ {{end.toDate() | date : 'YYYY-MM-dd' }}
           </div>
-          <div *ngIf="selectMode === 'Month'">
+          <div *ngIf="this.mode === 'Month'">
             {{date.toDate() | date : 'YYYY-MM' }}
           </div>
         </div>
 
         <div class="view-buttons">
-          <button (click)="viewDay()" [class]="this.selectMode == 'Day' ? 'selected' : ''">Day</button>
-          <button (click)="viewWeek()" [class]="this.selectMode == 'Week' ? 'selected' : ''">Week</button>
-          <button (click)="viewMonth()" [class]="this.selectMode == 'Month' ? 'selected' : ''">Month</button>
+          <button (click)="viewDay()" [class]="this.mode == 'Day' ? 'selected' : ''">Day</button>
+          <button (click)="viewWeek()" [class]="this.mode == 'Week' ? 'selected' : ''">Week</button>
+          <button (click)="viewMonth()" [class]="this.mode == 'Month' ? 'selected' : ''">Month</button>
         </div>
       </div>
 
@@ -52,12 +59,13 @@ export class DaypilotCalendarComponent implements AfterViewInit {
   @ViewChild("week") week!: DayPilotCalendarComponent;
   @ViewChild("month") month!: DayPilotMonthComponent;
 
-  @Input() selectMode?: "Day" | "Week" | "Month" | "None" = "Month";
+  @Input() mode?: "Day" | "Week" | "Month" | "None" = "Month";
   @Input() events: DayPilot.EventData[] = [];
 
   @Output() datesSelected: EventEmitter<{start: Date, end: Date}> = new EventEmitter<{start: Date, end: Date}>();
-  @Output() rangeChanged: EventEmitter<{start: Date , end: Date}> = new EventEmitter<{start: Date , end: Date}>();
+  @Output() rangeChanged: EventEmitter<{start: Date , end: Date, date: Date}> = new EventEmitter<{start: Date , end: Date, date: Date}>();
   @Output() eventClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() modeChanged:  EventEmitter<ModeChangedArgs> = new EventEmitter<ModeChangedArgs>();
 
   date: DayPilot.Date;
   start: DayPilot.Date;
@@ -161,7 +169,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
   }
 
   viewDay(): void {
-    this.selectMode = "Day";
+    this.mode = "Day";
+    this.modeChanged.emit({mode: this.mode, date: this.date});
     this.configDay.visible = true;
     this.configWeek.visible = false;
     this.configMonth.visible = false;
@@ -170,7 +179,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
   }
 
   viewWeek(): void {
-    this.selectMode = "Week";
+    this.mode = "Week";
+    this.modeChanged.emit({mode: this.mode, date: this.date});
     this.configDay.visible = false;
     this.configWeek.visible = true;
     this.configMonth.visible = false;
@@ -179,7 +189,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
   }
 
   viewMonth(): void {
-    this.selectMode = "Month";
+    this.mode = "Month";
+    this.modeChanged.emit({mode: this.mode, date: this.date});
     this.configDay.visible = false;
     this.configWeek.visible = false;
     this.configMonth.visible = true;
@@ -189,22 +200,22 @@ export class DaypilotCalendarComponent implements AfterViewInit {
 
   navigatePrevious(event: MouseEvent): void {
     //event.preventDefault();
-    if (this.selectMode === 'Day') {
+    if (this.mode === 'Day') {
       this.rangeChangedEvent(this.date.addDays(-1));
-    } else if (this.selectMode === 'Week') {
+    } else if (this.mode === 'Week') {
       this.rangeChangedEvent(this.date.addDays(-7));
-    } else if (this.selectMode === 'Month') {
+    } else if (this.mode === 'Month') {
       this.rangeChangedEvent(this.date.addMonths(-1));
     }
   }
 
   navigateNext(event: MouseEvent): void {
     //event.preventDefault();
-    if (this.selectMode === 'Day') {
+    if (this.mode === 'Day') {
       this.rangeChangedEvent(this.date.addDays(1));
-    } else if (this.selectMode === 'Week') {
+    } else if (this.mode === 'Week') {
       this.rangeChangedEvent(this.date.addDays(7));
-    } else if (this.selectMode === 'Month') {
+    } else if (this.mode === 'Month') {
       this.rangeChangedEvent(this.date.addMonths(1));
     }
   }
@@ -230,34 +241,32 @@ export class DaypilotCalendarComponent implements AfterViewInit {
   rangeChangedEvent(date: DayPilot.Date): void {
     this.date = date;
 
-    if (this.selectMode === 'Day') {
+    if (this.mode === 'Day') {
       this.start = date;
       this.end = date;
-      const range = {start: date.toDateLocal(), end: date.toDateLocal()};
+      const range = {start: date.toDateLocal(), end: date.toDateLocal(), date: this.date.toDateLocal()};
       this.rangeChanged.emit(range);
 
       // Day Component
       this.configDay.startDate = this.start;
       this.day.control.startDate = this.start;
-    } else if (this.selectMode === 'Week') {
+    } else if (this.mode === 'Week') {
       const sunday: DayPilot.Date = this.date.firstDayOfWeek('ko-kr');
       this.start = sunday;
       this.end = sunday.addDays(6);
-      const range = {start: this.start.toDateLocal(), end: this.end.toDateLocal()};
+      const range = {start: this.start.toDateLocal(), end: this.end.toDateLocal(), date: this.date.toDateLocal()};
       this.rangeChanged.emit(range);
 
       // Week Component
       this.week.control.startDate = this.start;
       this.configWeek.startDate = this.start;
-    } else if (this.selectMode === 'Month') {
+    } else if (this.mode === 'Month') {
       this.start = this.date.firstDayOfMonth().firstDayOfWeek('ko-kr');
       this.end = this.date.lastDayOfMonth().addDays(7).firstDayOfWeek('ko-kr').addDays(-1);
-      const range = {start: this.start.toDateLocal(), end: this.end.toDateLocal()};
+      const range = {start: this.start.toDateLocal(), end: this.end.toDateLocal(), date: this.date.toDateLocal()};
       this.rangeChanged.emit(range);
 
       // Month Component
-      console.log(this.start);
-      console.log(this.end);
       this.month.control.startDate = this.date;
       this.configMonth.startDate = this.date;
     }
