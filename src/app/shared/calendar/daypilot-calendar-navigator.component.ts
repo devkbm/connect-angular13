@@ -34,7 +34,7 @@ export class DaypilotCalendarNavigatorComponent implements AfterViewInit {
 
   @ViewChild("navigator") nav!: DayPilotNavigatorComponent;
 
-  @Input() mode: "Day" | "Week" | "Month" | "None" = "Month";
+  @Input() mode: "Day" | "Week" | "Month" | "None" = "Day";
   @Input() events: DayPilot.EventDataShort[] = [];
   @Input() date: DayPilot.Date = DayPilot.Date.today();
 

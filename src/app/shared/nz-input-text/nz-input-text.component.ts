@@ -80,7 +80,7 @@ export class NzInputTextComponent implements ControlValueAccessor {
   }
 
   valueChange(val: any) {
-    console.log(val);
+    //console.log(val);
   }
 
 }

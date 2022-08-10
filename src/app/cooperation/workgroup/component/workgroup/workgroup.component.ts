@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WorkScheduleFormComponent } from './work-schedule-form.component';
+import { NewFormValue, WorkScheduleFormComponent } from './work-schedule-form.component';
 import { WorkGroupFormComponent } from './workgroup-form.component';
 import { MyWorkGroupGridComponent } from './myworkgroup-grid.component';
-import { WorkCalendarComponent } from './work-calendar.component';
+import { NewDateSelectedArgs, WorkCalendarComponent } from './work-calendar.component';
 import { DaypilotCalendarNavigatorComponent } from 'src/app/shared/calendar/daypilot-calendar-navigator.component';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
 import { ModeChangedArgs } from 'src/app/shared/calendar/daypilot-calendar.component';
@@ -19,14 +19,17 @@ export class WorkgroupComponent implements OnInit {
   @ViewChild('workScheduleForm', {static: false}) workScheduleForm!: WorkScheduleFormComponent;
   @ViewChild('workGroupForm', {static: false}) workGroupForm!: WorkGroupFormComponent;
 
-  @ViewChild('navigator', {static: false}) navigator!: DaypilotCalendarNavigatorComponent;
+  @ViewChild('navigator', {static: true}) navigator!: DaypilotCalendarNavigatorComponent;
 
   scheduleDrawerVisible: boolean = false;
   workGroupDrawerVisible: boolean = false;
 
-  workGroupId: number = 0;
-  eventData: any[] = [];
   mode: "Day" | "Week" | "Month" | "None" = 'Month';
+
+  selectedWorkGroupId: number = -1;
+  selectedScheduleId: number = -1;
+  newScheduleArgs?: NewFormValue;
+  eventData: any[] = [];
 
   constructor() { }
 
@@ -34,39 +37,41 @@ export class WorkgroupComponent implements OnInit {
     this.getMyWorkGroupList();
   }
 
-  public getMyWorkGroupList(): void {
+  getMyWorkGroupList(): void {
     this.closeWorkGroupDrawer();
     this.myWorkGroupGrid.getMyWorkGroupList();
   }
 
-  public getScheduleList(): void {
+  getScheduleList(): void {
     this.closeWorkGroupDrawer();
     this.closeScheduleDrawer();
 
-    this.workCalendar.fkWorkGroup = this.workGroupId;
+    this.workCalendar.fkWorkGroup = this.selectedWorkGroupId;
     this.workCalendar.getWorkScheduleList();
   }
 
-  public openScheduleDrawer(): void {
+  openScheduleDrawer() {
+    console.log('openScheduleDrawer: start');
     this.scheduleDrawerVisible = true;
+    console.log('openScheduleDrawer: end');
   }
 
-  public closeScheduleDrawer(): void {
+  closeScheduleDrawer() {
     this.scheduleDrawerVisible = false;
 
-    this.workCalendar.fkWorkGroup = this.workGroupId;
+    this.workCalendar.fkWorkGroup = this.selectedWorkGroupId;
     this.workCalendar.getWorkScheduleList();
   }
 
-  public openWorkGroupDrawer(): void {
+  openWorkGroupDrawer() {
     this.workGroupDrawerVisible = true;
   }
 
-  public closeWorkGroupDrawer(): void {
+  closeWorkGroupDrawer() {
     this.workGroupDrawerVisible = false;
   }
 
-  public newWorkGroup(): void {
+  newWorkGroup(): void {
     this.openWorkGroupDrawer();
 
     setTimeout(() => {
@@ -74,7 +79,7 @@ export class WorkgroupComponent implements OnInit {
     },50);
   }
 
-  public modifyWorkGroup(workGroup: any): void {
+  modifyWorkGroup(workGroup: any): void {
     this.openWorkGroupDrawer();
 
     setTimeout(() => {
@@ -82,41 +87,41 @@ export class WorkgroupComponent implements OnInit {
     },50);
   }
 
-  public newSchedule(): void {
+  newSchedule(): void {
     this.openScheduleDrawer();
 
-    setTimeout(() => {
-      this.workScheduleForm.newForm(this.workGroupId, new Date(), new Date());
-    },50);
+    const today: Date = new Date();
+    const from: Date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), 0);
+    const to: Date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 1, 0);
+    this.newScheduleArgs = {workGroupId: this.selectedWorkGroupId, start: from, end: to};
+    this.selectedScheduleId = -1;
   }
 
-  public workGroupSelect(ids: any): void {
-    this.workGroupId = ids;
-    this.getScheduleList();
-  }
-
-  async itemSelect(id: any) {
-    await this.openScheduleDrawer();
-
-    setTimeout(() => {
-      this.workScheduleForm.getWorkGroupSchedule(id);
-    },50);
-  }
-
-  async newSchedule2(param: any) {
-    if (param.fkWorkGroup === 0 || param.fkWorkGroup === '') {
+  newScheduleByDateSelect(param: NewDateSelectedArgs) {
+    console.log('newScheduleByDateSelect: start');
+    if (param.workGroupId === -1) {
       alert('작업그룹을 선택해주세요.');
       return;
     }
-    this.navigator.date = param.start;
-    await this.openScheduleDrawer();
-    setTimeout(() => {
-      const workGroupId: number = param.fkWorkGroup;
-      const start = param.start;
-      const end = param.end;
 
-      this.workScheduleForm.newForm(workGroupId, start, end);
-    },50);
+    this.navigator.date = new DayPilot.Date(param.start,true);
+    this.newScheduleArgs = {workGroupId: this.selectedWorkGroupId, start: param.start, end: param.end};
+    this.selectedScheduleId = -1;
+
+    this.openScheduleDrawer();
+    console.log('newScheduleByDateSelect: end');
+  }
+
+  editSchedule(id: any) {
+    this.selectedScheduleId = id;
+    this.newScheduleArgs = undefined;
+
+    this.openScheduleDrawer();
+  }
+
+  workGroupSelect(ids: any): void {
+    this.selectedWorkGroupId = ids;
+    this.getScheduleList();
   }
 
   eventDateChanged(event: any) {
@@ -133,21 +138,10 @@ export class WorkgroupComponent implements OnInit {
 
   modeChanged(args: ModeChangedArgs): void {
     this.mode = args.mode;
-    this.navigator.setMode(this.mode, args.date);
   }
 
   navigatorSelectChanged(args: any) {
-    console.log('navigatorSelectChanged' + args.start);
     this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true));
   }
 
-  navigatorRangeChanged(args: any) {
-    if (this.mode === 'Month') {
-      this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true).addDays(7));
-    } else {
-      this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true));
-    }
-
-
-  }
 }

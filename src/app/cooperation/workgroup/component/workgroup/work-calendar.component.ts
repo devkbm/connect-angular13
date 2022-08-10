@@ -7,6 +7,12 @@ import { WorkGroupSchedule } from '../../model/workgroup-schedule.model';
 import { DaypilotCalendarComponent, ModeChangedArgs } from 'src/app/shared/calendar/daypilot-calendar.component';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
 
+export interface NewDateSelectedArgs {
+  workGroupId: number;
+  start: Date;
+  end: Date;
+}
+
 @Component({
 selector: 'app-work-calendar',
 templateUrl: './work-calendar.component.html',
@@ -17,7 +23,7 @@ export class WorkCalendarComponent implements AfterViewInit {
   @ViewChild(DaypilotCalendarComponent) calendar!: DaypilotCalendarComponent;
   @Input() fkWorkGroup: number = 0;
   @Output() itemSelected = new EventEmitter();
-  @Output() newDateSelected = new EventEmitter();
+  @Output() newDateSelected: EventEmitter<NewDateSelectedArgs> = new EventEmitter<NewDateSelectedArgs>();
   @Output() eventDataChanged = new EventEmitter();
   @Output() visibleRangeChanged: EventEmitter<{start: Date, end: Date, date: Date}> = new EventEmitter<{start: Date, end: Date, date: Date}>();
   @Output() modeChanged: EventEmitter<ModeChangedArgs> = new EventEmitter<ModeChangedArgs>();
@@ -80,7 +86,10 @@ export class WorkCalendarComponent implements AfterViewInit {
   }
 
   onDateClick(args: any): void {
-    this.newDateSelected.emit({fkWorkGroup: this.fkWorkGroup, start: args.start, end: args.end});
+    console.log('onDateClick: start');
+    const eventArgs: NewDateSelectedArgs = {workGroupId: this.fkWorkGroup, start: args.start, end: args.end};
+    this.newDateSelected.emit(eventArgs);
+    console.log('onDateClick: end');
   }
 
   calendarModeChanged(args: ModeChangedArgs): void {
@@ -89,6 +98,6 @@ export class WorkCalendarComponent implements AfterViewInit {
   }
 
   calendarSetDate(date: DayPilot.Date) {
-    this.calendar.rangeChangedEvent(date);
+    this.calendar.setDate(date);
   }
 }

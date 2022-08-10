@@ -66,7 +66,8 @@ export class MyWorkGroupGridComponent extends AggridFunction implements OnInit {
       },
       {
         headerName: '작업그룹명',
-        field: 'name'
+        field: 'name',
+        width: 140
       }
     ];
 

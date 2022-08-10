@@ -16,9 +16,7 @@
 <div class="grid-wrapper">
   <app-daypilot-calendar-navigator #navigator
     class="navi"
-    [mode]='this.mode'
     [events]="this.eventData"
-    (rangeChanged)="navigatorRangeChanged($event)"
     (selectChanged)="navigatorSelectChanged($event)">
   </app-daypilot-calendar-navigator>
 
@@ -28,13 +26,13 @@
       (rowDoubleClicked)="modifyWorkGroup($event)">
   </app-myworkgroup-grid>
 
-  <!--(visibleRangeChanged)="calendarVisibleRangeChanged($event)"-->
   <app-work-calendar
       #workCalendar class="calendar"
-      [fkWorkGroup]="workGroupId"
-      (itemSelected)="itemSelect($event)"
-      (newDateSelected)="newSchedule2($event)"
+      [fkWorkGroup]="selectedWorkGroupId"
+      (itemSelected)="editSchedule($event)"
+      (newDateSelected)="newScheduleByDateSelect($event)"
       (eventDataChanged)="eventDateChanged($event)"
+      (visibleRangeChanged)="calendarVisibleRangeChanged($event)"
       (modeChanged)="modeChanged($event)">
   </app-work-calendar>
 </div>
@@ -49,6 +47,8 @@
 
     <app-work-schedule-form *nzDrawerContent
         #workScheduleForm
+        [initLoadId]="this.selectedScheduleId"
+        [newFormValue]="this.newScheduleArgs"
         (formSaved)="getScheduleList()"
         (formDeleted)="getScheduleList()"
         (formClosed)="closeScheduleDrawer()">
