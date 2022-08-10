@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -13,31 +13,22 @@ import { ResponseObject } from '../../core/model/response-object';
 import { MenuGroup } from './menu-group.model';
 import { existingMenuGroupValidator } from './menu-group-duplication-validator.directive';
 import { FormBase, FormType } from '../../core/form/form-base';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-menu-group-form',
   templateUrl: './menu-group-form.component.html',
   styleUrls: ['./menu-group-form.component.css']
 })
-export class MenuGroupFormComponent extends FormBase implements OnInit {
+export class MenuGroupFormComponent extends FormBase implements OnInit, AfterViewInit {
 
-   ;
-
-  /**
-   * Xs < 576px span size
-   * Sm >= 576px span size
-   */
-  formLabelXs = 24;
-  formControlXs = 24;
-
-  formLabelSm = 24;
-  fromControlSm = 24;
+  @ViewChild('menuGroupId', {static: true}) menuGroupId!: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
-              private appAlarmService: AppAlarmService) { super(); }
+              private appAlarmService: AppAlarmService) {
+    super();
 
-  ngOnInit() {
     this.fg = this.fb.group({
       menuGroupId     : new FormControl(null, {
                                                 validators: Validators.required,
@@ -47,8 +38,14 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
       menuGroupName   : [ null, [ Validators.required ] ],
       description     : [ null]
     });
+  }
 
+  ngOnInit() {
     this.newForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.menuGroupId.focus();
   }
 
   newForm(): void {
@@ -67,17 +64,17 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
 
   getMenuGroup(menuGroupId: string) {
     this.menuService
-      .getMenuGroup(menuGroupId)
-      .subscribe(
-        (model: ResponseObject<MenuGroup>) => {
-          if ( model.total > 0 ) {
-            this.modifyForm(model.data);
-          } else {
-            this.newForm();
+        .getMenuGroup(menuGroupId)
+        .subscribe(
+          (model: ResponseObject<MenuGroup>) => {
+            if ( model.total > 0 ) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm();
+            }
+            this.appAlarmService.changeMessage(model.message);
           }
-          this.appAlarmService.changeMessage(model.message);
-        }
-      );
+        );
   }
 
   submitMenuGroup() {
@@ -85,24 +82,24 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
       return;
 
     this.menuService
-      .registerMenuGroup(this.fg.getRawValue())
-      .subscribe(
-        (model: ResponseObject<MenuGroup>) => {
-          this.formSaved.emit(this.fg.getRawValue());
-          this.appAlarmService.changeMessage(model.message);
-        }
-      );
+        .registerMenuGroup(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<MenuGroup>) => {
+            this.formSaved.emit(this.fg.getRawValue());
+            this.appAlarmService.changeMessage(model.message);
+          }
+        );
   }
 
   deleteMenuGroup() {
     this.menuService
-      .deleteMenuGroup(this.fg.get('menuGroupId')?.value)
-      .subscribe(
-        (model: ResponseObject<MenuGroup>) => {
-          this.formDeleted.emit(this.fg.getRawValue());
-          this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 삭제되었습니다.');
-        }
-      );
+        .deleteMenuGroup(this.fg.get('menuGroupId')?.value)
+        .subscribe(
+          (model: ResponseObject<MenuGroup>) => {
+            this.formDeleted.emit(this.fg.getRawValue());
+            this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 삭제되었습니다.');
+          }
+        );
   }
 
   closeForm() {

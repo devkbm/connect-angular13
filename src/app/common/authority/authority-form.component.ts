@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AppAlarmService } from '../../core/service/app-alarm.service';
@@ -8,19 +8,22 @@ import { Authority } from './authority.model';
 import { FormBase, FormType } from '../../core/form/form-base';
 import { existingAuthorityValidator } from './authority-duplication-validator.directive';
 import { AuthorityService } from './authority.service';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-authority-form',
   templateUrl: './authority-form.component.html',
   styleUrls: ['./authority-form.component.css']
 })
-export class AuthorityFormComponent extends FormBase implements OnInit {
+export class AuthorityFormComponent extends FormBase implements OnInit, AfterViewInit {
+
+  @ViewChild('authorityCode', {static: true}) authorityCode!: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
               private service: AuthorityService,
-              private appAlarmService: AppAlarmService) { super(); }
+              private appAlarmService: AppAlarmService) {
+    super();
 
-  ngOnInit() {
     this.fg = this.fb.group({
       authorityCode : new FormControl(null, {
                                               validators: Validators.required,
@@ -30,8 +33,14 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
       description   : [ null ],
       appUrl        : [ null ]
     });
+  }
 
+  ngOnInit() {
     this.newForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.authorityCode.focus();
   }
 
   newForm(): void {

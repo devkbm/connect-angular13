@@ -4,7 +4,10 @@ import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { BoardService } from './board.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 
+import { FirstDataRenderedEvent, GridSizeChangedEvent, RowDoubleClickedEvent, SelectionChangedEvent } from 'ag-grid-community';
+
 import { Article } from './article.model';
+
 
 @Component({
   selector: 'app-article-grid',
@@ -61,7 +64,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           return new Date(data.value).toLocaleString();
         },
         field: 'createdDt',
-        width: 180,
+        width: 210,
         cellStyle: {'text-align': 'center'},
         suppressSizeToFit: true
       },
@@ -71,7 +74,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           return new Date(data.value).toLocaleString();
         },
         field: 'modifiedDt',
-        width: 180,
+        width: 210,
         cellStyle: {'text-align': 'center'},
         suppressSizeToFit: true
       }
@@ -83,8 +86,8 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
     };
 
 
-    this.getRowId = function(data: any) {
-        return data.data.pkArticle;
+    this.getRowId = function(args: any) {
+      return args.data.pkArticle;
     };
   }
 
@@ -97,32 +100,27 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
         .getArticleList(fkBoard)
         .subscribe(
           (model: ResponseList<Article>) => {
-              if (model.total > 0) {
-                  this.articleList = model.data;
-                  // this.sizeToFit();
-              } else {
-                  this.articleList = [];
-              }
-              this.appAlarmService.changeMessage(model.message);
-          },
-          (err) => {
-              console.log(err);
-          },
-          () => {}
+            if (model.total > 0) {
+              this.articleList = model.data;
+              // this.sizeToFit();
+            } else {
+              this.articleList = [];
+            }
+            this.appAlarmService.changeMessage(model.message);
+          }
         );
   }
 
-  selectionChanged(event: any) {
-    const selectedRows = this.gridApi.getSelectedRows();
-
+  selectionChanged(args: SelectionChangedEvent) {
+    const selectedRows = args.api.getSelectedRows();
     this.rowSelected.emit(selectedRows[0]);
   }
 
-  rowDbClicked(event: any) {
-    this.rowDoubleClicked.emit(event.data);
+  rowDbClicked(args: RowDoubleClickedEvent) {
+    this.rowDoubleClicked.emit(args.data);
   }
 
-  onGridSizeChanged(params: any) {
+  onGridSizeChanged(args: GridSizeChangedEvent) {
     /*
     var gridWidth = document.getElementById("grid-wrapper").offsetWidth;
     var columnsToShow = [];
@@ -148,11 +146,11 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
 
     //this.gridColumnApi.setColumnsVisible(columnsToShow, true);
     //this.gridColumnApi.setColumnsVisible(columnsToHide, false);
-    this.gridApi.sizeColumnsToFit();
+    args.api.sizeColumnsToFit();
   }
 
-  onFirstDataRendered(params: any) {
-    params.api.sizeColumnsToFit();
+  onFirstDataRendered(args: FirstDataRenderedEvent) {
+    args.api.sizeColumnsToFit();
   }
 
 }

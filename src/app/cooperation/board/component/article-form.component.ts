@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { BoardService } from './board.service';
@@ -6,17 +6,17 @@ import { BoardService } from './board.service';
 import { ResponseObject } from '../../../core/model/response-object';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { NzUploadChangeParam, NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
-import { HttpHeaders } from '@angular/common/http';
 import { GlobalProperty } from 'src/app/global-property';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Article } from './article.model';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-article-form',
   templateUrl: './article-form.component.html',
   styleUrls: ['./article-form.component.css']
 })
-export class ArticleFormComponent extends FormBase implements OnInit {
+export class ArticleFormComponent extends FormBase implements OnInit, AfterViewInit {
   public Editor = ClassicEditor;
   editorConfig = {
     //plugins: [ Font ],
@@ -40,7 +40,6 @@ export class ArticleFormComponent extends FormBase implements OnInit {
     }*/
   ];
 
-   ;
   imageUploadParam = { pgmId: 'board' };
   fileUploadHeader: any;
   fileUploadUrl: any;
@@ -50,11 +49,12 @@ export class ArticleFormComponent extends FormBase implements OnInit {
 
   @ViewChild('upload', { static: true }) upload!: NzUploadComponent;
   @ViewChild('ckEditor', { static: true }) ckEditor!: CKEditorComponent;
+  @ViewChild('title', { static: true }) title!: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
-              private boardService: BoardService) { super(); }
+              private boardService: BoardService) {
+    super();
 
-  ngOnInit(): void {
     this.fg = this.fb.group({
       fkBoard: [null, [Validators.required]], //new FormControl(fkBoard, {validators: Validators.required}),
       pkArticle: [null, [Validators.required]],
@@ -63,6 +63,9 @@ export class ArticleFormComponent extends FormBase implements OnInit {
       contents: new FormControl(null, {}),
       attachFile: [null]
     });
+  }
+
+  ngOnInit(): void {
 
     this.newForm(null);
     this.fileUploadUrl = GlobalProperty.serverUrl + '/common/file/';
@@ -74,7 +77,11 @@ export class ArticleFormComponent extends FormBase implements OnInit {
 
   }
 
-  public newForm(fkBoard: any): void {
+  ngAfterViewInit(): void {
+    this.title.focus();
+  }
+
+  newForm(fkBoard: any): void {
     this.formType = FormType.NEW;
     this.fg.reset();
     this.fg.get('fkBoard')?.setValue(fkBoard);
@@ -84,31 +91,31 @@ export class ArticleFormComponent extends FormBase implements OnInit {
     this.ckEditor.writeValue(null);
   }
 
-  public modifyForm(formData: Article): void {
+  modifyForm(formData: Article): void {
     this.formType = FormType.MODIFY;
     this.fg.reset();
     this.fg.patchValue(formData);
   }
 
-  public getArticle(id: any): void {
+  getArticle(id: any): void {
     this.boardService.getArticle(id)
-      .subscribe(
-        (model: ResponseObject<Article>) => {
-          if (model.data) {
-            this.article = model.data;
+        .subscribe(
+          (model: ResponseObject<Article>) => {
+            if (model.data) {
+              this.article = model.data;
 
-            this.modifyForm(model.data);
-            this.fileList = model.data.fileList;
+              this.modifyForm(model.data);
+              this.fileList = model.data.fileList;
 
-            this.ckEditor.writeValue(model.data.contents);
-          } else {
-            this.newForm(null);
+              this.ckEditor.writeValue(model.data.contents);
+            } else {
+              this.newForm(null);
+            }
           }
-        }
-      );
+        );
   }
 
-  public deleteArticle(id: any): void {
+  deleteArticle(id: any): void {
     console.log(id);
     this.boardService.deleteArticle(id)
       .subscribe(
@@ -129,21 +136,16 @@ export class ArticleFormComponent extends FormBase implements OnInit {
     }
   }
 
-  public textChange({ editor }: ChangeEvent): void {
+  textChange({ editor }: ChangeEvent): void {
     const data = editor.getData();
     this.fg.get('contents')?.setValue(data);
   }
 
-  public closeForm(): void {
+  closeForm(): void {
     this.formClosed.emit(this.fg.getRawValue());
   }
 
-  //#endregion
-
-  //#region private method
-
-  public saveArticle(): void {
-
+  saveArticle(): void {
     const attachFileIdList = [];
 
     // tslint:disable-next-line: forin
@@ -154,13 +156,13 @@ export class ArticleFormComponent extends FormBase implements OnInit {
     this.fg.get('attachFile')?.setValue(attachFileIdList);
 
     this.boardService
-      .saveArticleJson(this.fg.getRawValue())
-      .subscribe(
-        (model: ResponseObject<Article>) => {
-          console.log(model);
-          this.formSaved.emit(this.fg.getRawValue());
-        }
-      );
+        .saveArticleJson(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<Article>) => {
+            console.log(model);
+            this.formSaved.emit(this.fg.getRawValue());
+          }
+        );
   }
-  //#endregion
+
 }

@@ -27,7 +27,7 @@ styleUrls: ['./work-schedule-form.component.css']
 })
 export class WorkScheduleFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild('text') text?: NzInputTextareaComponent;
+  @ViewChild('text', {static: true}) text!: NzInputTextareaComponent;
   @Input() initLoadId: number = -1;
   @Input() newFormValue?: NewFormValue;
 

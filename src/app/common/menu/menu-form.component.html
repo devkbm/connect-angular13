@@ -37,7 +37,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--메뉴코드 필드-->
-      <app-nz-input-text
+      <app-nz-input-text #menuId
         [parentFormGroup]="fg" formControlName="menuId" [fieldName]="'menuId'"
         [itemId]="'menuId'" [label]="'메뉴코드'"
         placeholder="메뉴코드를 입력해주세요."
@@ -95,22 +95,10 @@
 </form>
 
 <div class="footer">
-  <button nz-button (click)="closeForm()">
-      <i nz-icon nzType="form" nzTheme="outline"></i>
-      닫기
-  </button>
-  <nz-divider nzType="vertical"></nz-divider>
-  <button nz-button nzType="primary"
-      nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
-      (nzOnConfirm)="submitMenu()" (nzOnCancel)="false">
-      <i nz-icon nzType="save" nzTheme="outline"></i>
-      저장
-  </button>
-  <nz-divider nzType="vertical"></nz-divider>
-  <button nz-button nzDanger
-      nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
-      (nzOnConfirm)="deleteMenu()" (nzOnCancel)="false">
-      <i nz-icon nzType="delete" nzTheme="outline"></i>
-      삭제
-  </button>
+  <app-nz-crud-button-group
+    [isSavePopupConfirm]="false"
+    (closeClick)="closeForm()"
+    (saveClick)="submitMenu()"
+    (deleteClick)="deleteMenu()">
+  </app-nz-crud-button-group>
 </div>

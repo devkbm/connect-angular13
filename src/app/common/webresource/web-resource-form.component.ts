@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { WebResourceService } from './web-resource.service';
@@ -10,21 +10,24 @@ import { FormBase, FormType } from '../../core/form/form-base';
 import { existingWebResourceValidator } from './web-resource-duplication-validator.directive';
 import { ResponseList } from '../../core/model/response-list';
 import { ResouceTypeEnum } from './resource-type-enum';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-web-resource-form',
   templateUrl: './web-resource-form.component.html',
   styleUrls: ['./web-resource-form.component.css']
 })
-export class WebResourceFormComponent extends FormBase implements OnInit {
+export class WebResourceFormComponent extends FormBase implements OnInit, AfterViewInit {
+
+  @ViewChild('resourceCode', {static: true}) resourceCode!: NzInputTextComponent;
 
   resourceTypeList: ResouceTypeEnum[] = [];
 
   constructor(private fb: FormBuilder,
               private programService: WebResourceService,
-              private appAlarmService: AppAlarmService) { super(); }
+              private appAlarmService: AppAlarmService) {
+    super();
 
-  ngOnInit(): void {
     this.fg = this.fb.group({
       resourceCode  : new FormControl(null, {
                                               validators: Validators.required,
@@ -38,7 +41,14 @@ export class WebResourceFormComponent extends FormBase implements OnInit {
     });
 
     this.getCommonCodeList();
+  }
+
+  ngOnInit(): void {
     this.newForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.resourceCode.focus();
   }
 
   newForm(): void {
@@ -58,17 +68,17 @@ export class WebResourceFormComponent extends FormBase implements OnInit {
 
   getProgram(id: string): void {
     this.programService
-      .getProgram(id)
-      .subscribe(
-        (model: ResponseObject<WebResource>) => {
-          if ( model.total > 0 ) {
-            this.modifyForm(model.data);
-          } else {
-            this.newForm();
+        .getProgram(id)
+        .subscribe(
+          (model: ResponseObject<WebResource>) => {
+            if ( model.total > 0 ) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm();
+            }
+            this.appAlarmService.changeMessage(model.message);
           }
-          this.appAlarmService.changeMessage(model.message);
-        }
-      );
+        );
   }
 
   submitProgram(): void {
@@ -87,13 +97,13 @@ export class WebResourceFormComponent extends FormBase implements OnInit {
 
   deleteProgram(id: string): void {
     this.programService
-      .deleteProgram(id)
-      .subscribe(
-        (model: ResponseObject<WebResource>) => {
-          this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.fg.getRawValue());
-        }
-      );
+        .deleteProgram(id)
+        .subscribe(
+          (model: ResponseObject<WebResource>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formDeleted.emit(this.fg.getRawValue());
+          }
+        );
   }
 
   closeForm(): void {

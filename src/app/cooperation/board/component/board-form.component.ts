@@ -1,10 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BoardService } from './board.service';
 
@@ -13,15 +8,16 @@ import { Board } from './board.model';
 import { BoardHierarchy } from './board-hierarchy.model';
 import { ResponseList } from '../../../core/model/response-list';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-board-form',
   templateUrl: './board-form.component.html',
   styleUrls: ['./board-form.component.css']
 })
-export class BoardFormComponent extends FormBase implements OnInit {
+export class BoardFormComponent extends FormBase implements OnInit, AfterViewInit {
 
-   ;
+  @ViewChild('boardName', { static: true }) boardName!: NzInputTextComponent;
 
   parentBoardItems: BoardHierarchy[] = [];
 
@@ -31,12 +27,6 @@ export class BoardFormComponent extends FormBase implements OnInit {
               private boardService: BoardService) {
     super();
 
-    this.getboardHierarchy();
-    this.getBoardTypeList();
-  }
-
-  ngOnInit() {
-
     this.fg = this.fb.group({
       pkBoard         : [ null ],
       ppkBoard        : [ null ],
@@ -45,7 +35,16 @@ export class BoardFormComponent extends FormBase implements OnInit {
       boardDescription: [ null ]
     });
 
+    this.getboardHierarchy();
+    this.getBoardTypeList();
+  }
+
+  ngOnInit() {
     this.newForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.boardName.focus();
   }
 
   newForm(): void {
@@ -81,45 +80,44 @@ export class BoardFormComponent extends FormBase implements OnInit {
 
   getBoard(id: string): void {
     this.boardService.getBoard(id)
-      .subscribe(
-        (model: ResponseObject<Board>) => {
-          if (model.data) {
-            this.modifyForm(model.data);
-          } else {
-            this.newForm();
+        .subscribe(
+          (model: ResponseObject<Board>) => {
+            if (model.data) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm();
+            }
           }
-        }
-    );
+        );
   }
 
   saveBoard(): void {
-
     this.boardService
-      .saveBoard(this.fg.getRawValue())
-      .subscribe(
-        (model: ResponseObject<Board>) => {
-          console.log(model);
-          this.formSaved.emit(this.fg.getRawValue());
-        }
-      );
+        .saveBoard(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<Board>) => {
+            console.log(model);
+            this.formSaved.emit(this.fg.getRawValue());
+          }
+        );
   }
 
   deleteBoard(): void {
     this.boardService
-      .deleteBoard(this.fg.getRawValue())
-      .subscribe(
-        (model: ResponseObject<Board>) => {
-          console.log(model);
-          this.formDeleted.emit(this.fg.getRawValue());
-        }
-      );
+        .deleteBoard(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<Board>) => {
+            console.log(model);
+            this.formDeleted.emit(this.fg.getRawValue());
+          }
+        );
   }
 
   getboardHierarchy(): void {
     this.boardService
-      .getBoardHierarchy()
-      .subscribe(
-        (model: ResponseList<BoardHierarchy>) => {
+        .getBoardHierarchy()
+        .subscribe(
+          (model: ResponseList<BoardHierarchy>) => {
             if ( model.total > 0 ) {
               this.parentBoardItems = model.data;
             } else {
@@ -130,8 +128,8 @@ export class BoardFormComponent extends FormBase implements OnInit {
             // key   데이터 키
             // isLeaf 마지막 노드 여부
             // checked 체크 여부
-        }
-      );
+          }
+        );
   }
 
   closeForm() {
