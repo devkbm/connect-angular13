@@ -1,6 +1,6 @@
 {{fg.getRawValue() | json}}
 <!--{{textData}}-->
-<!--{{fileList | json}}-->
+{{fileList | json}}
 
 <form nz-form [formGroup]="fg" [nzLayout]="'vertical'">
 
@@ -23,23 +23,16 @@
     [required]="false" [nzErrorTip]="errorTpl">
   </app-nz-input-text>
 
-  <!--
-  <nz-form-item>
-    <nz-form-label nzFor="contents" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-      내용
-    </nz-form-label>
-    <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-      <ckeditor #ckEditor [editor]="Editor" [config]="editorConfig" id="contents" name="contents" tagName="textarea" data=""
-          (change)="textChange($event)">
-      </ckeditor>
-    </nz-form-control>
-  </nz-form-item>
-  -->
   <app-nz-input-ckeditor
     [parentFormGroup]="fg" formControlName="contents" [fieldName]="'contents'">
     [itemId]="'contents'" [label]="'내용'"
   </app-nz-input-ckeditor>
-  <!--  [config]="{ toolbar: ['heading', '|', 'bold', 'italic', 'font', '|', 'undo', 'redo' ] }"-->
+  <!-- 파일업로드 이벤트가 발생하지 않아서 수정 필요
+  <app-nz-file-upload>
+    [fileList]="fileList"
+    (uploadCompleted)="fileUploaded($event)"
+  </app-nz-file-upload>
+  -->
 
   <div class="clearfix" nz-row style="height: 100px">
       <nz-upload #upload class="upload-list-inline"

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { BoardService } from './board.service';
@@ -40,12 +40,14 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
     }*/
   ];
 
-  imageUploadParam = { pgmId: 'board' };
+  imageUploadParam = { pgmId: 'board' ,appUrl:'asd' };
   fileUploadHeader: any;
   fileUploadUrl: any;
 
   textData: any;
   article!: Article;
+
+  @Input() fkBoard!: number;
 
   @ViewChild('upload', { static: true }) upload!: NzUploadComponent;
   @ViewChild('ckEditor', { static: true }) ckEditor!: CKEditorComponent;
@@ -67,12 +69,12 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
 
   ngOnInit(): void {
 
-    this.newForm(null);
+    this.newForm(this.fkBoard);
+
     this.fileUploadUrl = GlobalProperty.serverUrl + '/common/file/';
     this.fileUploadHeader = {
       Authorization: sessionStorage.getItem('token')
-      //'x-auth-token': sessionStorage.getItem('token')
-      //'Content-Type': 'multipart/form-data'
+      /*'Content-Type': 'multipart/form-data'*/
     };
 
   }
@@ -88,7 +90,7 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
     this.fileList = [];
     this.textData = null;
     // console.log(this.ckEditor.editorInstance);
-    this.ckEditor.writeValue(null);
+    //this.ckEditor.writeValue(null);
   }
 
   modifyForm(formData: Article): void {
@@ -107,7 +109,7 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
               this.modifyForm(model.data);
               this.fileList = model.data.fileList;
 
-              this.ckEditor.writeValue(model.data.contents);
+              //this.ckEditor.writeValue(model.data.contents);
             } else {
               this.newForm(null);
             }
@@ -130,6 +132,7 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
   }
 
   fileUploadChange(param: NzUploadChangeParam): void {
+    console.log(param);
     if (param.type === 'success') {
       // this.fileList = param.file.response;
       this.fileList.push(param.file.response[0]);
@@ -163,6 +166,11 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
             this.formSaved.emit(this.fg.getRawValue());
           }
         );
+  }
+
+  fileUploaded(args: any) {
+    console.log(args);
+    //this.fileList = args;
   }
 
 }

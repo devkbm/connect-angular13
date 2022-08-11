@@ -11,6 +11,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { CustomInputTextComponent } from './custom-input-text/custom-input-text.component';
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
@@ -30,6 +31,7 @@ import { NzInputCkeditorComponent } from './nz-input-ckeditor/nz-input-ckeditor.
 
 import { ColorPickerModule } from 'ngx-color-picker';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NzFileUploadComponent } from './nz-file-upload/nz-file-upload.component';
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     NzIconModule,
     NzTreeSelectModule,
     NzDatePickerModule,
+    NzUploadModule,
     ColorPickerModule,
     CKEditorModule
   ],
@@ -63,6 +66,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     NzInputDateComponent,
     NzInputSelectComponent,
     NzInputTreeSelectComponent,
+    NzFileUploadComponent,
     NzInputColorPickerComponent,
     NzInputCkeditorComponent
    ],
@@ -78,6 +82,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     NzInputDateComponent,
     NzInputSelectComponent,
     NzInputTreeSelectComponent,
+    NzFileUploadComponent,
     NzInputColorPickerComponent,
     NzInputCkeditorComponent
   ]

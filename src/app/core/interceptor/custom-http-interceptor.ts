@@ -16,8 +16,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
             req = req.clone({ headers: req.headers.set(headerName, token) });
         }
 
-        if (req.url === 'http://localhost:8090/common/user/login') {
+        if (req.url === 'http://localhost:8090/common/user/login') { // 로그인 제외
           return next.handle(req);
+        } else if (req.url === 'http://localhost:8090/common/file/') { // 파일업로드 제외
+        return next.handle(req);
         }
 
         if (req.method.toLowerCase() === 'get') {

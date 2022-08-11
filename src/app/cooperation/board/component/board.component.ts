@@ -83,9 +83,11 @@ export class BoardComponent implements OnInit {
   newArticle(): void {
     this.openArticleDrawer();
 
+    /*
     setTimeout(() => {
       this.articleForm.newForm(this.selectedBoard);
     },10);
+    */
   }
 
   validEditable(item: any) {

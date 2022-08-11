@@ -67,9 +67,10 @@
     nzTitle="게시글 등록"
     (nzOnClose)="closeArticleDrawer()">
     <app-article-form id="articleForm" #articleForm *nzDrawerContent
-        (formSaved)="getArticleGridData()"
-        (formDeleted)="getArticleGridData()"
-        (formClosed)="closeArticleDrawer()">
+      [fkBoard]="this.selectedBoard"
+      (formSaved)="getArticleGridData()"
+      (formDeleted)="getArticleGridData()"
+      (formClosed)="closeArticleDrawer()">
     </app-article-form>
 </nz-drawer>
 

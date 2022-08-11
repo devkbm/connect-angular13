@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
+import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 // https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/frameworks/angular.html
@@ -13,12 +13,13 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
         {{label}}
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
+        <!-- tagName="textarea" -->
         <ckeditor #ckEditor
           [editor]="Editor"
           [config]="editorConfig"
           [disabled]="disabled"
-          tagName="textarea"
-          data=""
+
+          [formControl]="formField"
           (change)="textChange($event)"
           (blur)="onTouched()">
         </ckeditor>
@@ -49,9 +50,10 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   ],
   styles: []
 })
-export class NzInputCkeditorComponent implements ControlValueAccessor {
+export class NzInputCkeditorComponent implements ControlValueAccessor, AfterViewInit{
 
-  @ViewChild('input') element?: ElementRef<HTMLInputElement>;
+  @ViewChild(HTMLInputElement) element?: ElementRef<HTMLInputElement>;
+  @ViewChild('ckEditor', { static: true }) ckEditor!: CKEditorComponent;
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
   @Input() itemId: string = '';
@@ -74,6 +76,12 @@ export class NzInputCkeditorComponent implements ControlValueAccessor {
   };
 
   constructor() { }
+
+  ngAfterViewInit(): void {
+
+    //console.log(this.element?.nativeElement.value);
+    //this.ckEditor.writeValue(this.value);
+  }
 
   get formField(): FormControl {
     return this.parentFormGroup?.get(this.fieldName) as FormControl;

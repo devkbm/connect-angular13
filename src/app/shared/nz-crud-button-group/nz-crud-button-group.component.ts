@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nz-crud-button-group',
@@ -84,14 +84,23 @@ export class NzCrudButtonGroupComponent implements OnInit {
     this.searchClick.emit(event);
   }
 
+  // @HostListener('window:keydown.control.f1', ['$event'])
+  @HostListener('window:keydown.alt.s', ['$event'])
+  saveHotKeyClick(event: KeyboardEvent) {
+    event.preventDefault();
+    this.saveClick.emit();
+  }
+
   saveButtonClick() {
     this.saveClick.emit();
   }
 
+  @HostListener('window:keydown.alt.d', ['$event'])
   deleteButtonClick() {
     this.deleteClick.emit();
   }
 
+  @HostListener('window:keydown.alt.q', ['$event'])
   closeButtonClick(event: any) {
     this.closeClick.emit(event);
   }
