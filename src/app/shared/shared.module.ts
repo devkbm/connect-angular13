@@ -25,6 +25,11 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzInputDateComponent } from './nz-input-date/nz-input-date.component';
 import { NzInputSelectComponent } from './nz-input-select/nz-input-select.component';
 import { NzInputTreeSelectComponent } from './nz-input-tree-select/nz-input-tree-select.component';
+import { NzInputColorPickerComponent } from './nz-input-color-picker/nz-input-color-picker.component';
+import { NzInputCkeditorComponent } from './nz-input-ckeditor/nz-input-ckeditor.component';
+
+import { ColorPickerModule } from 'ngx-color-picker';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -42,7 +47,9 @@ import { NzInputTreeSelectComponent } from './nz-input-tree-select/nz-input-tree
     NzPopconfirmModule,
     NzIconModule,
     NzTreeSelectModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    ColorPickerModule,
+    CKEditorModule
   ],
   declarations: [
     CustomInputTextComponent,
@@ -55,7 +62,9 @@ import { NzInputTreeSelectComponent } from './nz-input-tree-select/nz-input-tree
     NzTreeSelectCustomComponent,
     NzInputDateComponent,
     NzInputSelectComponent,
-    NzInputTreeSelectComponent
+    NzInputTreeSelectComponent,
+    NzInputColorPickerComponent,
+    NzInputCkeditorComponent
    ],
   exports: [
     CustomInputTextComponent,
@@ -68,7 +77,9 @@ import { NzInputTreeSelectComponent } from './nz-input-tree-select/nz-input-tree
     NzTreeSelectCustomComponent,
     NzInputDateComponent,
     NzInputSelectComponent,
-    NzInputTreeSelectComponent
+    NzInputTreeSelectComponent,
+    NzInputColorPickerComponent,
+    NzInputCkeditorComponent
   ]
 })
 export class SharedModule { }

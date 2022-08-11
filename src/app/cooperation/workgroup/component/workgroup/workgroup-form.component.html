@@ -1,4 +1,4 @@
-<!--{{form.getRawValue() | json}}-->
+{{fg.getRawValue() | json}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
   <!-- 폼 오류 메시지 템플릿 -->
   <ng-template #errorTpl let-control>
@@ -34,24 +34,34 @@
 
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
+      <!--
       <nz-form-item>
         <nz-form-label nzFor="color" nzRequired>색상</nz-form-label>
         <nz-form-control>
           <input
             formControlName="color"
+            [cpPresetColors]="preset_colors"
+            [(colorPicker)]="color"
             [style.background]="color"
             [cpAlphaChannel]="'always'"
             [cpOutputFormat]="'hex'"
-            [cpOKButton]=true
-            [(colorPicker)]="color"
-            (colorPickerChange)="selectColor($event)"/>
+            [cpOKButton]=true/>
         </nz-form-control>
       </nz-form-item>
+      -->
+
+      <app-nz-input-color-picker
+        [parentFormGroup]="fg" formControlName="color" [fieldName]="'color'"
+        [itemId]="'color'" [label]="'색상'"
+        placeholder="색상을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">
+      </app-nz-input-color-picker>
     </div>
 
     <div nz-col nzSpan="12">
       <!--작업그룹 Id 필드-->
       <app-nz-select-custom
+        [mode]="'multiple'"
         [parentFormGroup]="fg" formControlName="memberList" [fieldName]="'memberList'"
         [itemId]="'memberList'" [label]="'팀원'"
         [options]="memberList" [opt_value]="'userId'" [opt_label]="'name'" [mode]="'tags'"
@@ -68,6 +78,6 @@
   <app-nz-crud-button-group
     (closeClick)="closeForm()"
     (saveClick)="saveWorkGroup()"
-    (deleteClick)="deleteWorkGroup(fg.get('id')?.value)">
+    (deleteClick)="deleteWorkGroup(fg.get('workGroupId')?.value)">
   </app-nz-crud-button-group>
 </div>

@@ -19,6 +19,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit, AfterVie
   workGroupList: any;
   memberList: any;
   color: any;
+  preset_colors = ['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)'];
 
   @ViewChild('workGroupName') workGroupName?: NzInputTextComponent;
 
@@ -60,6 +61,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit, AfterVie
           (model: ResponseObject<WorkGroup>) => {
             if (model.data) {
               this.modifyForm(model.data);
+              this.color = model.data.color;
             } else {
               this.newForm();
             }

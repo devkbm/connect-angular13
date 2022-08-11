@@ -1,4 +1,4 @@
-<!--{{articleForm.getRawValue() | json}}-->
+{{fg.getRawValue() | json}}
 <!--{{textData}}-->
 <!--{{fileList | json}}-->
 
@@ -23,17 +23,22 @@
     [required]="false" [nzErrorTip]="errorTpl">
   </app-nz-input-text>
 
+  <!--
   <nz-form-item>
     <nz-form-label nzFor="contents" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
       내용
     </nz-form-label>
     <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-      <!--<ckeditor id="contents2" name="contents" [editor]="Editor" tagName="textarea" [formControl]="contents" (change)="textChange($event)" style="width: 100%"></ckeditor>-->
       <ckeditor #ckEditor [editor]="Editor" [config]="editorConfig" id="contents" name="contents" tagName="textarea" data=""
           (change)="textChange($event)">
       </ckeditor>
     </nz-form-control>
   </nz-form-item>
+  -->
+  <app-nz-input-ckeditor
+    [parentFormGroup]="fg" formControlName="contents" [fieldName]="'contents'">
+    [itemId]="'contents'" [label]="'내용'"
+  </app-nz-input-ckeditor>
   <!--  [config]="{ toolbar: ['heading', '|', 'bold', 'italic', 'font', '|', 'undo', 'redo' ] }"-->
 
   <div class="clearfix" nz-row style="height: 100px">
@@ -57,6 +62,7 @@
 
 <div class="footer">
   <app-nz-crud-button-group
+    [searchVisible]="false"
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
     (saveClick)="saveArticle()"
