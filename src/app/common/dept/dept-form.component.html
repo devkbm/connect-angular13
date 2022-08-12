@@ -7,14 +7,14 @@
       <!--상위부서코드 필드-->
       <nz-form-item class="form-item">
         <nz-form-label
-            nzFor="parentDeptCode"
+            nzFor="parentDeptId"
             [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
             상위 부서코드
         </nz-form-label>
 
         <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" >
             <nz-tree-select
-                id="parentDeptCode"
+                id="parentDeptId"
                 [nzNodes]="deptHierarchy"
                 [nzAllowClear]="true"
                 [nzPlaceHolder]="'상위 부서 없음'"

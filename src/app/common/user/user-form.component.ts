@@ -94,12 +94,6 @@ export class UserFormComponent extends FormBase implements OnInit {
       menuGroupList: [null]
     });
 
-    this.fg.get('staffNo')?.valueChanges.subscribe(x => {
-      if (x === null) return;
-      const organizationCode = this.fg.get('organizationCode')?.value;
-      this.fg.get('userId')?.setValue(organizationCode + x);
-    });
-
     this.newForm();
 
     this.getAuthorityList();
@@ -116,6 +110,13 @@ export class UserFormComponent extends FormBase implements OnInit {
     this.fg.reset();
     this.fg.get('enabled')?.setValue(true);
     this.setSessionInfo();
+
+    this.fg.get('staffNo')?.valueChanges.subscribe(x => {
+      if (x === null) return;
+      const organizationCode = this.fg.get('organizationCode')?.value;
+      this.fg.get('userId')?.markAsTouched();
+      this.fg.get('userId')?.setValue(organizationCode + x);
+    });
 
     this.staffNoField?.focus();
   }

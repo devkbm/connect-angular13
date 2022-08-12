@@ -45,7 +45,7 @@ export class DeptFormComponent extends FormBase implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.fb.group({
-      parentDeptCode          : [ null ],
+      parentDeptId            : [ null ],
       deptCode                : new FormControl(null, {
                                   validators: Validators.required,
                                   asyncValidators: [existingDeptValidator(this.deptService)],

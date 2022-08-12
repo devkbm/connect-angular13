@@ -32,7 +32,8 @@ import { NzInputCkeditorComponent } from './nz-input-ckeditor/nz-input-ckeditor.
 import { ColorPickerModule } from 'ngx-color-picker';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NzFileUploadComponent } from './nz-file-upload/nz-file-upload.component';
-import { CookieService } from 'ngx-cookie-service';
+import { NzDeptTreeSelectComponent } from './nz-dept-tree-select/nz-dept-tree-select.component';
+import { DeptHierarchyService } from './nz-dept-tree-select/dept-hierarchy.service';
 
 
 @NgModule({
@@ -69,10 +70,11 @@ import { CookieService } from 'ngx-cookie-service';
     NzInputTreeSelectComponent,
     NzFileUploadComponent,
     NzInputColorPickerComponent,
-    NzInputCkeditorComponent
+    NzInputCkeditorComponent,
+    NzDeptTreeSelectComponent
    ],
   providers: [
-    CookieService
+    DeptHierarchyService
   ],
   exports: [
     CustomInputTextComponent,
@@ -88,7 +90,8 @@ import { CookieService } from 'ngx-cookie-service';
     NzInputTreeSelectComponent,
     NzFileUploadComponent,
     NzInputColorPickerComponent,
-    NzInputCkeditorComponent
+    NzInputCkeditorComponent,
+    NzDeptTreeSelectComponent
   ]
 })
 export class SharedModule { }
