@@ -1,10 +1,15 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular';
+import '@ckeditor/ckeditor5-build-classic/build/translations/ko';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { MyUploadAdapter } from './my-upload-adapter';
 
 // https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/frameworks/angular.html
+// https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/installing-plugins.html
 
+// https://github.com/stevermeister/ngx-cookie-service
 @Component({
   selector: 'app-nz-input-ckeditor',
   template: `
@@ -21,7 +26,9 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
           [formControl]="formField"
           (change)="textChange($event)"
-          (blur)="onTouched()">
+          (blur)="onTouched()"
+          (ready)="onReady($event)"
+          >
         </ckeditor>
         <!--
         <input #inputControl nz-input
@@ -50,9 +57,8 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   ],
   styles: []
 })
-export class NzInputCkeditorComponent implements ControlValueAccessor, AfterViewInit{
+export class NzInputCkeditorComponent implements ControlValueAccessor, AfterViewInit {
 
-  @ViewChild(HTMLInputElement) element?: ElementRef<HTMLInputElement>;
   @ViewChild('ckEditor', { static: true }) ckEditor!: CKEditorComponent;
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
@@ -69,18 +75,62 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  public Editor = ClassicEditor;
-  editorConfig = {
-    //plugins: [ Font ],
-    toolbar: [ 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor','heading', '|', 'bold', 'italic' ]
-  };
+  Editor = ClassicEditor;
+  editorConfig;
 
-  constructor() { }
+  constructor() {
+    this.editorConfig = {
+      language: 'ko',
+      /*plugins: [ ImageInsert ],*/
+      /*toolbar: [ 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor','heading', '|', 'bold', 'italic' ]*/
+      toolbar: [
+        'heading',
+        '|',
+        'alignment',                                                 // <--- ADDED
+        'bold',
+        'italic',
+        'link',
+        'bulletedList',
+        'numberedList',
+        'uploadImage',
+        'blockQuote',
+        'undo',
+        'redo'],
+      image: {
+        toolbar: [
+          'imageStyle:inline',
+          'imageStyle:block',
+          'imageStyle:side',
+          '|',
+          'toggleImageCaption',
+          'imageTextAlternative'
+        ]
+      },
+      extraPlugins: [
+        function (editor: any) {
+          editor.plugins.get('FileRepository').createUploadAdapter = (loader :any) => {
+            return new MyUploadAdapter(loader);
+          };
+        }
+      ]
+    };
+  }
 
   ngAfterViewInit(): void {
 
     //console.log(this.element?.nativeElement.value);
     //this.ckEditor.writeValue(this.value);
+  }
+
+  onReady(editor: any): void {
+    //this.MyCustomUploadAdapterPlugin(editor);
+    //editor.extraPlugins = [this.MyCustomUploadAdapterPlugin(editor)];
+  }
+
+  MyCustomUploadAdapterPlugin(editor: any ): any {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader: any ) => {
+      return new MyUploadAdapter( loader );
+    }
   }
 
   get formField(): FormControl {
@@ -107,13 +157,9 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
     this.disabled = isDisabled;
   }
 
-  focus(): void {
-    this.element?.nativeElement.focus();
-  }
-
-  textChange({ editor }: ChangeEvent): void {
-    const data = editor.getData();
-    this.value = data;
+  textChange( {editor}: ChangeEvent): void {
+    this.value = editor.getData();
     this.onChange(this.value);
   }
+
 }

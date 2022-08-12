@@ -32,6 +32,7 @@ import { NzInputCkeditorComponent } from './nz-input-ckeditor/nz-input-ckeditor.
 import { ColorPickerModule } from 'ngx-color-picker';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NzFileUploadComponent } from './nz-file-upload/nz-file-upload.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -70,6 +71,9 @@ import { NzFileUploadComponent } from './nz-file-upload/nz-file-upload.component
     NzInputColorPickerComponent,
     NzInputCkeditorComponent
    ],
+  providers: [
+    CookieService
+  ],
   exports: [
     CustomInputTextComponent,
     FormCrudButtonGroupComponent,

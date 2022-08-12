@@ -1,6 +1,5 @@
 {{fg.getRawValue() | json}}
-<!--{{textData}}-->
-{{fileList | json}}
+<!--{{fileList | json}}-->
 
 <form nz-form [formGroup]="fg" [nzLayout]="'vertical'">
 
@@ -27,13 +26,12 @@
     [parentFormGroup]="fg" formControlName="contents" [fieldName]="'contents'">
     [itemId]="'contents'" [label]="'내용'"
   </app-nz-input-ckeditor>
-  <!-- 파일업로드 이벤트가 발생하지 않아서 수정 필요
-  <app-nz-file-upload>
-    [fileList]="fileList"
-    (uploadCompleted)="fileUploaded($event)"
-  </app-nz-file-upload>
-  -->
 
+  <app-nz-file-upload
+    [fileList]="fileList">
+  </app-nz-file-upload>
+
+<!--
   <div class="clearfix" nz-row style="height: 100px">
       <nz-upload #upload class="upload-list-inline"
           [nzAction]="fileUploadUrl"
@@ -50,6 +48,7 @@
           </button>
       </nz-upload>
   </div>
+-->
 
 </form>
 

@@ -149,14 +149,7 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
   }
 
   saveArticle(): void {
-    const attachFileIdList = [];
-
-    // tslint:disable-next-line: forin
-    for (const val in this.fileList) {
-      // console.log(this.fileList[val].response[0].uid);
-      attachFileIdList.push(String(this.fileList[val].uid));
-    }
-    this.fg.get('attachFile')?.setValue(attachFileIdList);
+    this.convertFileList();
 
     this.boardService
         .saveArticleJson(this.fg.getRawValue())
@@ -168,9 +161,15 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
         );
   }
 
-  fileUploaded(args: any) {
-    console.log(args);
-    //this.fileList = args;
+  convertFileList() {
+    const attachFileIdList = [];
+
+    // tslint:disable-next-line: forin
+    for (const val in this.fileList) {
+      // console.log(this.fileList[val].response[0].uid);
+      attachFileIdList.push(String(this.fileList[val].uid));
+    }
+    this.fg.get('attachFile')?.setValue(attachFileIdList);
   }
 
 }

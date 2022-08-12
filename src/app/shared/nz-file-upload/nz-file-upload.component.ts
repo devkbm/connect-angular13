@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { getEventTargetViaRoot } from '@fullcalendar/angular';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { GlobalProperty } from 'src/app/global-property';
 
@@ -51,7 +52,7 @@ export class NzFileUploadComponent implements OnInit {
       url: 'http://www.baidu.com/yyy.png'
     }*/
   @Input() fileList: NzUploadFile[] = [];
-  @Output() uploadCompleted: EventEmitter<NzUploadFile[]> = new EventEmitter<NzUploadFile[]>();
+  @Output() uploadCompleted = new EventEmitter<NzUploadFile[]>();
 
 
   constructor() { }
