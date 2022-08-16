@@ -13,9 +13,9 @@
       <!--작업그룹ID 필드-->
       <app-nz-select-custom
         [parentFormGroup]="fg" formControlName="workGroupId" [fieldName]="'workGroupId'"
-        [itemId]="'workGroupId'" [label]="'작업그룹 ID'"
+        [itemId]="'workGroupId'"
         [options]="workGroupList" [opt_value]="'id'" [opt_label]="'name'"
-        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">작업그룹 ID
       </app-nz-select-custom>
     </div>
 
@@ -23,9 +23,9 @@
       <!--일정ID 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="id" [fieldName]="'id'"
-        [itemId]="'id'" [label]="'일정ID'"
+        [itemId]="'id'"
         placeholder="일정ID를 입력해주세요."
-        [required]="false" [nzErrorTip]="errorTpl">
+        [required]="false" [nzErrorTip]="errorTpl">일정ID
       </app-nz-input-text>
     </div>
   </div>
@@ -61,10 +61,10 @@
   <!-- [nzAutoSize]="{ minRows: 10, maxRows: 20 }" -->
   <app-nz-input-textarea #text
     [parentFormGroup]="fg" formControlName="text" [fieldName]="'text'"
-    [itemId]="'text'" [label]="'제목'"
+    [itemId]="'text'"
     placeholder="제목을 입력해주세요."
     [rows] = "20"
-    [required]="true" [nzErrorTip]="errorTpl">
+    [required]="true" [nzErrorTip]="errorTpl">제목
   </app-nz-input-textarea>
 
   <!--

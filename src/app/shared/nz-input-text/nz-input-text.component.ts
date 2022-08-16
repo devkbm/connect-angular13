@@ -7,7 +7,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
     <!--{{formField.errors | json}}-->
     <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
-        {{label}}
+        <ng-content></ng-content>
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
         <input #inputControl nz-input
@@ -40,7 +40,6 @@ export class NzInputTextComponent implements ControlValueAccessor {
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
   @Input() itemId: string = '';
-  @Input() label!: string;
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';

@@ -15,7 +15,7 @@ import { MyUploadAdapter } from './my-upload-adapter';
   template: `
    <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
-        {{label}}
+        <ng-content></ng-content>
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
         <!-- tagName="textarea" -->
@@ -63,7 +63,6 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName!: string;
   @Input() itemId: string = '';
-  @Input() label!: string;
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';

@@ -13,9 +13,9 @@
     <div nz-col nzSpan="12">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="id" [fieldName]="'id'"
-        [itemId]="'id'" [label]="'업무구분코드'"
+        [itemId]="'id'"
         placeholder="업무구분코드를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">
+        [required]="true" [nzErrorTip]="errorTpl">업무구분코드
       </app-nz-input-text>
     </div>
 
@@ -23,8 +23,8 @@
       <!--코드명 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="name" [fieldName]="'name'"
-        [itemId]="'name'" [label]="'코드명'"
-        [required]="true" [nzErrorTip]="errorTpl">
+        [itemId]="'name'"
+        [required]="true" [nzErrorTip]="errorTpl">코드명
       </app-nz-input-text>
     </div>
 
@@ -64,9 +64,9 @@
 
       <app-nz-select-custom
         [parentFormGroup]="fg"  [fieldName]="'bizType'" formControlName="bizType"
-        [itemId]="'bizType'" [label]="'권한'"
+        [itemId]="'bizType'"
         [options]="bizTypeList" [opt_value]="'code'" [opt_label]="'name'"
-        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">권한
       </app-nz-select-custom>
 
     </div>
@@ -87,11 +87,11 @@
 </form>
 
 <div class="footer">
-  <app-form-crud-button-group
+  <app-nz-crud-button-group
     (searchClick)="loadForm(fg.get('id')?.value)"
     (closeClick)="closeForm()"
     (saveClick)="saveForm()"
     (deleteClick)="deleteForm(fg.get('id')?.value)">
-  </app-form-crud-button-group>
+  </app-nz-crud-button-group>
 </div>
 

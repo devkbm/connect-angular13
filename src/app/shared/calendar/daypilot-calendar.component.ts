@@ -112,10 +112,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     heightSpec: 'BusinessHours',
     cellHeight: 40,
     onTimeRangeSelected: (args: DayPilot.CalendarTimeRangeSelectedArgs) => {
-      console.log('onTimeRangeSelected: start');
       this.setDate(args.start);
       this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
-      console.log('onTimeRangeSelected: end');
     },
     onEventClicked: (args: DayPilot.CalendarEventClickedArgs) => {
       this.eventClicked.emit(args.e.data);
@@ -127,10 +125,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     locale: 'ko-kr',
     cellHeight: 141.6,
     onTimeRangeSelected: (args: DayPilot.MonthTimeRangeSelectedArgs) => {
-      console.log('onTimeRangeSelected: start');
       this.setDate(args.start);
       this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
-      console.log('onTimeRangeSelected: end');
     },
     onEventClicked: (args: DayPilot.MonthEventClickedArgs) => {
       this.eventClicked.emit(args.e.data);

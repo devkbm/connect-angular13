@@ -22,7 +22,6 @@ export class NzSelectCustomComponent implements ControlValueAccessor {
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName: string = '';
   @Input() itemId: string = '';
-  @Input() label: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';

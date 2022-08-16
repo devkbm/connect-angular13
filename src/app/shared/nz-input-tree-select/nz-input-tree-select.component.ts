@@ -6,7 +6,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
   template: `
    <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
-        {{label}}
+        <ng-content></ng-content>
       </nz-form-label>
       <nz-form-control [nzErrorTip]="nzErrorTip">
        <nz-tree-select
@@ -38,7 +38,6 @@ export class NzInputTreeSelectComponent implements ControlValueAccessor {
   @Input() parentFormGroup?: FormGroup;
   @Input() fieldName: string = '';
   @Input() itemId: string = '';
-  @Input() label: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';

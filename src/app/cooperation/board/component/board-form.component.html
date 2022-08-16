@@ -14,9 +14,9 @@
       <!--상위 게시판 필드-->
       <app-nz-input-tree-select
         [parentFormGroup]="fg" formControlName="ppkBoard" [fieldName]="'ppkBoard'"
-        [itemId]="'ppkBoard'" [label]="'상위 게시판'"
+        [itemId]="'ppkBoard'"
         [nodes]="parentBoardItems"
-        [placeholder]="'상위 게시판 없음'" [nzErrorTip]="errorTpl" [required]="false">
+        [placeholder]="'상위 게시판 없음'" [nzErrorTip]="errorTpl" [required]="false">상위 게시판
       </app-nz-input-tree-select>
     </div>
 
@@ -24,9 +24,9 @@
       <!--게시판타입 필드-->
       <app-nz-select-custom
         [parentFormGroup]="fg" formControlName="boardType" [fieldName]="'boardType'"
-        [itemId]="'boardType'" [label]="'게시판타입'"
+        [itemId]="'boardType'"
         [options]="boardTypeList" [opt_value]="'value'" [opt_label]="'label'"
-        [placeholder]="'게시판타입을 선택해주세요.'" [nzErrorTip]="errorTpl" [required]="true">
+        [placeholder]="'게시판타입을 선택해주세요.'" [nzErrorTip]="errorTpl" [required]="true">게시판타입
       </app-nz-select-custom>
     </div>
 
@@ -38,9 +38,9 @@
       <!--게시판명 필드-->
       <app-nz-input-text #boardName
         [parentFormGroup]="fg" formControlName="boardName" [fieldName]="'boardName'"
-        [itemId]="'boardName'" [label]="'게시판 명'"
+        [itemId]="'boardName'"
         placeholder="게시판명을 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">
+        [required]="true" [nzErrorTip]="errorTpl">게시판 명
       </app-nz-input-text>
     </div>
   </div>
@@ -48,10 +48,10 @@
   <!--게시판설명 필드-->
   <app-nz-input-textarea
     [parentFormGroup]="fg" formControlName="boardDescription" [fieldName]="'boardDescription'"
-    [itemId]="'boardDescription'" [label]="'게시판 설명'"
+    [itemId]="'boardDescription'"
     placeholder="게시판 설명을 입력해주세요."
     [rows] = "20"
-    [required]="false" [nzErrorTip]="errorTpl">
+    [required]="false" [nzErrorTip]="errorTpl">게시판 설명
   </app-nz-input-textarea>
 
 </form>

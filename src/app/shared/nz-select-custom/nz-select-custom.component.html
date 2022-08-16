@@ -1,6 +1,6 @@
 <nz-form-item>
   <nz-form-label [nzFor]="itemId" [nzRequired]="required">
-    {{label}}
+    <ng-content></ng-content>
   </nz-form-label>
   <nz-form-control [nzErrorTip]="nzErrorTip">
     <nz-select

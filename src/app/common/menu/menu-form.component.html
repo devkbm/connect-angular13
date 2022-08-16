@@ -16,10 +16,10 @@
       <!--메뉴그룹아이디 필드-->
       <app-nz-select-custom
         [parentFormGroup]="fg" formControlName="menuGroupId" [fieldName]="'menuGroupId'"
-        [itemId]="'menuGroupId'" [label]="'메뉴그룹아이디'"
+        [itemId]="'menuGroupId'"
         (ngModelChange)="selectMenuGroup($event)"
         [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'"
-        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">메뉴그룹아이디
       </app-nz-select-custom>
     </div>
 
@@ -27,8 +27,8 @@
       <!--상위메뉴코드 필드-->
       <app-nz-tree-select-custom
         [parentFormGroup]="fg" formControlName="parentMenuId" [fieldName]="'parentMenuId'"
-        [itemId]="'parentMenuId'" [label]="'상위 메뉴코드'" [nodes]="menuHiererachy"
-        [placeholder]="'상위 메뉴 없음'">
+        [itemId]="'parentMenuId'" [nodes]="menuHiererachy"
+        [placeholder]="'상위 메뉴 없음'">상위 메뉴코드
       </app-nz-tree-select-custom>
     </div>
   </div>
@@ -39,9 +39,9 @@
       <!--메뉴코드 필드-->
       <app-nz-input-text #menuId
         [parentFormGroup]="fg" formControlName="menuId" [fieldName]="'menuId'"
-        [itemId]="'menuId'" [label]="'메뉴코드'"
+        [itemId]="'menuId'"
         placeholder="메뉴코드를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">
+        [required]="true" [nzErrorTip]="errorTpl">메뉴코드
       </app-nz-input-text>
     </div>
 
@@ -49,9 +49,9 @@
       <!--메뉴명 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuName" [fieldName]="'menuName'"
-        [itemId]="'menuName'" [label]="'메뉴명'"
+        [itemId]="'menuName'"
         placeholder="메뉴명을 입력해주세요."
-        [nzErrorTip]="errorTpl" [required]="true">
+        [nzErrorTip]="errorTpl" [required]="true">메뉴명
       </app-nz-input-text>
     </div>
   </div>
@@ -62,9 +62,9 @@
       <!--메뉴타입 필드-->
       <app-nz-select-custom
         [parentFormGroup]="fg" formControlName="menuType" [fieldName]="'menuType'"
-        [itemId]="'menuType'" [label]="'메뉴타입'"
+        [itemId]="'menuType'"
         [options]="menuTypeList" [opt_value]="'value'" [opt_label]="'label'"
-        [placeholder]="'메뉴타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">
+        [placeholder]="'메뉴타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">메뉴타입
       </app-nz-select-custom>
     </div>
 
@@ -72,9 +72,9 @@
       <!--APP URL 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="appUrl" [fieldName]="'appUrl'"
-        [itemId]="'appUrl'" [label]="'APP URL'"
+        [itemId]="'appUrl'"
         placeholder="URL을 입력해주세요."
-        [nzErrorTip]="errorTpl" [required]="true">
+        [nzErrorTip]="errorTpl" [required]="true">APP URL
       </app-nz-input-text>
     </div>
   </div>
@@ -85,9 +85,9 @@
       <!--순번 필드-->
       <app-nz-input-number-custom
         [parentFormGroup]="fg" formControlName="sequence" [fieldName]="'sequence'"
-        [itemId]="'sequence'" [label]="'순번'"
+        [itemId]="'sequence'"
         placeholder="순번을 입력해주세요."
-        [nzErrorTip]="errorTpl" [required]="true">
+        [nzErrorTip]="errorTpl" [required]="true">순번
       </app-nz-input-number-custom>
     </div>
   </div>

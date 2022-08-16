@@ -16,9 +16,9 @@
       <!--메뉴그룹코드 필드-->
       <app-nz-input-text #menuGroupId
         [parentFormGroup]="fg" formControlName="menuGroupId" [fieldName]="'menuGroupId'"
-        [itemId]="'menuGroupId'" [label]="'메뉴그룹코드'"
+        [itemId]="'menuGroupId'"
         placeholder="메뉴그룹코드를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">
+        [required]="true" [nzErrorTip]="errorTpl">메뉴그룹코드
       </app-nz-input-text>
     </div>
 
@@ -26,9 +26,9 @@
       <!--메뉴그룹명 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuGroupName" [fieldName]="'menuGroupName'"
-        [itemId]="'menuGroupName'" [label]="'메뉴그룹명'"
+        [itemId]="'menuGroupName'"
         placeholder="메뉴그룹명을 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">
+        [required]="true" [nzErrorTip]="errorTpl">메뉴그룹명
       </app-nz-input-text>
     </div>
   </div>
@@ -36,8 +36,8 @@
   <!--비고 필드-->
   <app-nz-input-textarea
     [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
-    [itemId]="'description'" [label]="'비고'"
-    placeholder="비고를 입력해주세요.">
+    [itemId]="'description'"
+    placeholder="비고를 입력해주세요.">비고
   </app-nz-input-textarea>
 </form>
 

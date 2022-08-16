@@ -249,12 +249,12 @@
 
 </form>
 
-<app-form-crud-button-group
+<app-nz-crud-button-group
   (searchClick)="getForm(fg.get('staffId')?.value, fg.get('id')?.value)"
   (closeClick)="closeForm(grid)"
   (saveClick)="submitForm()"
   (deleteClick)="deleteForm(fg.get('id')?.value)">
-</app-form-crud-button-group>
+</app-nz-crud-button-group>
 
 
 <app-staff-appointment-record-grid #grid>
