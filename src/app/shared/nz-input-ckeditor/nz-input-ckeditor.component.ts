@@ -3,8 +3,11 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
 
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular';
 import '@ckeditor/ckeditor5-build-classic/build/translations/ko';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as Editor from 'ckeditor5/build/ckditor';
+
 import { MyUploadAdapter } from './my-upload-adapter';
+
 
 // https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/frameworks/angular.html
 // https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/installing-plugins.html
@@ -74,27 +77,27 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  Editor = ClassicEditor;
+  Editor = Editor;
   editorConfig;
 
   constructor() {
     this.editorConfig = {
       language: 'ko',
-      /*plugins: [ ImageInsert ],*/
-      /*toolbar: [ 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor','heading', '|', 'bold', 'italic' ]*/
+      //plugins: [ Alignment ],
       toolbar: [
-        'heading',
-        '|',
-        'alignment',                                                 // <--- ADDED
-        'bold',
-        'italic',
-        'link',
-        'bulletedList',
-        'numberedList',
-        'uploadImage',
-        'blockQuote',
-        'undo',
-        'redo'],
+        'heading', '|',
+        'alignment', '|',
+        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+        'link', '|',
+        'bulletedList', 'numberedList', 'todoList',
+        '-', // break point
+        'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', '|',
+        'code', 'codeBlock', '|',
+        'insertTable', '|',
+        'outdent', 'indent', '|',
+        'uploadImage', 'blockQuote', '|',
+        'undo', 'redo'
+      ],
       image: {
         toolbar: [
           'imageStyle:inline',
