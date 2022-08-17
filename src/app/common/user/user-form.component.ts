@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -28,9 +28,8 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent extends FormBase implements OnInit {
+export class UserFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
-  /* #region Property  */
   public authList: any;
   public menuGroupList: any;
   public deptHierarchy: DeptHierarchy[] = [];
@@ -56,26 +55,14 @@ export class UserFormComponent extends FormBase implements OnInit {
   imageBase64: any;
   isUploadable: any;
 
-  /**
-   * Xs < 576px span size
-   * Sm >= 576px span size
-   */
-  formLabelXs = 24;
-  formControlXs = 24;
-
-  formLabelSm = 24;
-  formControlSm = 24;
-
-  /* #endregion */
-
   @ViewChild('staffNo') staffNoField?: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
               private deptService: DeptService,
-              private appAlarmService: AppAlarmService) { super(); }
+              private appAlarmService: AppAlarmService) {
+    super();
 
-  ngOnInit(): void {
     this.fg = this.fb.group({
       userId: new FormControl(null, {
         validators: Validators.required,
@@ -94,6 +81,9 @@ export class UserFormComponent extends FormBase implements OnInit {
       menuGroupList: [null]
     });
 
+  }
+
+  ngOnInit(): void {
     this.newForm();
 
     this.getAuthorityList();
@@ -101,8 +91,15 @@ export class UserFormComponent extends FormBase implements OnInit {
     this.getDeptHierarchy();
   }
 
-  /* #region  Method */
-  public newForm(): void {
+  ngAfterViewInit(): void {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
+
+  newForm(): void {
     this.formType = FormType.NEW;
     this.imageBase64 = null;
     this.previewImage = '';
@@ -121,54 +118,54 @@ export class UserFormComponent extends FormBase implements OnInit {
     this.staffNoField?.focus();
   }
 
-  public modifyForm(formData: User): void {
+  modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
   }
 
-  public getUser(userId: string): void {
+  getUser(userId: string): void {
     this.userService
-      .getUser(userId)
-      .subscribe(
-        (model: ResponseObject<User>) => {
-          if (model.total > 0) {
-            if (model.data.userId == null) {
-              this.newForm();
+        .getUser(userId)
+        .subscribe(
+          (model: ResponseObject<User>) => {
+            if (model.total > 0) {
+              if (model.data.userId == null) {
+                this.newForm();
+              } else {
+                this.modifyForm(model.data);
+              }
+
+              this.previewImage = '';
+
+              const token = sessionStorage.getItem('token') as string;
+
+              this.imageUploadHeader =  {
+                "Content-Type": "multipart/form-data",
+                "Accept": "application/json",
+                "Authorization": sessionStorage.getItem('token')
+              };
+
+              this.imageUploadParam = { userId: model.data.userId };
+              if (model.data.imageBase64 != null) {
+                //this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
+                this.imageBase64 = model.data.imageBase64;
+                this.isUploadable = false;
+              } else {
+                this.imageBase64 = '';
+                this.isUploadable = true;
+              }
+
             } else {
-              this.modifyForm(model.data);
+              this.fg.reset();
             }
 
-            this.previewImage = '';
-
-            const token = sessionStorage.getItem('token') as string;
-
-            this.imageUploadHeader =  {
-              "Content-Type": "multipart/form-data",
-              "Accept": "application/json",
-              "Authorization": sessionStorage.getItem('token')
-            };
-
-            this.imageUploadParam = { userId: model.data.userId };
-            if (model.data.imageBase64 != null) {
-              //this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
-              this.imageBase64 = model.data.imageBase64;
-              this.isUploadable = false;
-            } else {
-              this.imageBase64 = '';
-              this.isUploadable = true;
-            }
-
-          } else {
-            this.fg.reset();
+            this.appAlarmService.changeMessage(model.message);
           }
-
-          this.appAlarmService.changeMessage(model.message);
-        }
-      );
+        );
   }
 
-  public registerUser(): void {
+  registerUser(): void {
 
     if (this.validForm(this.fg) === false)
       return;
@@ -287,6 +284,6 @@ export class UserFormComponent extends FormBase implements OnInit {
       this.isUploadable = false;
     }
   }
-  /* #endregion */
+
 
 }

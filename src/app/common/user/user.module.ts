@@ -30,6 +30,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -64,7 +65,8 @@ const nzModules = [
   NzCardModule,
   NzImageModule,
   NzUploadModule,
-  NzSpaceModule
+  NzSpaceModule,
+  NzSwitchModule
 ]
 
 @NgModule({

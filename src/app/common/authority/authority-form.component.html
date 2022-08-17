@@ -24,14 +24,15 @@
       [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
       [itemId]="'description'"
       placeholder="권한에 대한 설명을 입력해주세요."
-      [nzAutoSize]="{minRows:2, maxRows: 6}"
-      [required]="true" [nzErrorTip]="errorTpl">설명
+      [rows]="20"
+      [required]="false" [nzErrorTip]="errorTpl">설명
     </app-nz-input-textarea>
   </div>
 </form>
 
 <div class="footer">
   <app-nz-crud-button-group
+    [searchVisible]="false"
     (closeClick)="closeForm()"
     (saveClick)="saveAuthority()"
     (deleteClick)="deleteAuthority(this.fg.get('authority')?.value)">

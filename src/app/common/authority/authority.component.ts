@@ -5,6 +5,9 @@ import { AuthorityFormComponent } from './authority-form.component';
 import { AppBase } from '../../core/app/app-base';
 import { ResponseObject } from '../../core/model/response-object';
 import { WebResource } from '../webresource/web-resource';
+import { AnyForUntypedForms } from '@angular/forms';
+import { AuthorityService } from './authority.service';
+import { Authority } from './authority.model';
 
 @Component({
   selector: 'app-authority',
@@ -13,14 +16,7 @@ import { WebResource } from '../webresource/web-resource';
 })
 export class AuthorityComponent extends AppBase implements AfterViewInit {
 
-  @ViewChild(AuthorityGridComponent)
-  grid!: AuthorityGridComponent;
-
-  @ViewChild('form')
-  form!: AuthorityFormComponent;
-
-  @ViewChild('deleteform')
-  deleteform!: AuthorityFormComponent;
+  @ViewChild(AuthorityGridComponent) grid!: AuthorityGridComponent;
 
   drawerVisible = false;
 
@@ -31,7 +27,10 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     {label: '설명', value: 'description'}
   ];
 
-  constructor(location: Location) {
+  selectedId: any;
+
+  constructor(private location: Location,
+              private service: AuthorityService) {
     super(location);
     this.appId = "COM002";
   }
@@ -40,30 +39,32 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //this.form = new AuthorityFormComponent();
-    console.log(this.form);
-    console.log(this.grid);
+  }
+
+  openDrawer(): void {
+    this.drawerVisible = true;
   }
 
   closeDrawer(): void {
     this.drawerVisible = false;
   }
 
-  selectedItem(item: any): void {
-    //this.form.fg.patchValue(item);
+  selectedItem(data: any): void {
+    if (data) {
+      this.selectedId = data.id;
+    } else {
+      this.selectedId = null;
+    }
   }
 
-  async editDrawOpen(item: any) {
+  initForm(): void {
+    this.selectedId = null;
 
-    await this.openDrawer();
+    this.openDrawer();
+  }
 
-    this.form.getAuthority(item.authority);
-    /*
-    setTimeout(() => {
-      this.form.appUrl = this.appId;
-      this.form.getAuthority(item.authority);
-    },10);
-    */
+  editDrawOpen(item: any): void {
+    this.openDrawer();
   }
 
   getAuthorityList(): void {
@@ -78,24 +79,14 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
 
   deleteAuthority(): void {
     const id = this.grid.getSelectedRows()[0].authority;
-    this.deleteform.deleteAuthority(id);
-  }
 
-  openDrawer() {
-    this.drawerVisible = true;
-  }
-
-  async initForm() {
-    await this.openDrawer();
-
-    this.form.newForm();
-    /*
-    setTimeout(() => {
-      console.log(this.form.appUrl);
-      this.form.newForm();
-    },50);
-    */
-
+    this.service
+        .deleteAuthority(id)
+        .subscribe(
+          (model: ResponseObject<Authority>) => {
+            this.getAuthorityList();
+          }
+        );
   }
 
 }

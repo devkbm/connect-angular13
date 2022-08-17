@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AppAlarmService } from '../../core/service/app-alarm.service';
@@ -15,7 +15,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
   templateUrl: './authority-form.component.html',
   styleUrls: ['./authority-form.component.css']
 })
-export class AuthorityFormComponent extends FormBase implements OnInit, AfterViewInit {
+export class AuthorityFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('authorityCode', {static: true}) authorityCode!: NzInputTextComponent;
 
@@ -30,8 +30,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
                                               asyncValidators: [existingAuthorityValidator(this.service)],
                                               updateOn: 'blur'
                                             }),
-      description   : [ null ],
-      appUrl        : [ null ]
+      description   : [ null ]
     });
   }
 
@@ -41,6 +40,18 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
 
   ngAfterViewInit(): void {
     this.authorityCode.focus();
+
+    if (this.initLoadId) {
+      this.getAuthority(this.initLoadId);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    /*
+    if (changes['initLoadId']) {
+      this.getAuthority(changes['initLoadId'].currentValue);
+    }
+    */
   }
 
   newForm(): void {
@@ -49,6 +60,8 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     this.fg.reset();
     this.fg.get('authority')?.enable();
     this.fg.get('appUrl')?.setValue(this.appUrl);
+
+    this.authorityCode.focus();
   }
 
   modifyForm(formData: Authority): void {

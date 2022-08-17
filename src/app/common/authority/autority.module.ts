@@ -9,6 +9,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
@@ -39,6 +42,9 @@ const angularModules = [
 ]
 
 const nzModules = [
+  NzButtonModule,
+  NzPopconfirmModule,
+  NzIconModule,
   NzGridModule,
   NzSelectModule,
   NzPageHeaderModule,

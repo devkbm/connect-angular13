@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+/* NG MODULES */
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -11,6 +12,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
@@ -31,24 +33,29 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NzFileUploadComponent } from './nz-file-upload/nz-file-upload.component';
 import { NzDeptTreeSelectComponent } from './nz-dept-tree-select/nz-dept-tree-select.component';
 import { DeptHierarchyService } from './nz-dept-tree-select/dept-hierarchy.service';
+import { NzInputSwitchComponent } from './nz-input-switch/nz-input-switch.component';
 
+const nzModules = [
+  NzFormModule,
+  NzInputModule,
+  NzInputNumberModule,
+  NzSelectModule,
+  NzButtonModule,
+  NzDividerModule,
+  NzPopconfirmModule,
+  NzIconModule,
+  NzTreeSelectModule,
+  NzDatePickerModule,
+  NzUploadModule,
+  NzSwitchModule
+]
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NzFormModule,
-    NzInputModule,
-    NzInputNumberModule,
-    NzSelectModule,
-    NzButtonModule,
-    NzDividerModule,
-    NzPopconfirmModule,
-    NzIconModule,
-    NzTreeSelectModule,
-    NzDatePickerModule,
-    NzUploadModule,
+    nzModules,
     ColorPickerModule,
     CKEditorModule
   ],
@@ -65,7 +72,8 @@ import { DeptHierarchyService } from './nz-dept-tree-select/dept-hierarchy.servi
     NzFileUploadComponent,
     NzInputColorPickerComponent,
     NzInputCkeditorComponent,
-    NzDeptTreeSelectComponent
+    NzDeptTreeSelectComponent,
+    NzInputSwitchComponent
    ],
   providers: [
     DeptHierarchyService
@@ -83,7 +91,8 @@ import { DeptHierarchyService } from './nz-dept-tree-select/dept-hierarchy.servi
     NzFileUploadComponent,
     NzInputColorPickerComponent,
     NzInputCkeditorComponent,
-    NzDeptTreeSelectComponent
+    NzDeptTreeSelectComponent,
+    NzInputSwitchComponent
   ]
 })
 export class SharedModule { }
