@@ -11,6 +11,7 @@
   <!-- 1 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
+      <!--
       <nz-form-item class="form-item">
         <nz-form-label nzFor="id" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
           업무구분코드
@@ -19,6 +20,16 @@
           <input nz-input id="id" formControlName="id" placeholder="업무구분코드를 입력해주세요.">
         </nz-form-control>
       </nz-form-item>
+      -->
+
+      <app-nz-input-text
+        formControlName="id"
+        [parentFormGroup]="fg"
+        [fieldName]="'id'"
+        [itemId]="'id'"
+        [required]="false"
+        [nzErrorTip]="errorTpl">업무구분코드
+      </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="12">

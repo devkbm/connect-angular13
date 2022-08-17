@@ -7,7 +7,7 @@ import { ResponseObject } from '../../../core/model/response-object';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { NzUploadChangeParam, NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 import { GlobalProperty } from 'src/app/global-property';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Article } from './article.model';
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
@@ -17,7 +17,8 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
   styleUrls: ['./article-form.component.css']
 })
 export class ArticleFormComponent extends FormBase implements OnInit, AfterViewInit {
-  public Editor = ClassicEditor;
+  //public Editor = ClassicEditor;
+
   editorConfig = {
     //plugins: [ Font ],
     toolbar: [ 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor','heading', '|', 'bold', 'italic' ]

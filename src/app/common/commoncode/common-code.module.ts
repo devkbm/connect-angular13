@@ -9,7 +9,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
-import { AllNgZorroModule } from 'src/app/all-ng-zorro.module';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -22,6 +31,23 @@ import { CommonCodeComponent } from './common-code.component';
 import { CommonCodeFormComponent } from './common-code-form.component';
 import { CommonCodeGridComponent } from './common-code-grid.component';
 import { CommonCodeTreeComponent } from './common-code-tree.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+
+const nzModules = [
+  NzFormModule,
+  NzSelectModule,
+  NzPageHeaderModule,
+  NzInputModule,
+  NzInputNumberModule,
+  NzDrawerModule,
+  NzDividerModule,
+  NzTreeModule,
+  NzTreeSelectModule,
+  NzButtonModule,
+  NzIconModule,
+  NzCheckboxModule
+]
 
 @NgModule({
   imports: [
@@ -33,7 +59,7 @@ import { CommonCodeTreeComponent } from './common-code-tree.component';
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
     AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent]),
-    AllNgZorroModule,
+    ...nzModules,
     SharedModule
   ],
   declarations: [

@@ -7,10 +7,6 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 import { CustomHttpInterceptor } from '../../core/interceptor/custom-http-interceptor';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-/* NG-ZORRO */
-import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
-import { AllNgZorroModule } from 'src/app/all-ng-zorro.module';
-
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from '../../core/grid/renderer/button-renderer.component';
@@ -30,14 +26,12 @@ import { LoginService } from './login.service';
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
     AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent]),
-    AllNgZorroModule,
     SharedModule
   ],
   declarations: [
     LoginComponent
   ],
   providers: [
-    { provide: NZ_I18N, useValue: ko_KR },
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
     { provide: COMPOSITION_BUFFER_MODE, useValue: false},
     LoginService

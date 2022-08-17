@@ -1,4 +1,4 @@
-{{fg.getRawValue() | json}}
+<!--{{fg.getRawValue() | json}}-->
 <!--{{fileList | json}}-->
 
 <form nz-form [formGroup]="fg" [nzLayout]="'vertical'">
@@ -24,7 +24,9 @@
 
   <app-nz-input-ckeditor
     [parentFormGroup]="fg" formControlName="contents" [fieldName]="'contents'"
-    [itemId]="'contents'">내용
+    [itemId]="'contents'"
+    [height]="'45vh'"
+    >내용
   </app-nz-input-ckeditor>
 
   <app-nz-file-upload

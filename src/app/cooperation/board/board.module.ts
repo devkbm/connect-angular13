@@ -5,8 +5,17 @@ import { CommonFuncModule } from '../../common/common-func.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
-import { AllNgZorroModule } from '../../all-ng-zorro.module';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
@@ -22,13 +31,26 @@ import { ButtonRendererComponent } from '../../core/grid/renderer/button-rendere
 import { ArticleViewComponent } from './component/article-view.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+const nzModules = [
+  NzLayoutModule,
+  NzGridModule,
+  NzFormModule,
+  NzSelectModule,
+  NzPageHeaderModule,
+  NzInputModule,
+  NzDrawerModule,
+  NzDividerModule,
+  NzTreeModule,
+  NzTabsModule
+]
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     CommonFuncModule,
-    AllNgZorroModule,
+    nzModules,
     AgGridModule.withComponents([ButtonRendererComponent]),
     CKEditorModule,
     SharedModule
@@ -43,7 +65,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
-    BoardService
+    BoardService,
+    NzModalService
   ],
   exports: [
     BoardFormComponent,

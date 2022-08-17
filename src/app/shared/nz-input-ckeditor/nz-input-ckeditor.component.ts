@@ -1,10 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, HostBinding, Input, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular';
-import '@ckeditor/ckeditor5-build-classic/build/translations/ko';
+//import '@ckeditor/ckeditor5-build-classic/build/translations/ko';
 //import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import * as Editor from 'ckeditor5-custom-build/build/ckeditor';
+import * as Editor from 'ckeditor5/build/ckeditor';
 
 import { MyUploadAdapter } from './my-upload-adapter';
 
@@ -58,7 +58,12 @@ import { MyUploadAdapter } from './my-upload-adapter';
       multi: true
     }
   ],
-  styles: []
+  styles: [`
+    :host ::ng-deep .ck-editor__editable {
+      color: black;
+      height: var(--height);
+    }
+  `]
 })
 export class NzInputCkeditorComponent implements ControlValueAccessor, AfterViewInit {
 
@@ -69,6 +74,9 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
+
+  @HostBinding("style.--height")
+  @Input() height: string = '100px';
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -83,15 +91,14 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
   constructor() {
     this.editorConfig = {
       language: 'ko',
-      //plugins: [ Alignment ],
       toolbar: [
         'heading', '|',
-        'alignment', '|',
+        'alignment:left', 'alignment:center', 'alignment:right', 'alignment:justify', '|',
         'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-        'link', '|',
+        'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', '|',
         'bulletedList', 'numberedList', 'todoList',
         '-', // break point
-        'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', '|',
+        'link', '|',
         'code', 'codeBlock', '|',
         'insertTable', '|',
         'outdent', 'indent', '|',

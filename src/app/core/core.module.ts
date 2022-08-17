@@ -8,11 +8,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgGridModule } from 'ag-grid-angular';
 
 /* NG-ZORRO */
-import { AllNgZorroModule } from 'src/app/all-ng-zorro.module';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 import { ButtonRendererComponent } from './grid/renderer/button-renderer.component';
 import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.component';
 
+const nzModules = [
+  NzIconModule,
+  NzButtonModule,
+  NzCheckboxModule
+]
 
 @NgModule({
   imports: [
@@ -21,8 +28,8 @@ import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.com
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    AllNgZorroModule,
-    AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent])
+    AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent]),
+    nzModules
   ],
   declarations: [
     ButtonRendererComponent,

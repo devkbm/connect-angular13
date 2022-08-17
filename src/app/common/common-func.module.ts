@@ -7,7 +7,12 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
-import { AllNgZorroModule } from 'src/app/all-ng-zorro.module';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 /* AG-GRID */
@@ -40,7 +45,14 @@ import { CoreModule } from '../core/core.module';
 import { ButtonRendererComponent } from '../core/grid/renderer/button-renderer.component';
 import { CheckboxRendererComponent } from '../core/grid/renderer/checkbox-renderer.component';
 
-
+const nzModules = [
+  NzGridModule,
+  NzSelectModule,
+  NzPageHeaderModule,
+  NzInputModule,
+  NzDrawerModule,
+  NzDividerModule
+]
 
 @NgModule({
   imports: [
@@ -52,7 +64,7 @@ import { CheckboxRendererComponent } from '../core/grid/renderer/checkbox-render
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
     AppRoutingModule,
-    AllNgZorroModule,
+    ...nzModules,
     SharedModule,
     CoreModule,
     AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent]),

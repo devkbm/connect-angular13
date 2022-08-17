@@ -3,3 +3,10 @@ declare module '@ckeditor/ckeditor5-build-classic' {
 
   export = ClassicEditorBuild;
 }
+
+
+declare module 'ckeditor5/build/ckeditor' {
+  const ClassicEditorBuild: any;
+
+  export = ClassicEditorBuild;
+}
