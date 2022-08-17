@@ -4,7 +4,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular';
 import '@ckeditor/ckeditor5-build-classic/build/translations/ko';
 //import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import * as Editor from 'ckeditor5/build/ckditor';
+import * as Editor from 'ckeditor5-custom-build/build/ckeditor';
 
 import { MyUploadAdapter } from './my-upload-adapter';
 
