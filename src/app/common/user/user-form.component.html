@@ -46,19 +46,11 @@
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="3">
           <!--사용여부 필드-->
-          <nz-form-item>
-            <nz-form-label nzFor="enabled">
-              사용여부
-            </nz-form-label>
-            <nz-form-control>
-              <nz-switch formControlName="enabled"></nz-switch>
-            </nz-form-control>
-          </nz-form-item>
-
-          <app-nz-input-switch [parentFormGroup]="fg" formControlName="enabled" [fieldName]="'enabled'">
-
+          <app-nz-input-switch [parentFormGroup]="fg" formControlName="enabled" fieldName="enabled">
+            사용여부
           </app-nz-input-switch>
         </div>
+
         <div nz-col nzSpan="10">
           <app-nz-input-text #staffNo
             [parentFormGroup]="fg" formControlName="staffNo" [fieldName]="'staffNo'"
@@ -132,25 +124,9 @@
   </div>
 
     <!--부서 필드-->
-    <nz-form-item class="form-item">
-        <nz-form-label
-            nzFor="deptCode">
-            부서
-        </nz-form-label>
-
-        <nz-form-control>
-            <nz-tree-select
-                id="deptCode"
-                [nzNodes]="deptHierarchy"
-                [nzAllowClear]="true"
-                [nzPlaceHolder]="'부서 없음'"
-                formControlName="deptCode">
-            </nz-tree-select>
-        </nz-form-control>
-    </nz-form-item>
-
     <app-nz-dept-tree-select
-      formControlName="deptCode">
+      [parentFormGroup]="fg" formControlName="deptCode" fieldName="deptCode"
+      placeholder="부서 없음">부서
     </app-nz-dept-tree-select>
 </form>
 

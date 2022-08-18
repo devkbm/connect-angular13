@@ -93,16 +93,15 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
       language: 'ko',
       toolbar: [
         'heading', '|',
-        'alignment:left', 'alignment:center', 'alignment:right', 'alignment:justify', '|',
-        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
         'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', '|',
-        'bulletedList', 'numberedList', 'todoList',
+        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+        'alignment:left', 'alignment:center', 'alignment:right', 'alignment:justify', '|',
+        'bulletedList', 'numberedList', 'todoList', '|',
         '-', // break point
-        'link', '|',
-        'code', 'codeBlock', '|',
-        'insertTable', '|',
+        'uploadImage', 'insertTable', '|',
         'outdent', 'indent', '|',
-        'uploadImage', 'blockQuote', '|',
+        'blockQuote', 'codeBlock', '|',
+        'link', '|',
         'undo', 'redo'
       ],
       image: {

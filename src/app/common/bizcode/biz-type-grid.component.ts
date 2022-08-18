@@ -12,7 +12,7 @@ import { BizTypeService } from './biz-type.service';
   template: `
     <ag-grid-angular
       [ngStyle]="style"
-      class="ag-theme-alpine-dark"
+      class="ag-theme-balham-dark"
       [rowSelection]="'single'"
       [rowData]="commonCodeList"
       [columnDefs]="columnDefs"

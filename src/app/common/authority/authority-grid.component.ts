@@ -12,7 +12,7 @@ import { Authority } from './authority.model';
   template: `
     <ag-grid-angular
       [ngStyle]="style"
-      class="ag-theme-alpine-dark"
+      class="ag-theme-balham-dark"
       [rowSelection]="'single'"
       [rowData]="authorityList"
       [columnDefs]="columnDefs"

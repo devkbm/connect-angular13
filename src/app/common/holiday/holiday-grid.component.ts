@@ -10,7 +10,7 @@ import { HolidayService } from './holiday.service';
   template: `
     <ag-grid-angular
       [ngStyle]="style"
-      class="ag-theme-alpine-dark"
+      class="ag-theme-balham-dark"
       [rowSelection]="'single'"
       [rowData]="gridList"
       [columnDefs]="columnDefs"

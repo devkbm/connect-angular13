@@ -7,26 +7,7 @@
     [nzWidth]="200"
     [nzTrigger]="triggerTemplate">
 
-    <div class="logo">Connect</div>
-
-    <nz-select
-      class="sidemenugroup"
-      nzShowSearch
-      [(ngModel)]="selectedValue"
-      (ngModelChange)="selectMenuGroup($event)">
-          <nz-option
-            *ngFor="let menuGroup of menuGroupList"
-            [nzValue]="menuGroup.value"
-            [nzLabel]="menuGroup.label">
-          </nz-option>
-    </nz-select>
-
-    <!-- 메뉴를 트리로 구현 -->
-    <!--<nz-tree
-      #treeCom
-      [nzData]="menuItems"
-      (nzClick)="selectMenu($event)">
-    </nz-tree>   -->
+    <div class="logo">LOGO</div>
 
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" style="height: 100%">
       <ul *ngFor="let level1 of menuItems">
@@ -72,6 +53,19 @@
       </i>
 
       <nz-avatar class="avatar" [nzShape]="'square'" [nzSize]='48' [nzSrc]="avartarImgSrc" (click)="imageClick($event)"></nz-avatar>
+
+      <nz-select
+        class="sidemenugroup"
+        nzShowSearch
+        [(ngModel)]="selectedValue"
+        (ngModelChange)="selectMenuGroup($event)">
+            <nz-option
+              *ngFor="let menuGroup of menuGroupList"
+              [nzValue]="menuGroup.value"
+              [nzLabel]="menuGroup.label">
+            </nz-option>
+      </nz-select>
+
     </nz-header>
 
     <nz-content class="main-content">

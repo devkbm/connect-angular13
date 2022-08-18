@@ -13,7 +13,7 @@ import { Menu } from './menu.model';
   template: `
     <ag-grid-angular
       [ngStyle]="style"
-      class="ag-theme-alpine-dark"
+      class="ag-theme-balham-dark"
       [rowSelection]="'single'"
       [rowData]="menuList"
       [columnDefs]="columnDefs"

@@ -12,7 +12,7 @@ import { ResponseList } from '../../core/model/response-list';
   template: `
     <ag-grid-angular
       [ngStyle]="style"
-      class="ag-theme-alpine-dark"
+      class="ag-theme-balham-dark"
       [rowSelection]="'single'"
       [rowData]="menuGroupList"
       [columnDefs]="columnDefs"
