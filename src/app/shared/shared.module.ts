@@ -13,6 +13,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+
 
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
@@ -34,6 +36,7 @@ import { NzFileUploadComponent } from './nz-file-upload/nz-file-upload.component
 import { NzDeptTreeSelectComponent } from './nz-dept-tree-select/nz-dept-tree-select.component';
 import { DeptHierarchyService } from './nz-dept-tree-select/dept-hierarchy.service';
 import { NzInputSwitchComponent } from './nz-input-switch/nz-input-switch.component';
+import { NzInputCheckboxComponent } from './nz-input-checkbox/nz-input-checkbox.component';
 
 const nzModules = [
   NzFormModule,
@@ -47,7 +50,8 @@ const nzModules = [
   NzTreeSelectModule,
   NzDatePickerModule,
   NzUploadModule,
-  NzSwitchModule
+  NzSwitchModule,
+  NzCheckboxModule
 ]
 
 @NgModule({
@@ -73,7 +77,8 @@ const nzModules = [
     NzInputColorPickerComponent,
     NzInputCkeditorComponent,
     NzDeptTreeSelectComponent,
-    NzInputSwitchComponent
+    NzInputSwitchComponent,
+    NzInputCheckboxComponent
    ],
   providers: [
     DeptHierarchyService
@@ -92,7 +97,8 @@ const nzModules = [
     NzInputColorPickerComponent,
     NzInputCkeditorComponent,
     NzDeptTreeSelectComponent,
-    NzInputSwitchComponent
+    NzInputSwitchComponent,
+    NzInputCheckboxComponent
   ]
 })
 export class SharedModule { }

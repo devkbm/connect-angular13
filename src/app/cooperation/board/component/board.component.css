@@ -1,9 +1,9 @@
 .content {
-    height: calc(100% - 0px);
-    display: grid;
-    grid-template-rows: 24px 1fr;
-    grid-template-columns: 200px 1fr;
-  }
+  height: calc(100vh - 140px);
+  display: grid;
+  grid-template-rows: 24px 1fr;
+  grid-template-columns: 200px 1fr;
+}
 
 .grid {
   height: calc(100vh - 200px);

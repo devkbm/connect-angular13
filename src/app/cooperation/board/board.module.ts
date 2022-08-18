@@ -5,6 +5,9 @@ import { CommonFuncModule } from '../../common/common-func.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -32,6 +35,9 @@ import { ArticleViewComponent } from './component/article-view.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 const nzModules = [
+  NzButtonModule,
+  NzPopconfirmModule,
+  NzIconModule,
   NzLayoutModule,
   NzGridModule,
   NzFormModule,

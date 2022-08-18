@@ -1,5 +1,6 @@
-<!--
+
 {{this.fg.value | json }}
+<!--
 {{this.fg.errors| json }}
 -->
 
@@ -15,11 +16,11 @@
   </ng-template>
 
   <app-nz-input-text
-    [itemId]="'data1'"
+    itemId="data1"
+    fieldName="input_text"
+    formControlName="input_text"
     [required]="true"
     [parentFormGroup]="this.fg"
-    [fieldName]="'input_text'"
-    formControlName="input_text"
     [nzErrorTip]="errorTpl">label1
   </app-nz-input-text>
 
@@ -71,11 +72,18 @@
     [placeholder]="'please select'">label6
   </app-nz-input-tree-select>
 
+  <app-nz-input-checkbox
+    [required]="true"
+    [parentFormGroup]="fg"
+    [fieldName]="'input_text'"
+    formControlName="input_text"
+    checkboxText="asdfdsf">asfsaf
+  </app-nz-input-checkbox>
+
   <app-nz-input-ckeditor
     [parentFormGroup]="fg"
     formControlName="input_text"
-    rows="10"
-    >
+    rows="10">
     Editor
   </app-nz-input-ckeditor>
 

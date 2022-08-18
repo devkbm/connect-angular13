@@ -48,8 +48,9 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
 
     this.columnDefs = [
       {
-          headerName: 'No',
-          valueGetter: 'node.rowIndex + 1',
+          headerName: '번호',
+          //valueGetter: 'node.rowIndex + 1',
+          field: 'pkArticle',
           width: 70,
           cellStyle: {'text-align': 'center'},
           suppressSizeToFit: true
