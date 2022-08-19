@@ -23,12 +23,6 @@
   height: calc(100vh - 60px);
 }
 
-.sidemenugroup {
-  width: 150px;
-  float: right;
-  margin-top: 14px;
-  margin-right: 10px;
-}
 
 .header {
   height: 60px;
@@ -44,6 +38,12 @@
   font-size: 24px;
   color:rgb(185, 173, 159);
   vertical-align: top;
+}
+
+.sidemenugroup {
+  width: 150px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .avatar {

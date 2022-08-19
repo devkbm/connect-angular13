@@ -17,9 +17,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
-import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
@@ -31,6 +29,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -55,7 +54,6 @@ const nzModules = [
   NzDrawerModule,
   NzDividerModule,
   NzTreeModule,
-  NzTabsModule,
   NzInputNumberModule,
   NzTreeSelectModule,
   NzDatePickerModule,
@@ -66,7 +64,8 @@ const nzModules = [
   NzImageModule,
   NzUploadModule,
   NzSpaceModule,
-  NzSwitchModule
+  NzSwitchModule,
+  NzIconModule
 ]
 
 @NgModule({
