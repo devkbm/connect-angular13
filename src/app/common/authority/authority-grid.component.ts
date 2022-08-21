@@ -62,13 +62,21 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
             cellStyle: {'text-align': 'center'}
         },
         {
-            headerName: '권한',
-            field: 'authority',
+            headerName: '권한ID',
+            field: 'id',
             sortable: true,
             resizable: true,
             suppressSizeToFit: true,
-            width: 100
+            width: 150
         },
+        {
+          headerName: '권한코드',
+          field: 'authorityCode',
+          sortable: true,
+          resizable: true,
+          suppressSizeToFit: true,
+          width: 100
+      },
         {
             headerName: '설명',
             field: 'description',

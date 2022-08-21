@@ -25,11 +25,12 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     super();
 
     this.fg = this.fb.group({
-      authorityCode : new FormControl(null, {
-                                              validators: Validators.required,
-                                              asyncValidators: [existingAuthorityValidator(this.service)],
-                                              updateOn: 'blur'
-                                            }),
+      id: new FormControl(null, {
+                                  validators: Validators.required,
+                                  asyncValidators: [existingAuthorityValidator(this.service)],
+                                  updateOn: 'blur'
+                                }),
+      authorityCode : [ null ],
       description   : [ null ]
     });
   }
@@ -58,7 +59,8 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('authority')?.enable();
+    this.fg.get('id')?.enable();
+    this.fg.get('authorityCode')?.enable();
     this.fg.get('appUrl')?.setValue(this.appUrl);
 
     this.authorityCode.focus();
@@ -67,7 +69,8 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
   modifyForm(formData: Authority): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('authority')?.disable();
+    this.fg.get('id')?.disable();
+    this.fg.get('authorityCode')?.disable();
     this.fg.patchValue(formData);
     this.fg.get('appUrl')?.setValue(this.appUrl);
   }

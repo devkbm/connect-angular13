@@ -1,6 +1,8 @@
 export class Authority {
   constructor(
-    public authority: string,
+    public id: string,
+    public organizationCode: string,
+    public authorityCode: string,
     public description: string,
     public appId: string) { }
 }
