@@ -17,13 +17,14 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -52,7 +53,9 @@ const nzModules = [
   NzInputNumberModule,
   NzTreeSelectModule,
   NzDatePickerModule,
-  NzButtonModule
+  NzButtonModule,
+  NzPopconfirmModule,
+  NzIconModule
 ]
 
 @NgModule({

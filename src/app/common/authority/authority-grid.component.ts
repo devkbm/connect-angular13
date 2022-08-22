@@ -13,7 +13,7 @@ import { Authority } from './authority.model';
     <ag-grid-angular
       [ngStyle]="style"
       class="ag-theme-balham-dark"
-      [rowSelection]="'single'"
+      rowSelection="single"
       [rowData]="authorityList"
       [columnDefs]="columnDefs"
       [getRowId]="getRowId"
@@ -23,7 +23,22 @@ import { Authority } from './authority.model';
       (selectionChanged)="selectionChanged($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
     </ag-grid-angular>
-  `
+  `,
+  styles: [`
+    ::ng-deep .header-center .ag-cell-label-container { flex-direction: row; justify-content: center; }
+    ::ng-deep .header-center .ag-header-cell-label { flex-direction: row; justify-content: center; }
+
+    ::ng-deep .header-right .ag-cell-label-container { flex-direction: row; }
+    ::ng-deep .header-right .ag-header-cell-label { flex-direction: row-reverse; }
+    /*
+    ::ng-deep .ag-theme-balham-dark .ag-header {
+      font-family: cursive;
+    }
+    ::ng-deep .ag-theme-balham-dark .ag-header-cell {
+      font-size: 18px;
+    }
+    */
+  `]
 })
 export class AuthorityGridComponent extends AggridFunction implements OnInit {
 
@@ -54,6 +69,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
         },
         {
             headerName: 'No',
+            headerClass: 'header-center',
             valueGetter: 'node.rowIndex + 1',
             sortable: true,
             resizable: true,
@@ -63,11 +79,13 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
         },
         {
             headerName: '권한ID',
+            headerClass: 'header-center',
             field: 'id',
             sortable: true,
             resizable: true,
             suppressSizeToFit: true,
             width: 150
+
         },
         {
           headerName: '권한코드',
@@ -85,30 +103,30 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
         }
     ];
 
-    this.getRowId = function(data: any) {
-//      console.log(data);
-      return data.data.authority;
+    this.getRowId = function(args: any) {
+//      console.log(args);
+      return args.data.authority;
     };
   }
 
   ngOnInit() {
-      this.getAuthority();
+    this.getList();
   }
 
-  getAuthority(params?: any): void {
+  getList(params?: any): void {
 
     this.service
         .getAuthorityList(params)
         .subscribe(
-            (model: ResponseList<Authority>) => {
-                if (model.total > 0) {
-                    this.authorityList = model.data;
-                    this.sizeToFit();
-                } else {
-                    this.authorityList = [];
-                }
-                this.appAlarmService.changeMessage(model.message);
+          (model: ResponseList<Authority>) => {
+            if (model.total > 0) {
+              this.authorityList = model.data;
+              this.sizeToFit();
+            } else {
+              this.authorityList = [];
             }
+            this.appAlarmService.changeMessage(model.message);
+          }
         );
   }
 

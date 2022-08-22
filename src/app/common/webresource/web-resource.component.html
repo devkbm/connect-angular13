@@ -1,9 +1,9 @@
 <nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="리소스 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
 
-<div nz-row class="btn-group">
+<app-nz-search-area>
   <div nz-col [nzSpan]="12">
     <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
-      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getProgramList()">
+      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getList()">
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
         <nz-select [(ngModel)]="queryKey">
@@ -18,7 +18,7 @@
     </ng-template>
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">
-    <button nz-button (click)="getProgramList()">
+    <button nz-button (click)="getList()">
       <i nz-icon nzType="search"></i>
       조회
     </button>
@@ -30,47 +30,34 @@
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzDanger="true"
       nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
-      (nzOnConfirm)="deleteProgram()" (nzOnCancel)="false">
+      (nzOnConfirm)="delete()" (nzOnCancel)="false">
       <i nz-icon nzType="delete" nzTheme="outline"></i>
       삭제
     </button>
   </div>
-</div>
+</app-nz-search-area>
 
 <h3 class="pgm-title">웹서버 리소스 목록</h3>
 
 <div class="grid-wrapper">
-    <app-web-resource-grid
-        id="programGrid"
-        #programGrid
-        (rowSelected)="selectedItem($event)"
-        (editButtonClicked)="editDrawerOpen($event)"
-        (rowDoubleClicked)="editDrawerOpen($event)">
+    <app-web-resource-grid #grid
+      (rowSelected)="selectedItem($event)"
+      (editButtonClicked)="editDrawerOpen($event)"
+      (rowDoubleClicked)="editDrawerOpen($event)">
     </app-web-resource-grid>
 </div>
 
-
-
 <nz-drawer
-    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
-    [nzMaskClosable]="true"
-    [nzWidth]="720"
-    [nzVisible]="drawerVisible"
-    nzTitle="리소스 등록"
-    (nzOnClose)="closeDrawer()">
-    <ng-container *nzDrawerContent>
-    <app-web-resource-form
-        id="programForm"
-        #programForm
-        (formSaved)="getProgramList()"
-        (formDeleted)="getProgramList()"
-        (formClosed)="closeDrawer()">
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="drawerVisible"
+  nzTitle="리소스 등록"
+  (nzOnClose)="closeDrawer()">
+    <app-web-resource-form #form *nzDrawerContent
+      [initLoadId]="selectedId"
+      (formSaved)="getList()"
+      (formDeleted)="getList()"
+      (formClosed)="closeDrawer()">
     </app-web-resource-form>
-    </ng-container>
 </nz-drawer>
-
-<app-web-resource-form
-  #deleteForm
-  style="display:none"
-  (formDeleted)="getProgramList()">
-</app-web-resource-form>

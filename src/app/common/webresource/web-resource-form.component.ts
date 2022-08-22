@@ -24,14 +24,14 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
   resourceTypeList: ResouceTypeEnum[] = [];
 
   constructor(private fb: FormBuilder,
-              private programService: WebResourceService,
+              private service: WebResourceService,
               private appAlarmService: AppAlarmService) {
     super();
 
     this.fg = this.fb.group({
       resourceCode  : new FormControl(null, {
                                               validators: Validators.required,
-                                              asyncValidators: [existingWebResourceValidator(this.programService)],
+                                              asyncValidators: [existingWebResourceValidator(this.service)],
                                               updateOn: 'blur'
                                             }),
       resourceName  : [ null, [ Validators.required ] ],
@@ -45,6 +45,10 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
 
   ngOnInit(): void {
     this.newForm();
+
+    if (this.initLoadId) {
+      this.getForm(this.initLoadId);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -66,9 +70,9 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     this.fg.patchValue(formData);
   }
 
-  getProgram(id: string): void {
-    this.programService
-        .getProgram(id)
+  getForm(id: string): void {
+    this.service
+        .get(id)
         .subscribe(
           (model: ResponseObject<WebResource>) => {
             if ( model.total > 0 ) {
@@ -81,12 +85,12 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
         );
   }
 
-  submitProgram(): void {
+  saveForm(): void {
     if (this.validForm(this.fg) === false)
       return;
 
-    this.programService
-        .registerProgram(this.fg.getRawValue())
+    this.service
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<WebResource>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -95,9 +99,9 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
         );
   }
 
-  deleteProgram(id: string): void {
-    this.programService
-        .deleteProgram(id)
+  deleteForm(id: string): void {
+    this.service
+        .delete(id)
         .subscribe(
           (model: ResponseObject<WebResource>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -111,7 +115,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
   }
 
   private getCommonCodeList(): void {
-    this.programService
+    this.service
         .getWebResourceTypeList()
         .subscribe(
         (model: ResponseList<ResouceTypeEnum>) => {

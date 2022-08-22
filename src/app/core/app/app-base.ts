@@ -10,10 +10,10 @@ export class AppBase {
 
   protected appId: string = '';
 
-  private programService: WebResourceService;
+  //private programService: WebResourceService;
 
   constructor(protected _location: Location) {
-    this.programService = AppInjector.injector.get(WebResourceService);
+    //this.programService = AppInjector.injector.get(WebResourceService);
   }
 
   goBack() {
@@ -24,8 +24,8 @@ export class AppBase {
     this._location.forward();
   }
 
-  getAppInfo(): Observable<ResponseObject<WebResource>> {
-    return this.programService.getProgram(this.appId);
-  }
+  //getAppInfo(): Observable<ResponseObject<WebResource>> {
+    //return this.programService.getProgram(this.appId);
+  //}
 
 }

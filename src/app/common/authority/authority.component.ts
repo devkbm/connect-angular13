@@ -74,7 +74,7 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     }
 
     this.closeDrawer();
-    this.grid?.getAuthority(params);
+    this.grid?.getList(params);
   }
 
   deleteAuthority(): void {

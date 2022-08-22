@@ -3,6 +3,9 @@ import { Location } from '@angular/common';
 import { WebResourceGridComponent } from './web-resource-grid.component';
 import { WebResourceFormComponent } from './web-resource-form.component';
 import { AppBase } from '../../core/app/app-base';
+import { WebResourceService } from './web-resource.service';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { WebResource } from './web-resource';
 
 @Component({
   selector: 'app-web-resource',
@@ -11,21 +14,21 @@ import { AppBase } from '../../core/app/app-base';
 })
 export class WebResourceComponent extends AppBase  implements OnInit {
 
-  drawerVisible = false;
+  @ViewChild(WebResourceGridComponent, {static: false})
+  grid!: WebResourceGridComponent;
+
+  @ViewChild(WebResourceFormComponent, {static: false})
+  form!: WebResourceFormComponent;
 
   queryKey = 'resourceCode';
   queryValue = '';
 
-  @ViewChild('programGrid', {static: false})
-  grid!: WebResourceGridComponent;
+  drawerVisible = false;
 
-  @ViewChild('programForm', {static: false})
-  form!: WebResourceFormComponent;
+  selectedId: any;
 
-  @ViewChild('deleteForm', {static: false})
-  deleteForm!: WebResourceFormComponent;
-
-  constructor(location: Location) {
+  constructor(location: Location,
+              private programService: WebResourceService) {
     super(location);
   }
 
@@ -40,46 +43,45 @@ export class WebResourceComponent extends AppBase  implements OnInit {
     this.drawerVisible = false;
   }
 
-  getProgramList(): void {
+  editDrawerOpen(item: any): void {
+    this.openDrawer();
+  }
+
+  getList(): void {
     let params: any = new Object();
     if ( this.queryValue !== '') {
       params[this.queryKey] = this.queryValue;
     }
 
     this.closeDrawer();
-    this.grid.getProgramList(params);
+    this.grid.getList(params);
   }
 
   initForm(): void {
+    this.selectedId = null;
+
     this.openDrawer();
-
-    setTimeout(() => {
-      this.form.newForm();
-    },10);
   }
 
-  saveProgram(): void {
-    this.form.submitProgram();
+  save(): void {
+    this.form.saveForm();
   }
 
-  deleteProgram(): void {
+  delete(): void {
     const id = this.grid.getSelectedRows()[0].resourceCode;
-    this.deleteForm.deleteProgram(id);
+
+    this.programService
+        .delete(id)
+        .subscribe(
+          (model: ResponseObject<WebResource>) => {
+            this.getList();
+          }
+        );
   }
 
   selectedItem(item: any): void {
-    // this.form.programForm.patchValue(item);
-  }
-
-  editDrawerOpen(item: any): void {
-
-    this.openDrawer();
-
-    setTimeout(() => {
-      this.form.getProgram(item.resourceCode);
-    },100);
-
-
+    // console.log(item);
+    this.selectedId = item.resourceCode;
   }
 
 }

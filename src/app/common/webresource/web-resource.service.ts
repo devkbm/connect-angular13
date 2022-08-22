@@ -29,7 +29,7 @@ export class WebResourceService extends DataService {
   );
   }
 
-  getProgramList(params?: any): Observable<ResponseList<WebResource>> {
+  getList(params?: any): Observable<ResponseList<WebResource>> {
     const url = `${this.API_URL}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
@@ -42,7 +42,7 @@ export class WebResourceService extends DataService {
     );
   }
 
-  getProgram(id: string): Observable<ResponseObject<WebResource>> {
+  get(id: string): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URL}/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -54,7 +54,7 @@ export class WebResourceService extends DataService {
     );
   }
 
-  getProgramDupCheck(id: string): Observable<ResponseObject<boolean>> {
+  getDupCheck(id: string): Observable<ResponseObject<boolean>> {
     const url = `${this.API_URL}/${id}/check`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -66,7 +66,7 @@ export class WebResourceService extends DataService {
     );
   }
 
-  registerProgram(program: WebResource): Observable<ResponseObject<WebResource>> {
+  save(program: WebResource): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URL}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -77,7 +77,7 @@ export class WebResourceService extends DataService {
     );
   }
 
-  deleteProgram(id: string): Observable<ResponseObject<WebResource>> {
+  delete(id: string): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URL}/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),

@@ -71,7 +71,7 @@
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
-    (saveClick)="submitProgram()"
-    (deleteClick)="deleteProgram(this.fg.get('resourceCode')?.value)">
+    (saveClick)="saveForm()"
+    (deleteClick)="deleteForm(this.fg.get('resourceCode')?.value)">
   </app-nz-crud-button-group>
 </div>

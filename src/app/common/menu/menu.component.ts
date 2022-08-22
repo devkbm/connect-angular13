@@ -13,30 +13,37 @@ import { AppBase } from '../../core/app/app-base';
 })
 export class MenuComponent extends AppBase implements OnInit {
 
-  menuGroupFormVisible = false;
-  menuFormVisible = false;
-  selectedMenuGroupId: string = '';
-
-  menuGroupQueryKey: string = 'menuGroupId';
-  menuGroupQueryValue: string = '';
-  menuQueryKey: string = 'menuId';
-  menuQueryValue: string = '';
-
-  //@ViewChild('menuGroupGrid', {static: false})
-  @ViewChild(MenuGroupGridComponent)
+  @ViewChild(MenuGroupGridComponent, {static: true})
   menuGroupGrid!: MenuGroupGridComponent;
 
-  //@ViewChild('menuGroupForm', {static: false})
-  @ViewChild(MenuGroupFormComponent)
+  @ViewChild(MenuGroupFormComponent, {static: false})
   menuGroupForm!: MenuGroupFormComponent;
 
-  //@ViewChild('menuGrid', {static: false})
-  @ViewChild(MenuGridComponent)
+  @ViewChild(MenuGridComponent, {static: true})
   menuGrid!: MenuGridComponent;
 
-  //@ViewChild('menuForm', {static: false})
-  @ViewChild(MenuFormComponent)
+  @ViewChild(MenuFormComponent, {static: false})
   menuForm!: MenuFormComponent;
+
+  queryOptionList1 = [
+    {label: '메뉴그룹ID', value: 'menuGroupId'},
+    {label: '메뉴그룹명', value: 'menuGroupName'}
+  ];
+  queryKey1: string = 'menuGroupId';
+  queryValue1: string = '';
+
+  queryOptionList2 = [
+    {label: '메뉴ID', value: 'menuId'},
+    {label: '메뉴명', value: 'menuName'}
+  ];
+  queryKey2: string = 'menuId';
+  queryValue2: string = '';
+
+
+  menuGroupFormVisible = false;
+  menuFormVisible = false;
+  selectedMenuGroupId: any;
+  selectedMenuId: any;
 
   constructor(location: Location) {
     super(location);
@@ -46,19 +53,13 @@ export class MenuComponent extends AppBase implements OnInit {
   }
 
   newMenuGroupForm(): void {
-    this.menuGroupFormVisible = true;
+    this.selectedMenuGroupId = null;
 
-    setTimeout(() => {
-      this.menuGroupForm.newForm();
-    },10);
+    this.menuGroupFormVisible = true;
   }
 
   menuGroupFormOpen(item: any): void {
     this.menuGroupFormVisible = true;
-
-    setTimeout(() => {
-      this.menuGroupForm.getMenuGroup(item.menuGroupId);
-    },10);
   }
 
   menuGroupFormClose(): void {
@@ -66,20 +67,12 @@ export class MenuComponent extends AppBase implements OnInit {
   }
 
   newMenu(): void {
+    this.selectedMenuId = null;
     this.menuFormVisible = true;
-
-    setTimeout(() => {
-      console.log(this.selectedMenuGroupId);
-      this.menuForm.newForm(this.selectedMenuGroupId);
-    },10);
   }
 
   menuFormOpen(item: any): void {
     this.menuFormVisible = true;
-
-    setTimeout(() => {
-      this.menuForm.getMenu(item.menuId);
-    },10);
   }
 
   menuFormClose(): void {
@@ -88,8 +81,8 @@ export class MenuComponent extends AppBase implements OnInit {
 
   getMenuGroupList(): void {
     let params: any = new Object();
-    if ( this.menuGroupQueryValue !== '') {
-      params[this.menuGroupQueryKey] = this.menuGroupQueryValue;
+    if ( this.queryValue1 !== '') {
+      params[this.queryKey1] = this.queryValue1;
     }
 
     this.menuGroupFormClose();
@@ -101,19 +94,21 @@ export class MenuComponent extends AppBase implements OnInit {
     let params: any = new Object();
     params['menuGroupId'] = this.selectedMenuGroupId;
 
-    if ( this.menuQueryValue !== '') {
-      params[this.menuQueryKey] = this.menuQueryValue;
+    if ( this.queryValue2 !== '') {
+      params[this.queryKey2] = this.queryValue2;
     }
 
     this.menuFormClose();
     this.menuGrid.getMenuList(params);
   }
 
-  selectMenuGroup(item: any): void {
-
-    this.selectedMenuGroupId = item.menuGroupId;
+  selectMenuGroup(row: any): void {
+    this.selectedMenuGroupId = row.menuGroupId;
     this.getMenuList();
   }
 
+  selectMenu(row: any): void {
+    this.selectedMenuId = row.menuId;
+  }
 
 }

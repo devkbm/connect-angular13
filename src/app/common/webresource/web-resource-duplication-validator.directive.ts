@@ -9,7 +9,7 @@ import { WebResourceService } from './web-resource.service';
 export function existingWebResourceValidator(programService: WebResourceService): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
     return control.value ?
-             programService.getProgramDupCheck(control.value)
+             programService.getDupCheck(control.value)
                           .pipe(
                             map( responseObj => {
                               if ( responseObj.data === false ) {

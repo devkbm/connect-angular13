@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AnyForUntypedForms, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MenuService } from './menu.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
@@ -31,7 +31,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
    */
   menuHiererachy: MenuHierarchy[];
 
-  @Input() menuGroupCode: string = '';
+  @Input() menuGroupId: any;
 
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
@@ -45,6 +45,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
                                                   asyncValidators: [existingMenuValidator(this.menuService)],
                                                   updateOn: 'blur'
                                                 }),
+      menuCode          : [ null, [ Validators.required ] ],
       menuName          : [ null, [ Validators.required ] ],
       menuType          : [ null, [ Validators.required ] ],
       parentMenuId      : [ null ],
@@ -59,20 +60,24 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   ngOnInit() {
-    this.newForm('');
+    this.newForm();
+
+    if (this.initLoadId) {
+      this.getMenu(this.initLoadId);
+    }
   }
 
   ngAfterViewInit(): void {
     this.menuId.focus();
   }
 
-  newForm(menuGroupId: string): void {
+  newForm(): void {
     this.formType = FormType.NEW;
 
-    this.getMenuHierarchy(menuGroupId);
+    this.getMenuHierarchy(this.menuGroupId);
 
     this.fg.reset();
-    this.fg.controls['menuGroupId'].setValue(menuGroupId);
+    this.fg.controls['menuGroupId'].setValue(this.menuGroupId);
     this.fg.controls['menuId'].enable();
   }
 
@@ -86,16 +91,16 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     this.fg.patchValue(formData);
   }
 
-  getMenu(menuCode: string) {
+  getMenu(menuId: string) {
 
     this.menuService
-        .getMenu(menuCode)
+        .getMenu(menuId)
         .subscribe(
           (model: ResponseObject<Menu>) => {
             if ( model.total > 0 ) {
               this.modifyForm(model.data);
             } else {
-              this.newForm('');
+              this.newForm();
             }
             this.appAlarmService.changeMessage(model.message);
           }

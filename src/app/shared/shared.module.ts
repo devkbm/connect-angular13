@@ -37,6 +37,7 @@ import { NzDeptTreeSelectComponent } from './nz-dept-tree-select/nz-dept-tree-se
 import { DeptHierarchyService } from './nz-dept-tree-select/dept-hierarchy.service';
 import { NzInputSwitchComponent } from './nz-input-switch/nz-input-switch.component';
 import { NzInputCheckboxComponent } from './nz-input-checkbox/nz-input-checkbox.component';
+import { NzSearchAreaComponent } from './nz-search-area/nz-search-area.component';
 
 const nzModules = [
   NzFormModule,
@@ -78,7 +79,8 @@ const nzModules = [
     NzInputCkeditorComponent,
     NzDeptTreeSelectComponent,
     NzInputSwitchComponent,
-    NzInputCheckboxComponent
+    NzInputCheckboxComponent,
+    NzSearchAreaComponent
    ],
   providers: [
     DeptHierarchyService
@@ -98,7 +100,8 @@ const nzModules = [
     NzInputCkeditorComponent,
     NzDeptTreeSelectComponent,
     NzInputSwitchComponent,
-    NzInputCheckboxComponent
+    NzInputCheckboxComponent,
+    NzSearchAreaComponent
   ]
 })
 export class SharedModule { }

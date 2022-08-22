@@ -23,6 +23,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -52,7 +53,8 @@ const nzModules = [
   NzInputNumberModule,
   NzTreeSelectModule,
   NzButtonModule,
-  NzIconModule
+  NzIconModule,
+  NzDatePickerModule
 ]
 
 @NgModule({

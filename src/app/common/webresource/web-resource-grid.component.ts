@@ -73,22 +73,22 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
       resizable: true
     };
 
-    this.getRowId = function(data: any) {
-        return data.data.resourceCode;
+    this.getRowId = function(args: any) {
+        return args.data.resourceCode;
     };
   }
 
   ngOnInit() {
-    this.getProgramList();
+    this.getList();
   }
 
   private onEditButtonClick(e: any) {
     this.editButtonClicked.emit(e.rowData);
   }
 
-  public getProgramList(params?: any): void {
+  public getList(params?: any): void {
     this.programService
-        .getProgramList(params)
+        .getList(params)
         .subscribe(
           (model: ResponseList<WebResource>) => {
               if (model.total > 0) {
@@ -97,11 +97,7 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
                   this.programList = [];
               }
               this.appAlarmService.changeMessage(model.message);
-          },
-          (err) => {
-              console.log(err);
-          },
-          () => {}
+          }
         );
   }
 

@@ -42,6 +42,10 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
 
   ngOnInit() {
     this.newForm();
+
+    if (this.initLoadId) {
+      this.getMenuGroup(this.initLoadId);
+    }
   }
 
   ngAfterViewInit(): void {
