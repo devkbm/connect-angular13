@@ -35,8 +35,14 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
                                                 asyncValidators: [existingMenuGroupValidator(this.menuService)],
                                                 updateOn: 'blur'
                                               }),
+      menuGroupCode   : [ null, [ Validators.required ] ],
       menuGroupName   : [ null, [ Validators.required ] ],
       description     : [ null]
+    });
+
+    this.fg.get('menuGroupCode')?.valueChanges.subscribe(x => {
+      const organizationCode = sessionStorage.getItem('organizationCode');
+      this.fg.get('menuGroupId')?.setValue(organizationCode + x);
     });
   }
 
@@ -54,14 +60,13 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
 
   newForm(): void {
     this.formType = FormType.NEW;
+    this.fg.get('menuGroupCode')?.setValue('');
 
     this.fg.reset();
-    this.fg.controls['menuGroupId'].enable();
   }
 
   modifyForm(formData: MenuGroup): void {
     this.formType = FormType.MODIFY;
-    this.fg.controls['menuGroupId'].disable();
 
     this.fg.patchValue(formData);
   }

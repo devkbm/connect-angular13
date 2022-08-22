@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { AnyForUntypedForms, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MenuService } from './menu.service';
@@ -18,7 +18,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.css']
 })
-export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit {
+export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('menuId', {static: true}) menuId!: NzInputTextComponent;
 
@@ -53,6 +53,12 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
       appUrl            : [ null, [ Validators.required ] ]
     });
 
+    this.fg.get('menuCode')?.valueChanges.subscribe(x => {
+      const menuGroupId = this.fg.get('menuGroupId')?.value;
+
+      this.fg.get('menuId')?.setValue(menuGroupId + x);
+    });
+
     this.menuHiererachy = [];
 
     this.getMenuTypeList();
@@ -69,6 +75,10 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
 
   ngAfterViewInit(): void {
     this.menuId.focus();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // throw new Error('Method not implemented.');
   }
 
   newForm(): void {
@@ -108,9 +118,6 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   submitMenu() {
-    if (this.validForm(this.fg) === false)
-      return;
-
     this.menuService
         .registerMenu(this.fg.getRawValue())
         .subscribe(

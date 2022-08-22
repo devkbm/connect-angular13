@@ -12,17 +12,27 @@
   </ng-template>
 
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
-      <!--메뉴그룹코드 필드-->
+    <div nz-col nzSpan="8">
+      <!--메뉴그룹ID 필드-->
       <app-nz-input-text #menuGroupId
         [parentFormGroup]="fg" formControlName="menuGroupId" [fieldName]="'menuGroupId'"
-        [itemId]="'menuGroupId'"
+        [itemId]="'menuGroupId'" [disabled]="true"
+        placeholder="메뉴그룹ID를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <!--메뉴그룹코드 필드-->
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="menuGroupCode" [fieldName]="'menuGroupCode'"
+        [itemId]="'menuGroupCode'"
         placeholder="메뉴그룹코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹코드
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <!--메뉴그룹명 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuGroupName" [fieldName]="'menuGroupName'"
@@ -37,6 +47,7 @@
   <app-nz-input-textarea
     [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
     [itemId]="'description'"
+    [rows]="20"
     placeholder="비고를 입력해주세요.">비고
   </app-nz-input-textarea>
 </form>

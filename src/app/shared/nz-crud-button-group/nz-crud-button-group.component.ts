@@ -95,7 +95,7 @@ export class NzCrudButtonGroupComponent implements OnInit {
     this.saveClick.emit();
   }
 
-  @HostListener('window:keydown.alt.d', ['$event'])
+  @HostListener('window:keydown.alt.r', ['$event'])
   deleteButtonClick() {
     this.deleteClick.emit();
   }

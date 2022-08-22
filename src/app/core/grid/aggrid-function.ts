@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, HostListener, Injectable, Output } from '@angular/core';
 import { ButtonRendererComponent } from './renderer/button-renderer.component';
 import { CheckboxRendererComponent } from './renderer/checkbox-renderer.component';
 
 @Injectable()
 export class AggridFunction {
+
+  @Output() deleteEvent = new EventEmitter();
 
   getRowId: any;
   gridApi: any;
@@ -61,7 +63,7 @@ export class AggridFunction {
    * @param index 행번호
    * @return rowNode
    */
-  public getRowNodeByIndex(index: number) {
+  getRowNodeByIndex(index: number) {
     return this.gridApi.getDisplayedRowAtIndex(index);
   }
 
@@ -70,7 +72,7 @@ export class AggridFunction {
    * @param id id
    * @return rowNode
    */
-  public getRowNode(id: any) {
+  getRowNode(id: any) {
     //return this.gridApi.getRowNode(id);
     return this.gridApi.getRowId(id);
   }
@@ -80,7 +82,7 @@ export class AggridFunction {
    * @param rowIndex 행번호
    * @param colKey column key
    */
-  public selectCell(rowIndex: number, colKey: string) {
+  selectCell(rowIndex: number, colKey: string) {
     this.gridApi.setFocusedCell(rowIndex, colKey);
   }
 
@@ -88,7 +90,7 @@ export class AggridFunction {
    * @description 특정 행을 선택한다.
    * @param rowIndex 행번호
    */
-  public selectRow(rowIndex: number) {
+  selectRow(rowIndex: number) {
     this.gridApi.forEachNode( (node: any) => {
       if (node.rowIndex === rowIndex) {
         node.setSelected(true);
@@ -100,14 +102,14 @@ export class AggridFunction {
    * @description 행추가
    * @param newItem Object
    */
-  public addRow(newItem: object) {
+  addRow(newItem: object) {
     const res = this.gridApi.updateRowData({ add: [newItem] });
   }
 
   /**
    * @description 그리드 초기화
    */
-  public clearData() {
+  clearData() {
     this.gridApi.setRowData([]);
   }
 
@@ -117,7 +119,7 @@ export class AggridFunction {
    * @param colnm column key
    * @param data data
    */
-  public setCellData(rowNode: any, colnm: any, data: any) {
+  setCellData(rowNode: any, colnm: any, data: any) {
     rowNode.setDataValue(colnm, data);
   }
 
@@ -126,11 +128,11 @@ export class AggridFunction {
    * @param rowNode  rowNode 객체
    * @param data row에 적용될 data(객체)
    */
-  public setRowData(rowNode: any, data: object) {
+  setRowData(rowNode: any, data: object) {
     rowNode.setData(data);
   }
 
-  public autoSizeAll(): void {
+  autoSizeAll(): void {
     const allColumnIds: any[] = [];
     this.gridColumnApi.getAllColumns().forEach(function(column: any) {
       allColumnIds.push(column.colId);
@@ -138,11 +140,15 @@ export class AggridFunction {
     this.gridColumnApi.autoSizeColumns(allColumnIds);
   }
 
-  public sizeToFit(): void {
+  sizeToFit(): void {
     if (this.gridApi == null) {
       return;
     }
     this.gridApi.sizeColumnsToFit();
   }
 
+  @HostListener('window:keydown.alt.r', ['$event'])
+  deleteEventEmit() {
+    this.deleteEvent.emit(this.getSelectedRows());
+  }
 }
